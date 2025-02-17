@@ -20,12 +20,25 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1,textBox2);
-            hannes.AddMultipleCubesAndSetExpression();
+            hannes.AddCylinders();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
+            
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Hannes hannes = new Hannes(textBox1, textBox2);
+            hannes.AddCubes();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Hannes hannes = new Hannes(textBox1, textBox2);
+            hannes.DeleteCubes();
+            
         }
     }
 }
