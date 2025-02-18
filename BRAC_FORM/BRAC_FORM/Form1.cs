@@ -40,5 +40,14 @@ namespace BRAC_FORM
             hannes.DeleteCubes();
             
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Create the instance of the Class_Add_item class
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6);
+
+            // Call method to add the three parts to the assembly
+            addItem.AddThreeParts();
+        }
     }
 }
