@@ -28,3 +28,14 @@ C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BR
 C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe
 C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.pdb
 C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.Up2Date
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe.config
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.pdb
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.AssemblyReference.cache
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form1.resources
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Properties.Resources.resources
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.GenerateResource.cache
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.CoreCompileInputs.cache
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.Up2Date
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.exe
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.pdb
