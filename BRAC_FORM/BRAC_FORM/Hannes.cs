@@ -34,7 +34,7 @@ namespace BRAC_FORM
                 Part assemblyPart = (Part)theSession.Parts.Work;
                 if (assemblyPart == null)
                 {
-                    Console.WriteLine("Assembly not found.");
+                    UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Assembly Not found");
                     return;
                 }
 
@@ -63,29 +63,33 @@ namespace BRAC_FORM
                     {
                         // Remove the part from the assembly
                         componentAssembly.RemoveComponent(partToDelete);
-                        Console.WriteLine($"Part '{partNameToDelete}' removed from the assembly.");
-
+                 
                     }
                     else
                     {
-                        Console.WriteLine($"Part '{partNameToDelete}' not found in the assembly.");
+                        UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Did not delete from assembly");
+                        return;
                     }
+                   
 
-                       
-                            // Check if the file exists, then delete it from the file system
+                    //if (File.Exists(partFilePath))
+                    //{
+                    //    File.Delete(partFilePath);
+                    //    Console.WriteLine("File deleted successfully.");
+                    //}
+                    //else
+                    //{
+                    //    UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "File not found.");
+                    //    return;
+                    //}
 
-                    if (File.Exists(partFilePath))
-                    {
-                        File.Delete(partFilePath);
-                        Console.WriteLine($"Part file '{partFilePath}' deleted from disk.");
-                    }
-                        
-                    else
-                    {
-                        Console.WriteLine("Part not found in the assembly.");
-                    }
                 }
                 
+                theSession.Parts.Display.Views.Refresh();
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
+                return;
+
             }
 
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using NXOpen;
 using NXOpen.Assemblies;
+using NXOpen.CAE;
 using System;
 using System.Drawing.Text;
 using System.IO;
@@ -50,6 +51,64 @@ namespace BRAC_FORM
             theSession.DeleteUndoMark(markId1, null);
 
             theSession.CleanUpFacetedFacesAndEdges();
+        }
+        public void updateAll()
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Tools->Update->Interpart Update->Update All
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Update Session");
+
+            theSession.UpdateManager.DoInterpartUpdate(markId1);
+
+            theSession.UpdateManager.DoAssemblyConstraintsUpdate(markId1);
+
+        }
+
+        public void updateStructure()
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Tools->Assembly Navigator->Update Structure...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            NXOpen.Assemblies.UpdateStructureBuilder updateStructureBuilder1;
+            updateStructureBuilder1 = workPart.AssemblyManager.CreateUpdateStructureBuilder();
+
+            theSession.SetUndoMarkName(markId1, "Update Structure Dialog");
+
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject("COMPONENT Pipa 1"));
+            bool added1;
+            added1 = updateStructureBuilder1.StructureToUpdate.Add(component1);
+
+            NXOpen.Session.UndoMarkId markId2;
+            markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Structure");
+
+            theSession.DeleteUndoMark(markId2, null);
+
+            NXOpen.Session.UndoMarkId markId3;
+            markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Structure");
+
+            NXOpen.NXObject nXObject1;
+            nXObject1 = updateStructureBuilder1.Commit();
+
+            theSession.DeleteUndoMark(markId3, null);
+
+            theSession.SetUndoMarkName(markId1, "Update Structure");
+
+            updateStructureBuilder1.Destroy();
+
+            theSession.CleanUpFacetedFacesAndEdges();
+
+
         }
 
         private TextBox textBox5;
@@ -105,13 +164,11 @@ namespace BRAC_FORM
                 // Add "Upper_brac.prt"
                 AddPartToAssembly("Upper_brac.prt", D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
 
-                position.X += 0;
-                // Add "Upper_brac.prt"
-                AddPartToAssembly("Keeping People And Society Safe.prt", D_pipa, position, partsFolderPath, assemblyPart);
-                // Refresh the view after adding parts
+              
+                //// Refresh the view after adding parts
                 theSession.Parts.Display.Views.Refresh();
 
-                //UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Three parts added at origin.");
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Three parts added at origin.");
 
             }
             catch (Exception ex)
@@ -164,6 +221,9 @@ namespace BRAC_FORM
                 // Now, we will handle the user expression for each part based on the dimensions
                 UpdatePartExpression(part, dimensions, assemblyPart);
 
+                theSession.Parts.Display.Views.Refresh();
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Part added at origin.");
             }
             catch (Exception ex)
             {

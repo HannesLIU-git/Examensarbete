@@ -20,7 +20,9 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1,textBox2);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
             hannes.AddCylinders();
+            addItem.updateAll();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -31,14 +33,17 @@ namespace BRAC_FORM
         private void button2_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1, textBox2);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
             hannes.AddCubes();
+            addItem.updateAll();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1, textBox2);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
             hannes.DeleteCubes();
-            
+            addItem.updateAll();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -49,8 +54,13 @@ namespace BRAC_FORM
             // Call method to add the three parts to the assembly
             addItem.AddThreeParts();
 
+            addItem.updateStructure();
+
+            addItem.updateAll();
+
             addItem.HideDatumsAndSketches();
 
+            
          
 
         }
