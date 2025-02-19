@@ -44,10 +44,15 @@ namespace BRAC_FORM
         private void button4_Click(object sender, EventArgs e)
         {
             // Create the instance of the Class_Add_item class
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
 
             // Call method to add the three parts to the assembly
             addItem.AddThreeParts();
+
+            addItem.HideDatumsAndSketches();
+
+         
+
         }
     }
 }

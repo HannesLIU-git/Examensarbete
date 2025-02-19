@@ -1,6 +1,7 @@
 ﻿using NXOpen;
 using NXOpen.Assemblies;
 using System;
+using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
 
@@ -8,13 +9,59 @@ namespace BRAC_FORM
 {
     public class Class_Add_item
     {
+
+        public void HideDatumsAndSketches()
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Edit->Show and Hide->Show and Hide...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide Dialog");
+
+            NXOpen.Session.UndoMarkId markId2;
+            markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Sketches");
+
+            int numberHidden1;
+            numberHidden1 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_SKETCHES", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs1;
+            nErrs1 = theSession.UpdateManager.DoUpdate(markId2);
+
+            workPart.ModelingViews.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            NXOpen.Session.UndoMarkId markId3;
+            markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Datums");
+
+            int numberHidden2;
+            numberHidden2 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_DATUMS", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs2;
+            nErrs2 = theSession.UpdateManager.DoUpdate(markId3);
+
+            workPart.ModelingViews.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide");
+
+            theSession.DeleteUndoMark(markId1, null);
+
+            theSession.CleanUpFacetedFacesAndEdges();
+        }
+
         private TextBox textBox5;
         private TextBox textBox6;
-
-        public Class_Add_item(TextBox tb5, TextBox tb6)
+        private TextBox textBox7;
+        private TextBox textBox8;
+        public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8)
         {
             textBox5 = tb5;
             textBox6 = tb6;
+            textBox7 = tb7;
+            textBox8 = tb8;
         }
 
         public void AddThreeParts()
@@ -34,9 +81,11 @@ namespace BRAC_FORM
                 // TextBox values for dimensioning
                 string D_pipa = textBox5.Text;
                 string Width = textBox6.Text;
+                string XPos = textBox7.Text;
+                string YPos = textBox8.Text;
 
                 // Parts folder path
-                string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 // Position the parts at the origin
                 Point3d position = new Point3d(0.0, 0.0, 0.0);
@@ -54,12 +103,15 @@ namespace BRAC_FORM
 
                 position.X += 0;
                 // Add "Upper_brac.prt"
-                AddPartToAssembly("Upper_brac.prt", D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Upper_brac.prt", D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
 
+                position.X += 0;
+                // Add "Upper_brac.prt"
+                AddPartToAssembly("Keeping People And Society Safe.prt", D_pipa, position, partsFolderPath, assemblyPart);
                 // Refresh the view after adding parts
                 theSession.Parts.Display.Views.Refresh();
 
-                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Three parts added at origin.");
+                //UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Three parts added at origin.");
 
             }
             catch (Exception ex)
@@ -129,7 +181,9 @@ namespace BRAC_FORM
 
                 // Ensure the first value is D_pipa and the second value is Width
                 string D_pipaValue = dimensionValues[0];
-                string WidthValue = dimensionValues.Length > 1 ? dimensionValues[1] : "1.0"; // Default to 1.0 if no second value
+                //string WidthValue = dimensionValues.Length > 1 ? dimensionValues[1] : "1.0"; // Default to 1.0 if no second value
+                //string XPosValue = dimensionValues.Length > 2 ? dimensionValues[2] : "1.0"; // Default to 1.0 if no second value
+                //string YPosValue = dimensionValues.Length > 3 ? dimensionValues[3] : "1.0"; // Default to 1.0 if no second valu
 
                 // Update or create the "D_pipa" expression for the part
                 Expression D_pipaExpression;
@@ -145,31 +199,73 @@ namespace BRAC_FORM
                 D_pipaExpression.RightHandSide = D_pipaValue; // Directly use the string value
 
                 // Update or create the "Width" expression for the part (if needed)
-                Expression WidthExpression;
-                try
+                if (dimensionValues.Length > 1)
                 {
-                    WidthExpression = part.Expressions.FindObject("Width");
+                    string WidthValue = dimensionValues[1];
+                    Expression WidthExpression;
+                    try
+                    {
+                        WidthExpression = part.Expressions.FindObject("Width");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        WidthExpression = part.Expressions.CreateExpression("Width", WidthValue); // Directly use the string value
+                    }
+                    WidthExpression.RightHandSide = WidthValue; // Directly use the string value
                 }
-                catch
-                {
-                    // Create the expression if it doesn't exist
-                    WidthExpression = part.Expressions.CreateExpression("Width", WidthValue); // Directly use the string value
-                }
-                WidthExpression.RightHandSide = WidthValue; // Directly use the string value
 
+
+                if (dimensionValues.Length > 2)
+                {
+                    string XPosValue = dimensionValues[2];
+                    Expression XPosExpression;
+                    try
+                    {
+                        XPosExpression = part.Expressions.FindObject("X_pos");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        XPosExpression = part.Expressions.CreateExpression("X_pos", XPosValue); // Directly use the string value
+                    }
+                    XPosExpression.RightHandSide = XPosValue; // Directly use the string value
+                }
+
+                if (dimensionValues.Length > 3)
+                {
+                    string YPosValue = dimensionValues[3];
+                    Expression YPosExpression;
+                    try
+                    {
+                        YPosExpression = part.Expressions.FindObject("Y_pos");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        YPosExpression = part.Expressions.CreateExpression("Y_pos", YPosValue); // Directly use the string value
+                    }
+                    YPosExpression.RightHandSide = YPosValue; // Directly use the string value
+                }
                 // Refresh the part to reflect changes
-               theSession.Parts.Display.Views.Refresh();
+                theSession.Parts.Display.Views.Refresh();
             }
             catch (Exception ex)
             {
                 UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to update expressions: " + ex.Message);
             }
+
+
         }
+        
+
+        
+
+
+    
 
 
 
-
-       
 
 
 
