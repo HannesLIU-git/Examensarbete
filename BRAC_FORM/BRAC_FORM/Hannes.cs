@@ -22,81 +22,48 @@ namespace BRAC_FORM
         {
             int numberOfParts = int.Parse(textBox1.Text);
 
-            Session theSession = Session.GetSession();
-
-            // ✅ Use the currently open assembly as work part
-
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from - weapon - brac\BRAC_FORM\CAD\";
-
-            try
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Edit->Delete...
+            // ----------------------------------------------
+            for (int i = 1; i < numberOfParts + 1; i++)
             {
-                // Get the assembly part
-                Part assemblyPart = (Part)theSession.Parts.Work;
-                if (assemblyPart == null)
-                {
-                    UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Assembly Not found");
-                    return;
-                }
+                string partNameToDelete = "KUB_" + i;
+               
+                NXOpen.Session.UndoMarkId markId1;
+            
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Delete");
 
-                ComponentAssembly componentAssembly = assemblyPart.ComponentAssembly;
-                Component rootComponent = componentAssembly.RootComponent;
+                theSession.UpdateManager.ClearErrorList();
 
+                NXOpen.Session.UndoMarkId markId2;
+                markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
 
-                for (int i = 1; i < numberOfParts + 1; i++)
-                {
-                    string partNameToDelete = "KUB_" + i;
-                    string partFilePath = Path.Combine(partsFolderPath, partNameToDelete + ".prt");
+                NXOpen.TaggedObject[] objects1 = new NXOpen.TaggedObject[1];
+                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT {partNameToDelete} 1"));
+                objects1[0] = component1;
+                int nErrs1;
+                nErrs1 = theSession.UpdateManager.AddObjectsToDeleteList(objects1);
 
-                    Component[] components = rootComponent.GetChildren();
-                    Component partToDelete = null;
+                NXOpen.Session.UndoMarkId id1;
+                id1 = theSession.NewestVisibleUndoMark;
 
-                    foreach (var component in components)
-                    {
-                        if (component.Prototype.Name == partNameToDelete)
-                        {
-                            partToDelete = component;
-                            break;
-                        }
-                    }
+                int nErrs2;
+                nErrs2 = theSession.UpdateManager.DoUpdate(id1);
 
-                    if (partToDelete != null)
-                    {
-                        // Remove the part from the assembly
-                        componentAssembly.RemoveComponent(partToDelete);
-                 
-                    }
-                    else
-                    {
-                        UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Did not delete from assembly");
-                        return;
-                    }
-                   
+                theSession.DeleteUndoMark(markId1, null);
+             }
+            
 
-                    //if (File.Exists(partFilePath))
-                    //{
-                    //    File.Delete(partFilePath);
-                    //    Console.WriteLine("File deleted successfully.");
-                    //}
-                    //else
-                    //{
-                    //    UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "File not found.");
-                    //    return;
-                    //}
-
-                }
-                
-                theSession.Parts.Display.Views.Refresh();
-
-                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
-                return;
-
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
+            return;
         }
+                
+               
+
+            
         
         public void AddCubes()
         {
