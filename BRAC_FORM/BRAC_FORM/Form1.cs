@@ -22,7 +22,7 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1,textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
             hannes.AddCylinders();
             addItem.updateAll();
         }
@@ -35,7 +35,7 @@ namespace BRAC_FORM
         private void button2_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1, textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
             hannes.AddCubes();
             addItem.updateAll();
         }
@@ -43,20 +43,21 @@ namespace BRAC_FORM
         private void button3_Click(object sender, EventArgs e)
         {
             Hannes hannes = new Hannes(textBox1, textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
             hannes.DeleteCubes();
             addItem.updateAll();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            bracketCounter++;
             // Create the instance of the Class_Add_item class
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
             // Call method to add the three parts to the assembly
             addItem.AddThreeParts();
 
-            addItem.updateStructure();
+            //addItem.updateStructure();
 
             addItem.updateAll();
 
@@ -69,13 +70,13 @@ namespace BRAC_FORM
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+            
+            
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
-            bracketCounter++;
-
-            addItem.DeleteBracket("Pipa");
-            addItem.DeleteBracket("LowerBrac");
-            addItem.DeleteBracket("Upper_brac");
+            addItem.DeleteBracket("Pipa", bracketCounter);
+            addItem.DeleteBracket("LowerBrac", bracketCounter);
+            addItem.DeleteBracket("Upper_brac", bracketCounter);
         }
     }
 }

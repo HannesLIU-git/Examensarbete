@@ -15,8 +15,9 @@ namespace BRAC_FORM
         private TextBox textBox6;
         private TextBox textBox7;
         private TextBox textBox8;
+        private int counter;
 
-        public void DeleteBracket(string partNameToDelete)
+        public void DeleteBracket(string partNameToDelete, int counter)
         {
 
             NXOpen.Session theSession = NXOpen.Session.GetSession();
@@ -33,7 +34,7 @@ namespace BRAC_FORM
                 markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
 
                 NXOpen.TaggedObject[] objects1 = new NXOpen.TaggedObject[1];
-                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT {partNameToDelete} 1"));
+                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT {partNameToDelete}_{counter} 1"));
                 objects1[0] = component1;
                 int nErrs1;
                 nErrs1 = theSession.UpdateManager.AddObjectsToDeleteList(objects1);
@@ -150,12 +151,13 @@ namespace BRAC_FORM
 
         }
 
-        public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8)
+        public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8, int counter)
         {
             textBox5 = tb5;
             textBox6 = tb6;
             textBox7 = tb7;
             textBox8 = tb8;
+            this.counter = counter;
         }
 
         public void AddThreeParts()
@@ -177,6 +179,7 @@ namespace BRAC_FORM
                 string Width = textBox6.Text;
                 string XPos = textBox7.Text;
                 string YPos = textBox8.Text;
+                
 
                 // Parts folder path
                 string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
@@ -185,19 +188,19 @@ namespace BRAC_FORM
                 Point3d position = new Point3d(0.0, 0.0, 0.0);
 
                 // Add "Pipa.prt"
-                AddPartToAssembly("Pipa.prt", D_pipa, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Pipa.prt",counter, D_pipa, position, partsFolderPath, assemblyPart);
 
                 // Move position for next part
                 position.X += 0;
 
                 // Add "LowerBrac.prt"
-                AddPartToAssembly("LowerBrac.prt", D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("LowerBrac.prt",counter, D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
 
                 // Move position for next partnx
 
                 position.X += 0;
                 // Add "Upper_brac.prt"
-                AddPartToAssembly("Upper_brac.prt", D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Upper_brac.prt",counter, D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
 
               
                 //// Refresh the view after adding parts
@@ -211,19 +214,25 @@ namespace BRAC_FORM
                 UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to add parts: " + ex.Message);
             }
         }
-        private void AddPartToAssembly(string partName, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
+        private void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
         {
             try
             {
                 // Get the current session
                 Session theSession = Session.GetSession();
 
+                string partPrefix = partName.Substring(0, partName.Length - 4); //Removes .prt
+
                 // Construct the full path for the part
-                string partFilePath = Path.Combine(partsFolderPath, partName);
+                string partFilePath = Path.Combine(partsFolderPath, partName); //MASTERPATH
+
+                string newPartPath = Path.Combine(Path.GetDirectoryName(partFilePath), $"{partPrefix}_{counter}.prt");
+
+                File.Copy(partFilePath, newPartPath, true);
 
                 // Open the part to be added
                 PartLoadStatus loadStatus;
-                Part part = (Part)theSession.Parts.OpenBase(partFilePath, out loadStatus); // Open part
+                Part part = (Part)theSession.Parts.OpenBase(newPartPath, out loadStatus); // Open part
                 loadStatus.Dispose(); // Dispose loadStatus once it's used
 
                 // Create the add component builder
