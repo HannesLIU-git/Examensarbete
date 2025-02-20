@@ -11,6 +11,45 @@ namespace BRAC_FORM
     public class Class_Add_item
     {
 
+        private TextBox textBox5;
+        private TextBox textBox6;
+        private TextBox textBox7;
+        private TextBox textBox8;
+
+        public void DeleteBracket(string partNameToDelete)
+        {
+
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+
+                NXOpen.Session.UndoMarkId markId1;
+
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Delete");
+
+                theSession.UpdateManager.ClearErrorList();
+
+                NXOpen.Session.UndoMarkId markId2;
+                markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
+
+                NXOpen.TaggedObject[] objects1 = new NXOpen.TaggedObject[1];
+                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT {partNameToDelete} 1"));
+                objects1[0] = component1;
+                int nErrs1;
+                nErrs1 = theSession.UpdateManager.AddObjectsToDeleteList(objects1);
+
+                NXOpen.Session.UndoMarkId id1;
+                id1 = theSession.NewestVisibleUndoMark;
+
+                int nErrs2;
+                nErrs2 = theSession.UpdateManager.DoUpdate(id1);
+
+                theSession.DeleteUndoMark(markId1, null);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
+            return;
+        }
+
         public void HideDatumsAndSketches()
         {
             NXOpen.Session theSession = NXOpen.Session.GetSession();
@@ -111,10 +150,6 @@ namespace BRAC_FORM
 
         }
 
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
-        private TextBox textBox8;
         public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8)
         {
             textBox5 = tb5;

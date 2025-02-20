@@ -12,6 +12,8 @@ namespace BRAC_FORM
 {
     public partial class Form1: Form
     {
+        private int bracketCounter = 0;
+        
         public Form1()
         {
             InitializeComponent();
@@ -63,6 +65,17 @@ namespace BRAC_FORM
             
          
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8);
+
+            bracketCounter++;
+
+            addItem.DeleteBracket("Pipa");
+            addItem.DeleteBracket("LowerBrac");
+            addItem.DeleteBracket("Upper_brac");
         }
     }
 }
