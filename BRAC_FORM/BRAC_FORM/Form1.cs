@@ -78,5 +78,11 @@ namespace BRAC_FORM
             addItem.DeleteBracket("LowerBrac", bracketCounter);
             addItem.DeleteBracket("Upper_brac", bracketCounter);
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            addItem.CreatePoint();
+        }
     }
 }
