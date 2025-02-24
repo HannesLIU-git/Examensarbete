@@ -46,9 +46,19 @@ namespace BRAC_FORM
                 nErrs2 = theSession.UpdateManager.DoUpdate(id1);
 
                 theSession.DeleteUndoMark(markId1, null);
+            
+                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+
+                string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
+
+                File.Delete(newPartPath);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
             return;
+
+            
+
+
         }
 
         public void HideDatumsAndSketches()
