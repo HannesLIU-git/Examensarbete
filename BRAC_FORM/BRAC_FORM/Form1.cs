@@ -101,9 +101,15 @@ namespace BRAC_FORM
             partLoadStatus1.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
 
-            Point_UI pointUI = new Point_UI();
-            pointUI.Main();
+            //int pointCounter = 1;
+            //pointCounter++;
+            // pointCounter = pointUI.globalpointcounter;
 
+            Point_UI pointUI = new Point_UI();
+        
+            pointUI.Show();
+            
+            
             NXOpen.Session.UndoMarkId markId2;
             markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
