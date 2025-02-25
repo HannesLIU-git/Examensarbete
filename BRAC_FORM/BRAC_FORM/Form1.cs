@@ -14,7 +14,10 @@ namespace BRAC_FORM
     public partial class Form1: Form
     {
         private int bracketCounter = 0;
-        
+        public double[] point1;
+        public double[] point2;
+        public double forkdistance;
+
         public Form1()
         {
             InitializeComponent();
@@ -108,8 +111,26 @@ namespace BRAC_FORM
             Point_UI pointUI = new Point_UI();
         
             pointUI.Show();
+            int PointCounterValue = Point_UI.GetCounter();
+            var points = pointUI.storedPoints;
+
+            List<double[]> pointsList = new List<double[]>();
+
+           // Assign each point's coordinates to the list
+            foreach (var kvp in points)
+            {
+                pointsList.Add(kvp.Value); // Add the coordinates to the list
+            }
+            //Now you can access points like pointsList[0], pointsList[1], etc.
+            //double point1x = points[1][0];
+            //double point1y = points[1][1];
+            //double point1z = points[1][2];
+
+            point1 = pointsList[0];
+            point2 = pointsList[1];
+
             
-            
+
             NXOpen.Session.UndoMarkId markId2;
             markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
@@ -121,6 +142,19 @@ namespace BRAC_FORM
             partLoadStatus2.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
 
+            CalculateDistance();
+            string distance = forkdistance.ToString();
+            UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"distance = {distance} ");
         }
+        private void CalculateDistance()
+        {
+                forkdistance = Math.Sqrt(
+                    Math.Pow(point2[0] - point1[0], 2) +
+                    Math.Pow(point2[1] - point1[1], 2) +
+                    Math.Pow(point2[2] - point1[2], 2)
+                );
+          
+        }
+
     }
 }

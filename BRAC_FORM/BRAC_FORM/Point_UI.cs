@@ -81,8 +81,13 @@ public class Point_UI
         }
     }
 
+    public static int GetCounter()
+    {
+        return globalCounter;
+    }
+
     // Method to create the point, using the global counter
-    public int[] createpoint()
+    public double[] createpoint()
     {
         // Retrieve the point selected by the user from the SpecifyPoint block
 
@@ -90,29 +95,34 @@ public class Point_UI
         NXOpen.Part workPart = theSession.Parts.Work;
         NXOpen.Part displayPart = theSession.Parts.Display;
 
-        int[] createdPointsCoords = new int[3];
+        double[] createdPointsCoords = new double[3];
 
         // Loop to create a point
         Point3d selectedPoint = selected_point.Point; // Get the user-selected point
-
         // Create the point in the model
         Point nxPoint = workPart.Points.CreatePoint(selectedPoint);
 
+        double[] pointAsDouble = new double[] { selectedPoint.X, selectedPoint.Y, selectedPoint.Z };
+
         // Store the coordinates
-        createdPointsCoords[0] = (int)selectedPoint.X;
-        createdPointsCoords[1] = (int)selectedPoint.Y;
-        createdPointsCoords[2] = (int)selectedPoint.Z;
+        //createdPointsCoords[0] = (double)selectedPoint.X;
+        //createdPointsCoords[1] = (double)selectedPoint.Y;
+        //createdPointsCoords[2] = (double)selectedPoint.Z;
+        createdPointsCoords[0] = pointAsDouble[0];
+        createdPointsCoords[1] = pointAsDouble[1];
+        createdPointsCoords[2] = pointAsDouble[2];
 
         // Store the created point with the current counter
         storedPoints[globalCounter] = createdPointsCoords;
 
         // Update globalCounter
-        globalCounter++;
+        
 
         // Show information
         theUI.NXMessageBox.Show("Point Created", NXMessageBox.DialogType.Information,
                     $"Point {globalCounter} created at ({selectedPoint.X}, {selectedPoint.Y}, {selectedPoint.Z})");
 
+        globalCounter++;
         // Refresh the view
         theSession.Parts.Display.Views.Refresh();
 
@@ -120,7 +130,9 @@ public class Point_UI
     }
 
     // Dictionary to store points
-    public Dictionary<int, int[]> storedPoints = new Dictionary<int, int[]>();
+    public Dictionary<int, double[]> storedPoints = new Dictionary<int, double[]>();
+
+
 
     // The Apply callback that is triggered when Apply is clicked in the UI
     public int apply_cb()
