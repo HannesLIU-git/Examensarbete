@@ -35,6 +35,7 @@
 //These imports are needed for the following template code
 //------------------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
 using NXOpen;
 using NXOpen.BlockStyler;
 
@@ -106,7 +107,7 @@ public class Point_UI
         {
             theSession = Session.GetSession();
             theUI = UI.GetUI();
-            theDlxFileName = "X:\\Desktop\\NX TEST\\PointCreator\\Point_UI.dlx";
+            theDlxFileName = "C:\\Users\\timpe989\\source\\repos\\from-weapon-brac\\BRAC_FORM\\Point_UI.dlx";
             theDialog = theUI.CreateDialog(theDlxFileName);
             theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
             theDialog.AddOkHandler(new NXOpen.BlockStyler.BlockDialog.Ok(ok_cb));
@@ -287,15 +288,11 @@ public class Point_UI
             // Retrieve the point selected by the user from the SpecifyPoint block
             Point3d selectedPoint = selected_point.Point;
 
-            // Ensure the point is valid
+            //// Ensure the point is valid
 
             // Get the active part
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // Refresh the part to reflect changes
-            theSession.Parts.Display.Views.Refresh();
-
-
 
             // Create the point in the model
             Point nxPoint = workPart.Points.CreatePoint(selectedPoint);
@@ -304,8 +301,37 @@ public class Point_UI
             theUI.NXMessageBox.Show("Point Created", NXMessageBox.DialogType.Information,
                 $"Point created at ({selectedPoint.X}, {selectedPoint.Y}, {selectedPoint.Z})");
 
+            //Define the number of points you want to create
+            //int numberOfPoints = 2; // You can modify this as needed
 
+            //// List to store the created points
+            //int[] createdPointsCoords = new int [6];
 
+            //// Loop through and prompt the user to select a point each time
+            //for (int i = 0; i < numberOfPoints; i++)
+            //{
+            //    // Prompt the user to select a point (assuming selected_point is updated by the user interaction)
+            //    // selected_point is assumed to be the selected point from user input in each loop iteration
+            //    Point3d selectedPoint = selected_point.Point; // Get the user-selected point
+
+            //        // Create the point in the model
+            //        Point nxPoint = workPart.Points.CreatePoint(selectedPoint);
+
+            //    // Add the created point to the list of created points
+            //    createdPointsCoords[i * 3] = (int)selectedPoint.X;
+            //    createdPointsCoords[i * 3 + 1] = (int)selectedPoint.Y;
+            //    createdPointsCoords[i * 3 + 2] = (int)selectedPoint.Z;
+
+            //    // Inform the user about the creation of the point
+            //    theUI.NXMessageBox.Show("Point Created", NXMessageBox.DialogType.Information,
+            //            $"Point {i + 1} created at ({selectedPoint.X}, {selectedPoint.Y}, {selectedPoint.Z})");
+
+            //    // Refresh the view to reflect changes
+            //    theSession.Parts.Display.Views.Refresh();
+            //}
+
+            //// After the loop, you can process the list of created points as needed
+            //return createdPointsCoords;
 
         }
         catch (Exception ex)

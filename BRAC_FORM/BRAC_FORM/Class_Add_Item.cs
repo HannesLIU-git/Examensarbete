@@ -20,10 +20,10 @@ namespace BRAC_FORM
 
         public void DeleteBracket(string partNameToDelete, int counter)
         {
-
-            NXOpen.Session theSession = NXOpen.Session.GetSession();
-            NXOpen.Part workPart = theSession.Parts.Work;
-            NXOpen.Part displayPart = theSession.Parts.Display;
+            try {
+                NXOpen.Session theSession = NXOpen.Session.GetSession();
+                NXOpen.Part workPart = theSession.Parts.Work;
+                NXOpen.Part displayPart = theSession.Parts.Display;
 
                 NXOpen.Session.UndoMarkId markId1;
 
@@ -47,20 +47,22 @@ namespace BRAC_FORM
                 nErrs2 = theSession.UpdateManager.DoUpdate(id1);
 
                 theSession.DeleteUndoMark(markId1, null);
-            
+
                 string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
                 File.Delete(newPartPath);
+            }
 
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
-            return;
-
-            
-
+            catch (Exception ex)
+            {
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to delete part: " + ex.Message);
+            }
 
         }
+
+        
 
         public void HideDatumsAndSketches()
         {
@@ -278,7 +280,7 @@ namespace BRAC_FORM
 
                 theSession.Parts.Display.Views.Refresh();
 
-                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Part added at origin.");
+                // UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Part added at origin.");
             }
             catch (Exception ex)
             {

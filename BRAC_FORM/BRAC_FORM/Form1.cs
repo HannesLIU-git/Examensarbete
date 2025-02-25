@@ -78,17 +78,22 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Pipa", bracketCounter);
             addItem.DeleteBracket("LowerBrac", bracketCounter);
             addItem.DeleteBracket("Upper_brac", bracketCounter);
+            
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
+            
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) //CREATE POINT
         {
+
+
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject("COMPONENT Pipa_1 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_{bracketCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
