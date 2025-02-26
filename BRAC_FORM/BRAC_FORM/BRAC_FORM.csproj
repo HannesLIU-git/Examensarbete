@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Add_Item.cs" />
+    <Compile Include="CreatePoint1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
