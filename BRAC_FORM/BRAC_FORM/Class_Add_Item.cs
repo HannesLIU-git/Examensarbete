@@ -122,48 +122,6 @@ namespace BRAC_FORM
 
         }
 
-        public void updateStructure()
-        {
-            NXOpen.Session theSession = NXOpen.Session.GetSession();
-            NXOpen.Part workPart = theSession.Parts.Work;
-            NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Tools->Assembly Navigator->Update Structure...
-            // ----------------------------------------------
-            NXOpen.Session.UndoMarkId markId1;
-            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
-
-            NXOpen.Assemblies.UpdateStructureBuilder updateStructureBuilder1;
-            updateStructureBuilder1 = workPart.AssemblyManager.CreateUpdateStructureBuilder();
-
-            theSession.SetUndoMarkName(markId1, "Update Structure Dialog");
-
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject("COMPONENT Pipa 1"));
-            bool added1;
-            added1 = updateStructureBuilder1.StructureToUpdate.Add(component1);
-
-            NXOpen.Session.UndoMarkId markId2;
-            markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Structure");
-
-            theSession.DeleteUndoMark(markId2, null);
-
-            NXOpen.Session.UndoMarkId markId3;
-            markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Structure");
-
-            NXOpen.NXObject nXObject1;
-            nXObject1 = updateStructureBuilder1.Commit();
-
-            theSession.DeleteUndoMark(markId3, null);
-
-            theSession.SetUndoMarkName(markId1, "Update Structure");
-
-            updateStructureBuilder1.Destroy();
-
-            theSession.CleanUpFacetedFacesAndEdges();
-
-
-        }
-
         public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8, int counter)
         {
             textBox5 = tb5;
@@ -227,7 +185,7 @@ namespace BRAC_FORM
                 UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to add parts: " + ex.Message);
             }
         }
-        private void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
+        public void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
         {
             try
             {
@@ -363,6 +321,38 @@ namespace BRAC_FORM
                         YPosExpression = part.Expressions.CreateExpression("Y_pos", YPosValue); // Directly use the string value
                     }
                     YPosExpression.RightHandSide = YPosValue; // Directly use the string value
+                }
+
+                if (dimensionValues.Length > 4)
+                {
+                    string Gaffel_WValue = dimensionValues[4];
+                    Expression Gaffel_WExpression;
+                    try
+                    {
+                        Gaffel_WExpression = part.Expressions.FindObject("Gaffel_W");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        Gaffel_WExpression = part.Expressions.CreateExpression("Gaffel_W", Gaffel_WValue); // Directly use the string value
+                    }
+                    Gaffel_WExpression.RightHandSide = Gaffel_WValue; // Directly use the string value
+                }
+
+                if (dimensionValues.Length > 5)
+                {
+                    string Front_PosValue = dimensionValues[5];
+                    Expression Front_PosExpression;
+                    try
+                    {
+                        Front_PosExpression = part.Expressions.FindObject("Front_Pos");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        Front_PosExpression = part.Expressions.CreateExpression("Front_Pos", Front_PosValue); // Directly use the string value
+                    }
+                    Front_PosExpression.RightHandSide = Front_PosValue; // Directly use the string value
                 }
                 // Refresh the part to reflect changes
                 theSession.Parts.Display.Views.Refresh();

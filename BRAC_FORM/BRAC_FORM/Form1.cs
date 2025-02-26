@@ -23,35 +23,6 @@ namespace BRAC_FORM
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Hannes hannes = new Hannes(textBox1,textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            hannes.AddCylinders();
-            addItem.updateAll();
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Hannes hannes = new Hannes(textBox1, textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            hannes.AddCubes();
-            addItem.updateAll();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            Hannes hannes = new Hannes(textBox1, textBox2);
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            hannes.DeleteCubes();
-            addItem.updateAll();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             bracketCounter++;
@@ -61,29 +32,22 @@ namespace BRAC_FORM
             // Call method to add the three parts to the assembly
             addItem.AddThreeParts();
 
-            //addItem.updateStructure();
-
             addItem.updateAll();
 
             addItem.HideDatumsAndSketches();
 
-            
-         
-
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {
-            
-            
+        {       
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
             addItem.DeleteBracket("Pipa", bracketCounter);
             addItem.DeleteBracket("LowerBrac", bracketCounter);
             addItem.DeleteBracket("Upper_brac", bracketCounter);
+            addItem.DeleteBracket("Gaffel_1", bracketCounter);
             
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");
-            
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");         
         }
 
         private void button6_Click(object sender, EventArgs e) //CREATE POINT
@@ -104,10 +68,6 @@ namespace BRAC_FORM
             partLoadStatus1.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
 
-            //int pointCounter = 1;
-            //pointCounter++;
-            // pointCounter = pointUI.globalpointcounter;
-
             Point_UI pointUI = new Point_UI();
         
             pointUI.Show();
@@ -121,10 +81,6 @@ namespace BRAC_FORM
             {
                 pointsList.Add(kvp.Value); // Add the coordinates to the list
             }
-            //Now you can access points like pointsList[0], pointsList[1], etc.
-            //double point1x = points[1][0];
-            //double point1y = points[1][1];
-            //double point1z = points[1][2];
 
             point1 = pointsList[0];
             point2 = pointsList[1];
@@ -143,8 +99,6 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId1, "Make Work Part");
 
             CalculateDistance();
-            string distance = forkdistance.ToString();
-            UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"distance = {distance} ");
         }
         private void CalculateDistance()
         {
@@ -156,5 +110,30 @@ namespace BRAC_FORM
           
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Session theSession = Session.GetSession();
+            Part assemblyPart = (Part)theSession.Parts.Work;
+
+            string D_pipa = textBox5.Text;
+            string Width = textBox6.Text;
+            string XPos = textBox7.Text;
+            string YPos = textBox8.Text;
+
+            int Forkint = (int)forkdistance + 1;
+            string Gaffel_W = Forkint.ToString();
+
+            int Frontint = (int)point1[0] - 1;
+            string Front_Pos = Frontint.ToString();
+
+            Point3d position = new Point3d(0.0, 0.0, 0.0);
+
+            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            addItem.AddPartToAssembly("Gaffel_1.prt", bracketCounter, D_pipa + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Front_Pos, position, partsFolderPath, assemblyPart);
+            addItem.updateAll();
+            addItem.HideDatumsAndSketches();
+        }
     }
 }
