@@ -46,7 +46,7 @@ namespace BRAC_FORM
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) ////////////////////////////////// Delete Everything
         {       
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
@@ -58,7 +58,7 @@ namespace BRAC_FORM
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");         
         }
 
-        private void button6_Click(object sender, EventArgs e) //CREATE FORK POINT
+        private void button6_Click(object sender, EventArgs e) ///////////////////////////////CREATE FORK POINT
         {
 
 
@@ -118,7 +118,7 @@ namespace BRAC_FORM
           
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e) /////////////////////////INSERT FORK
         {
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
@@ -130,9 +130,9 @@ namespace BRAC_FORM
 
 
             
-            int IntPoint = (int)barrelEnd;
+            int IntPoint = (int)barrelEnd;  //End of Barrel
 
-            string bracketPosString = textBox1.Text;
+            string bracketPosString = textBox1.Text; // Bracket Pos
             int bracketPos = int.Parse(bracketPosString);
 
             double Pos = IntPoint - bracketPos;
@@ -142,8 +142,10 @@ namespace BRAC_FORM
             int Forkint = (int)forkdistance + 1;
             string Gaffel_W = Forkint.ToString();
 
-            int Frontint = (int)forkpoint1[0] - 1 - bracketPos;
-            string Front_Pos = Frontint.ToString();
+            int Frontint = (int)forkpoint1[0]; // FrontPos
+            int FrontPOS = bracketPos - (IntPoint - Frontint);
+            
+            string Front_Pos = FrontPOS.ToString();
 
 
             string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
@@ -154,8 +156,9 @@ namespace BRAC_FORM
             addItem.HideDatumsAndSketches();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void button7_Click(object sender, EventArgs e) ///////////////////////////Insert Barrel
         {
+            bracketCounter++;
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
@@ -175,7 +178,7 @@ namespace BRAC_FORM
             addItem.HideDatumsAndSketches();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //////////////////////////////// Create Initial point
         {
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
@@ -190,8 +193,6 @@ namespace BRAC_FORM
             workPart = theSession.Parts.Work; // Pipa_1
             partLoadStatus1.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
-
-            //UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel was selected in assembly.");
 
             CreatePoint1 CreatePoint1 = new CreatePoint1();
 
@@ -229,7 +230,7 @@ namespace BRAC_FORM
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) /////////////////////////////////////// Insert Bracket
         {
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
@@ -255,7 +256,7 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("LowerBrac.prt", bracketCounter, D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_brac.prt", bracketCounter, D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
 
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
