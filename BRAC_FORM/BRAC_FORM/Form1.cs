@@ -123,7 +123,7 @@ namespace BRAC_FORM
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
-            string D_pipa = textBox5.Text;
+            string D_width = textBox5.Text;
             string Width = textBox6.Text;
             string XPos = textBox7.Text;
             string YPos = textBox8.Text;
@@ -148,10 +148,10 @@ namespace BRAC_FORM
             string Front_Pos = FrontPOS.ToString();
 
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            addItem.AddPartToAssembly("Gaffel_1.prt", bracketCounter, D_pipa + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Front_Pos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Gaffel_1.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Front_Pos, position, partsFolderPath, assemblyPart);
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
         }
@@ -162,15 +162,15 @@ namespace BRAC_FORM
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
-            string D_pipa = textBox5.Text;
+            string D_width = textBox5.Text;
 
             Point3d position = new Point3d(0.0, 0.0, 0.0);
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
-            addItem.AddPartToAssembly("Pipa.prt", bracketCounter, D_pipa, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Pipa_SAAB.prt", bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
 
@@ -186,7 +186,7 @@ namespace BRAC_FORM
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_{bracketCounter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{bracketCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
@@ -210,7 +210,7 @@ namespace BRAC_FORM
 
             InitialPoint1 = pointsList[0];
             //InitialPoint2 = pointsList[1];
-            barrelEnd = InitialPoint1[0];
+            barrelEnd = InitialPoint1[1];
 
 
             NXOpen.Session.UndoMarkId markId2;
@@ -235,7 +235,7 @@ namespace BRAC_FORM
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
-            string D_pipa = textBox5.Text;
+            string D_width = textBox5.Text;
             string Width = textBox6.Text;
             string XPos = textBox7.Text;
             string YPos = textBox8.Text;
@@ -245,16 +245,19 @@ namespace BRAC_FORM
             string bracketPosString = textBox1.Text;
             int bracketPos = int.Parse(bracketPosString);
 
-            double Pos = IntPoint - bracketPos;
+            double Pos = IntPoint + bracketPos;
 
-            Point3d position = new Point3d(Pos, 0.0, 0.0);
+            Point3d position = new Point3d(0.0, Pos, 0.0);
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
-            addItem.AddPartToAssembly("LowerBrac.prt", bracketCounter, D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Upper_brac.prt", bracketCounter, D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Lower_bracet_SAAB.prt", bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Upper_brac_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Pin_SAAB.prt", bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("M6_Skruv_SAAB.prt", bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Las_skruv_SAAB.prt", bracketCounter, D_width , position, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 

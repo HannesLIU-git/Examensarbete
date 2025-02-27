@@ -48,7 +48,7 @@ namespace BRAC_FORM
 
                 theSession.DeleteUndoMark(markId1, null);
 
-                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
@@ -146,32 +146,32 @@ namespace BRAC_FORM
                 }
 
                 // TextBox values for dimensioning
-                string D_pipa = textBox5.Text;
+                string D_width = textBox5.Text;
                 string Width = textBox6.Text;
                 string XPos = textBox7.Text;
                 string YPos = textBox8.Text;
                 
 
                 // Parts folder path
-                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 // Position the parts at the origin
                 Point3d position = new Point3d(0.0, 0.0, 0.0);
 
                 // Add "Pipa.prt"
-                AddPartToAssembly("Pipa.prt",counter, D_pipa, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Pipa_SAAB.prt",counter, D_width, position, partsFolderPath, assemblyPart);
 
                 // Move position for next part
                 position.X += 0;
 
                 // Add "LowerBrac.prt"
-                AddPartToAssembly("LowerBrac.prt",counter, D_pipa + "," + Width, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Lower_bracet_SAAB.prt",counter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
 
                 // Move position for next partnx
 
                 position.X += 0;
                 // Add "Upper_brac.prt"
-                AddPartToAssembly("Upper_brac.prt",counter, D_pipa + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+                AddPartToAssembly("Upper_brac_SAAB.prt",counter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
 
               
                 //// Refresh the view after adding parts
@@ -256,24 +256,24 @@ namespace BRAC_FORM
                 // Split dimensions to handle multiple parameters
                 string[] dimensionValues = dimensions.Split(',');
 
-                // Ensure the first value is D_pipa and the second value is Width
-                string D_pipaValue = dimensionValues[0];
+                // Ensure the first value is D_width and the second value is Width
+                string D_widthValue = dimensionValues[0];
                 //string WidthValue = dimensionValues.Length > 1 ? dimensionValues[1] : "1.0"; // Default to 1.0 if no second value
                 //string XPosValue = dimensionValues.Length > 2 ? dimensionValues[2] : "1.0"; // Default to 1.0 if no second value
                 //string YPosValue = dimensionValues.Length > 3 ? dimensionValues[3] : "1.0"; // Default to 1.0 if no second valu
 
-                // Update or create the "D_pipa" expression for the part
-                Expression D_pipaExpression;
+                // Update or create the "D_width" expression for the part
+                Expression D_widthExpression;
                 try
                 {
-                    D_pipaExpression = part.Expressions.FindObject("D_pipa");
+                    D_widthExpression = part.Expressions.FindObject("D_width");
                 }
                 catch
                 {
                     // Create the expression if it doesn't exist
-                    D_pipaExpression = part.Expressions.CreateExpression("D_pipa", D_pipaValue); // Directly use the string value
+                    D_widthExpression = part.Expressions.CreateExpression("D_width", D_widthValue); // Directly use the string value
                 }
-                D_pipaExpression.RightHandSide = D_pipaValue; // Directly use the string value
+                D_widthExpression.RightHandSide = D_widthValue; // Directly use the string value
 
                 // Update or create the "Width" expression for the part (if needed)
                 if (dimensionValues.Length > 1)
