@@ -61,7 +61,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 10;
-            this.textBox6.Text = "20";
+            this.textBox6.Text = "40";
             // 
             // button4
             // 

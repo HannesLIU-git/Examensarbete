@@ -68,7 +68,7 @@ namespace BRAC_FORM
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_{bracketCounter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{bracketCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
@@ -118,43 +118,6 @@ namespace BRAC_FORM
           
         }
 
-        private void button1_Click_1(object sender, EventArgs e) /////////////////////////INSERT FORK
-        {
-            Session theSession = Session.GetSession();
-            Part assemblyPart = (Part)theSession.Parts.Work;
-
-            string D_width = textBox5.Text;
-            string Width = textBox6.Text;
-            string XPos = textBox7.Text;
-            string YPos = textBox8.Text;
-
-
-            
-            int IntPoint = (int)barrelEnd;  //End of Barrel
-
-            string bracketPosString = textBox1.Text; // Bracket Pos
-            int bracketPos = int.Parse(bracketPosString);
-
-            double Pos = IntPoint - bracketPos;
-
-            Point3d position = new Point3d(Pos, 0.0, 0.0);
-
-            int Forkint = (int)forkdistance + 1;
-            string Gaffel_W = Forkint.ToString();
-
-            int Frontint = (int)forkpoint1[0]; // FrontPos
-            int FrontPOS = bracketPos - (IntPoint - Frontint);
-            
-            string Front_Pos = FrontPOS.ToString();
-
-
-            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
-
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            addItem.AddPartToAssembly("Gaffel_1.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Front_Pos, position, partsFolderPath, assemblyPart);
-            addItem.updateAll();
-            addItem.HideDatumsAndSketches();
-        }
 
         private void button7_Click(object sender, EventArgs e) ///////////////////////////Insert Barrel
         {
@@ -166,7 +129,7 @@ namespace BRAC_FORM
 
             Point3d position = new Point3d(0.0, 0.0, 0.0);
 
-            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
@@ -249,7 +212,7 @@ namespace BRAC_FORM
 
             Point3d position = new Point3d(0.0, Pos, 0.0);
 
-            string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
@@ -261,6 +224,44 @@ namespace BRAC_FORM
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
+            addItem.updateAll();
+            addItem.HideDatumsAndSketches();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e) /////////////////////////INSERT FORK
+        {
+            Session theSession = Session.GetSession();
+            Part assemblyPart = (Part)theSession.Parts.Work;
+
+            string D_width = textBox5.Text;
+            string Width = textBox6.Text;
+            string XPos = textBox7.Text;
+            string YPos = textBox8.Text;
+
+
+
+            int IntPoint = (int)barrelEnd;  //End of Barrel
+
+            string bracketPosString = textBox1.Text; // Bracket Pos
+            int bracketPos = int.Parse(bracketPosString);
+
+            double Pos = IntPoint + bracketPos;
+
+            Point3d position = new Point3d(0.0, Pos, 0.0);
+
+            int Forkint = (int)forkdistance + 1;
+            string Gaffel_W = Forkint.ToString();
+
+            int Frontint = (int)forkpoint1[0]; // FrontPos
+            int FrontPOS = bracketPos - (IntPoint - Frontint);
+
+            string Gaffel_L = FrontPOS.ToString();
+
+
+            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            addItem.AddPartToAssembly("Gaffel_SAAB_v2.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
         }

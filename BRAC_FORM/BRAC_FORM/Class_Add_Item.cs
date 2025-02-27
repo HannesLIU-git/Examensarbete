@@ -48,7 +48,7 @@ namespace BRAC_FORM
 
                 theSession.DeleteUndoMark(markId1, null);
 
-                string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
@@ -153,7 +153,7 @@ namespace BRAC_FORM
                 
 
                 // Parts folder path
-                string partsFolderPath = @"C:\Users\hanli255\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
 
                 // Position the parts at the origin
                 Point3d position = new Point3d(0.0, 0.0, 0.0);
@@ -343,18 +343,18 @@ namespace BRAC_FORM
 
                 if (dimensionValues.Length > 5)
                 {
-                    string Front_PosValue = dimensionValues[5];
-                    Expression Front_PosExpression;
+                    string Gaffel_LValue = dimensionValues[5];
+                    Expression Gaffel_LExpression;
                     try
                     {
-                        Front_PosExpression = part.Expressions.FindObject("Front_Pos");
+                        Gaffel_LExpression = part.Expressions.FindObject("Gaffel_L");
                     }
                     catch
                     {
                         // Create the expression if it doesn't exist
-                        Front_PosExpression = part.Expressions.CreateExpression("Front_Pos", Front_PosValue); // Directly use the string value
+                        Gaffel_LExpression = part.Expressions.CreateExpression("Gaffel_L", Gaffel_LValue); // Directly use the string value
                     }
-                    Front_PosExpression.RightHandSide = Front_PosValue; // Directly use the string value
+                    Gaffel_LExpression.RightHandSide = Gaffel_LValue; // Directly use the string value
                 }
                 // Refresh the part to reflect changes
                 theSession.Parts.Display.Views.Refresh();

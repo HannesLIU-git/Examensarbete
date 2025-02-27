@@ -67,12 +67,12 @@ namespace BRAC_FORM
         
         public void AddCubes()
         {
-            AddPartsInDirection("KUB", new Point3d(110.0, 0.0, 0.0), @"C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\CAD\KUB.prt");
+            AddPartsInDirection("KUB", new Point3d(110.0, 0.0, 0.0), @"C:\Users\timpe989\source\Repos\from-weapon-brac\BRAC_FORM\CAD\KUB.prt");
         }
 
         public void AddCylinders()
         {
-            AddPartsInDirection("CYL", new Point3d(0.0, 110.0, 0.0), @"C:\Users\hanli255\source\Repos\from-weapon-brac\BRAC_FORM\CAD\CYL.prt");
+            AddPartsInDirection("CYL", new Point3d(0.0, 110.0, 0.0), @"C:\Users\timpe989\source\Repos\from-weapon-brac\BRAC_FORM\CAD\CYL.prt");
         }
 
         private void AddPartsInDirection(string componentPrefix, Point3d directionOffset, string masterPartPath)
