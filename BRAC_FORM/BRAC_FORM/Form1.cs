@@ -221,6 +221,8 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Pin_SAAB.prt", bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("M6_Skruv_SAAB.prt", bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Las_skruv_SAAB.prt", bracketCounter, D_width , position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("lax_fot_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Sat_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
@@ -237,7 +239,7 @@ namespace BRAC_FORM
             string Width = textBox6.Text;
             string XPos = textBox7.Text;
             string YPos = textBox8.Text;
-
+            int intwidth = int.Parse(Width);
 
 
             int IntPoint = (int)barrelEnd;  //End of Barrel
@@ -252,8 +254,10 @@ namespace BRAC_FORM
             int Forkint = (int)forkdistance + 1;
             string Gaffel_W = Forkint.ToString();
 
-            int Frontint = (int)forkpoint1[0]; // FrontPos
-            int FrontPOS = bracketPos - (IntPoint - Frontint);
+            int Frontint = (int)forkpoint1[1]; // FrontPos
+            int FrontDif = Math.Abs(IntPoint - Frontint);
+            int FrontPOS = bracketPos - FrontDif -11;
+
 
             string Gaffel_L = FrontPOS.ToString();
 
