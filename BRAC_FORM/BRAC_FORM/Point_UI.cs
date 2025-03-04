@@ -1,6 +1,7 @@
 ﻿using NXOpen;
 using System.Collections.Generic;
 using System;
+using BRAC_FORM;
 
 public class Point_UI
 {
@@ -67,7 +68,9 @@ public class Point_UI
         {
             theSession = Session.GetSession();
             theUI = UI.GetUI();
-            theDlxFileName = "C:\\Users\\timpe989\\source\\repos\\from-weapon-brac\\BRAC_FORM\\Point_UI.dlx";
+            //theDlxFileName = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\Point_UI.dlx";
+
+            theDlxFileName = GlobalVariables.FilePathUI;
             theDialog = theUI.CreateDialog(theDlxFileName);
             theDialog.AddApplyHandler(new NXOpen.BlockStyler.BlockDialog.Apply(apply_cb));
             theDialog.AddOkHandler(new NXOpen.BlockStyler.BlockDialog.Ok(ok_cb));

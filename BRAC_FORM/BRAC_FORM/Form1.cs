@@ -50,12 +50,21 @@ namespace BRAC_FORM
         {       
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
-            addItem.DeleteBracket("Pipa", bracketCounter);
-            addItem.DeleteBracket("LowerBrac", bracketCounter);
-            addItem.DeleteBracket("Upper_brac", bracketCounter);
-            addItem.DeleteBracket("Gaffel_1", bracketCounter);
-            
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Cubes were removed from assembly");         
+            //addItem.DeleteBracket("Pipa", bracketCounter);
+            //addItem.DeleteBracket("LowerBrac", bracketCounter);
+            //addItem.DeleteBracket("Upper_brac", bracketCounter);
+            //addItem.DeleteBracket("Gaffel_1", bracketCounter);
+            addItem.DeleteBracket("Lower_bracet_SAAB", bracketCounter);
+            addItem.DeleteBracket("Upper_brac_SAAB", bracketCounter);
+            addItem.DeleteBracket("Pin_SAAB", bracketCounter);
+            addItem.DeleteBracket("M6_Skruv_SAAB", bracketCounter);
+            addItem.DeleteBracket("Las_skruv_SAAB", bracketCounter);
+            addItem.DeleteBracket("lax_fot_SAAB", bracketCounter);
+            addItem.DeleteBracket("Sat_SAAB", bracketCounter);
+            addItem.DeleteBracket("Gaffel_SAAB_v2", bracketCounter);
+            addItem.DeleteBracket("Pipa_SAAB", bracketCounter);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");         
         }
 
         private void button6_Click(object sender, EventArgs e) ///////////////////////////////CREATE FORK POINT
@@ -121,6 +130,9 @@ namespace BRAC_FORM
 
         private void button7_Click(object sender, EventArgs e) ///////////////////////////Insert Barrel
         {
+            GlobalVariables.FilePath = $@"{textBox2.Text}";
+            GlobalVariables.FilePathUI = GlobalVariables.FilePath.Replace("CAD", "Point_UI.dlx");
+
             bracketCounter++;
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
@@ -129,7 +141,8 @@ namespace BRAC_FORM
 
             Point3d position = new Point3d(0.0, 0.0, 0.0);
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            //string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = GlobalVariables.FilePath;
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
@@ -212,7 +225,7 @@ namespace BRAC_FORM
 
             Point3d position = new Point3d(0.0, Pos, 0.0);
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = GlobalVariables.FilePath;
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
 
@@ -254,20 +267,24 @@ namespace BRAC_FORM
             int Forkint = (int)forkdistance + 1;
             string Gaffel_W = Forkint.ToString();
 
+            int bracketWidth = int.Parse(Width);
+
             int Frontint = (int)forkpoint1[1]; // FrontPos
             int FrontDif = Math.Abs(IntPoint - Frontint);
-            int FrontPOS = bracketPos - FrontDif -11;
+            int FrontPOS = bracketPos - bracketWidth/2 - FrontDif +9 ;
 
 
             string Gaffel_L = FrontPOS.ToString();
 
 
-            string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+            string partsFolderPath = GlobalVariables.FilePath;
 
             Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
             addItem.AddPartToAssembly("Gaffel_SAAB_v2.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
         }
+
+    
     }
 }
