@@ -48,7 +48,7 @@ namespace BRAC_FORM
 
                 theSession.DeleteUndoMark(markId1, null);
 
-                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
+                string partsFolderPath = GlobalVariables.FilePath;
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
