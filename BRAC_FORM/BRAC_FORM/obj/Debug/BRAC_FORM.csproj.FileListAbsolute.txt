@@ -40,3 +40,5 @@ C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BR
 C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.exe
 C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.pdb
 C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form2.resources
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form3.resources
+C:\Users\timpe989\Source\Repos\from-weapon-brac\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form4.resources

@@ -33,7 +33,7 @@ namespace BRAC_FORM
 
         private void button5_Click(object sender, EventArgs e) ////////////////////////////////// Delete Everything
         {       
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
+            Class_Add_item addItem = new Class_Add_item();
 
             addItem.DeleteBracket("Lower_bracet_SAAB", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Upper_brac_SAAB", GlobalVariables.bracketCounter);
@@ -118,13 +118,15 @@ namespace BRAC_FORM
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
-            string D_width = textBox5.Text;
+            GlobalVariables.PipeDiameter = textBox5.Text;
+
+            string D_width = GlobalVariables.PipeDiameter;
 
             Point3d position = new Point3d(0.0, 0.0, 0.0);
 
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
+            Class_Add_item addItem = new Class_Add_item();
 
             addItem.AddPartToAssembly("Pipa_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             
@@ -195,7 +197,7 @@ namespace BRAC_FORM
             string XPos = textBox7.Text;
             string YPos = textBox8.Text;
 
-            int IntPoint = (int)barrelEnd;
+            int IntPoint = (int)GlobalVariables.barrelEnd;
 
             string bracketPosString = textBox1.Text;
             int bracketPos = int.Parse(bracketPosString);
@@ -206,7 +208,7 @@ namespace BRAC_FORM
 
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
+            Class_Add_item addItem = new Class_Add_item();
 
             addItem.AddPartToAssembly("Lower_bracet_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_brac_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
@@ -258,7 +260,7 @@ namespace BRAC_FORM
 
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
+            Class_Add_item addItem = new Class_Add_item();
             addItem.AddPartToAssembly("Gaffel_SAAB_v2.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
             addItem.updateAll();
             addItem.HideDatumsAndSketches();

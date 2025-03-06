@@ -122,14 +122,14 @@ namespace BRAC_FORM
 
         }
 
-        public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8, int counter)
-        {
-            textBox5 = tb5;
-            textBox6 = tb6;
-            textBox7 = tb7;
-            textBox8 = tb8;
-            this.counter = counter;
-        }
+        //public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8, int counter)
+        //{
+        //    textBox5 = tb5;
+        //    textBox6 = tb6;
+        //    textBox7 = tb7;
+        //    textBox8 = tb8;
+        //    this.counter = counter;
+        //}
 
        
         public void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)

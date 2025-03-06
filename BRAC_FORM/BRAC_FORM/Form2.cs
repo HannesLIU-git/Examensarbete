@@ -13,15 +13,15 @@ namespace BRAC_FORM
     
     public partial class Form2: Form
     {
-        public double[] InitialPoint1;
+        //public double[] InitialPoint1;
         public double barrelEnd;
 
         public Form2()
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void button1_Click(object sender, EventArgs e) //////////////////////////////// CREATE REFERENCE POINT
         {
 
             NXOpen.Session theSession = NXOpen.Session.GetSession();
@@ -51,9 +51,9 @@ namespace BRAC_FORM
                 pointsList.Add(kvp.Value); // Add the coordinates to the list
             }
 
-            InitialPoint1 = pointsList[0];
+            GlobalVariables.InitialPoint1 = pointsList[0];
             //InitialPoint2 = pointsList[1];
-            barrelEnd = InitialPoint1[1];
+            GlobalVariables.barrelEnd = GlobalVariables.InitialPoint1[1];
 
 
             NXOpen.Session.UndoMarkId markId2;
@@ -68,11 +68,19 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId1, "Make Work Part");
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) ///////////////////////////// PREVIOUS
         {
             Form1 form1 = new Form1(); // Create an instance of Form1
             form1.Show(); // Show Form1
             this.Hide();  // Hide Form2
+        }
+
+        private void button3_Click(object sender, EventArgs e) ///////////////////////////// NEXT
+        {
+            Form3 form3 = new Form3(); // Create an instance of Form1
+            form3.Show(); // Show Form1
+            this.Hide();  // Hide Form2
+
         }
     }
 }
