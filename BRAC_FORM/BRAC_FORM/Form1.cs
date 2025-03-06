@@ -13,11 +13,9 @@ namespace BRAC_FORM
 {
     public partial class Form1: Form
     {
-        private int bracketCounter = 0;
+       // private int bracketCounter = 0;
 
         public double[] InitialPoint1;
-        //public double[] InitialPoint2;
-        //public double barrelCentre;
         public double barrelEnd;
 
         public double[] forkpoint1;
@@ -31,38 +29,21 @@ namespace BRAC_FORM
             InitializeComponent();
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            bracketCounter++;
-            // Create the instance of the Class_Add_item class
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-
-            // Call method to add the three parts to the assembly
-            addItem.AddThreeParts();
-
-            addItem.updateAll();
-
-            addItem.HideDatumsAndSketches();
-
-        }
+    
 
         private void button5_Click(object sender, EventArgs e) ////////////////////////////////// Delete Everything
         {       
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
 
-            //addItem.DeleteBracket("Pipa", bracketCounter);
-            //addItem.DeleteBracket("LowerBrac", bracketCounter);
-            //addItem.DeleteBracket("Upper_brac", bracketCounter);
-            //addItem.DeleteBracket("Gaffel_1", bracketCounter);
-            addItem.DeleteBracket("Lower_bracet_SAAB", bracketCounter);
-            addItem.DeleteBracket("Upper_brac_SAAB", bracketCounter);
-            addItem.DeleteBracket("Pin_SAAB", bracketCounter);
-            addItem.DeleteBracket("M6_Skruv_SAAB", bracketCounter);
-            addItem.DeleteBracket("Las_skruv_SAAB", bracketCounter);
-            addItem.DeleteBracket("lax_fot_SAAB", bracketCounter);
-            addItem.DeleteBracket("Sat_SAAB", bracketCounter);
-            addItem.DeleteBracket("Gaffel_SAAB_v2", bracketCounter);
-            addItem.DeleteBracket("Pipa_SAAB", bracketCounter);
+            addItem.DeleteBracket("Lower_bracet_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Upper_brac_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Pin_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("M6_Skruv_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Las_skruv_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("lax_fot_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Sat_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Gaffel_SAAB_v2", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Pipa_SAAB", GlobalVariables.bracketCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");         
         }
@@ -77,7 +58,7 @@ namespace BRAC_FORM
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{bracketCounter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{GlobalVariables.bracketCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
@@ -133,7 +114,7 @@ namespace BRAC_FORM
             GlobalVariables.FilePath = $@"{textBox2.Text}";
             GlobalVariables.FilePathUI = GlobalVariables.FilePath.Replace("CAD", "Point_UI.dlx");
 
-            bracketCounter++;
+            GlobalVariables.bracketCounter++;
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
@@ -141,12 +122,11 @@ namespace BRAC_FORM
 
             Point3d position = new Point3d(0.0, 0.0, 0.0);
 
-            //string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
 
-            addItem.AddPartToAssembly("Pipa_SAAB.prt", bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Pipa_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
 
@@ -162,7 +142,7 @@ namespace BRAC_FORM
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{bracketCounter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{GlobalVariables.bracketCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
@@ -173,7 +153,6 @@ namespace BRAC_FORM
             CreatePoint1 CreatePoint1 = new CreatePoint1();
 
             CreatePoint1.Show();
-            //int PointCounterValue = Point_UI.GetCounter();
             var points = CreatePoint1.InitialPoints;
 
             List<double[]> pointsList = new List<double[]>();
@@ -227,15 +206,15 @@ namespace BRAC_FORM
 
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
 
-            addItem.AddPartToAssembly("Lower_bracet_SAAB.prt", bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Upper_brac_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Pin_SAAB.prt", bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("M6_Skruv_SAAB.prt", bracketCounter, D_width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Las_skruv_SAAB.prt", bracketCounter, D_width , position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("lax_fot_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Sat_SAAB.prt", bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Lower_bracet_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Upper_brac_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Pin_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("M6_Skruv_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Las_skruv_SAAB.prt", GlobalVariables.bracketCounter, D_width , position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("lax_fot_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Sat_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
@@ -279,12 +258,17 @@ namespace BRAC_FORM
 
             string partsFolderPath = GlobalVariables.FilePath;
 
-            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, bracketCounter);
-            addItem.AddPartToAssembly("Gaffel_SAAB_v2.prt", bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
+            Class_Add_item addItem = new Class_Add_item(textBox5, textBox6, textBox7, textBox8, GlobalVariables.bracketCounter);
+            addItem.AddPartToAssembly("Gaffel_SAAB_v2.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
         }
 
-    
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2(); // Create an instance of Form2
+            form2.Show(); // Show Form2
+            this.Hide();  // Hide Form1
+        }
     }
 }

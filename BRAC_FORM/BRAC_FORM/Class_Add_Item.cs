@@ -131,60 +131,7 @@ namespace BRAC_FORM
             this.counter = counter;
         }
 
-        public void AddThreeParts()
-        {
-            try
-            {
-                // Get the current session and open the assembly
-                Session theSession = Session.GetSession();
-                Part assemblyPart = (Part)theSession.Parts.Work;
-
-                if (assemblyPart == null || assemblyPart.ComponentAssembly == null)
-                {
-                    UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "No assembly is currently open as the work part.");
-                    return;
-                }
-
-                // TextBox values for dimensioning
-                string D_width = textBox5.Text;
-                string Width = textBox6.Text;
-                string XPos = textBox7.Text;
-                string YPos = textBox8.Text;
-                
-
-                // Parts folder path
-                string partsFolderPath = @"C:\Users\timpe989\source\repos\from-weapon-brac\BRAC_FORM\CAD\";
-
-                // Position the parts at the origin
-                Point3d position = new Point3d(0.0, 0.0, 0.0);
-
-                // Add "Pipa.prt"
-                AddPartToAssembly("Pipa_SAAB.prt",counter, D_width, position, partsFolderPath, assemblyPart);
-
-                // Move position for next part
-                position.X += 0;
-
-                // Add "LowerBrac.prt"
-                AddPartToAssembly("Lower_bracet_SAAB.prt",counter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-
-                // Move position for next partnx
-
-                position.X += 0;
-                // Add "Upper_brac.prt"
-                AddPartToAssembly("Upper_brac_SAAB.prt",counter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
-
-              
-                //// Refresh the view after adding parts
-                theSession.Parts.Display.Views.Refresh();
-
-                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Three parts added at origin.");
-
-            }
-            catch (Exception ex)
-            {
-                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to add parts: " + ex.Message);
-            }
-        }
+       
         public void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
         {
             try
@@ -366,70 +313,10 @@ namespace BRAC_FORM
 
 
         }
-        
-        public void CreatePoint()
-        {
-        
-            // Get the current NX session and UI object
-            Session theSession = Session.GetSession();
-            UI ui = UI.GetUI();
-
-            // Get the currently displayed part
-            Part workPart = theSession.Parts.Work;
-            
-
-            // Prompt the user to select a point (or vertex) from the part
-            try
-            {
-                Point3d cursorPoint;
-                // Selecting an object from the model
-                TaggedObject selectedObject;
-                Selection.Response response = ui.SelectionManager.SelectTaggedObject("select point", "Select a Point", SelectionScope.AnyInAssembly, true, true, out selectedObject, out cursorPoint);
-                
-
-                // Check if the user actually selected an object
-                if (response != Selection.Response.Ok || selectedObject == null)
-                {
-                    ui.NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, "No object selected.");
-                    return;
-                }
-
-                // Check if the selected object is a Point
-                if (selectedObject is Point selectedPoint)
-                {
-                    // Get the coordinates of the selected point
-                    Point3d pointCoords = selectedPoint.Coordinates;
-
-                    // Create a new point at the selected location
-                    Point newPoint = workPart.Points.CreatePoint(pointCoords);
-
-                    // Optional: Output success message
-                    ui.NXMessageBox.Show("Point Creation", NXMessageBox.DialogType.Information, "Point created at the selected vertex.");
-                }
-                else
-                {
-                    ui.NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, "Selected object is not a point.");
-                }
-            }
-            catch (System.Exception ex)
-            {
-                ui.NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "An error occurred: " + ex.Message);
-            }
-        }
-        
-
-
-    
-
-
-
-
 
 
 
     }
-
-
 
 
 

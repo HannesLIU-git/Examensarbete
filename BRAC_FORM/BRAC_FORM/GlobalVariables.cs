@@ -10,5 +10,9 @@ namespace BRAC_FORM
     {
         public static string FilePath { get; set; } = string.Empty;
         public static string FilePathUI { get; set; } = string.Empty;
+
+        public static int bracketCounter { get; set; } = 0;
+
+        public static double[] InitialPoint1 { get; set; } = [];
     }
 }
