@@ -48,7 +48,7 @@ namespace BRAC_FORM
 
                 File.Delete(newPartPath);
 
-                UI.GetUI().NXMessageBox.Show("Debug", NXOpen.NXMessageBox.DialogType.Information, $"Path: {newPartPath}");
+                
             }
 
             catch (Exception ex)

@@ -122,5 +122,29 @@ namespace BRAC_FORM
             form3.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
+
+        private void button3_Click(object sender, EventArgs e) ////////////////////////// DELETE
+        {
+            Class_Add_item addItem = new Class_Add_item();
+
+            addItem.DeleteBracket("Lower_bracet_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Upper_brac_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Pin_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("M6_Skruv_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Las_skruv_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("lax_fot_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Sat_SAAB", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Gaffel_SAAB_v2", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Pipa_SAAB", GlobalVariables.bracketCounter);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
+        }
+
+        private void button4_Click(object sender, EventArgs e) ///////////////////////// 1st Page
+        {
+            Form1 form1 = new Form1(); // Create an instance of Form1
+            form1.Show(); // Show Form1
+            this.Hide();  // Hide Form2
+        }
     }
 }

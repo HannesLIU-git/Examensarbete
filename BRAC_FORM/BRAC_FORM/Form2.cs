@@ -70,7 +70,7 @@ namespace BRAC_FORM
 
         private void button2_Click(object sender, EventArgs e) ///////////////////////////// PREVIOUS
         {
-            Form1 form1 = new Form1(); // Create an instance of Form1
+            Form1_CLAMP form1 = new Form1_CLAMP(); // Create an instance of Form1
             form1.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }

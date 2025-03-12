@@ -18,58 +18,36 @@ namespace BRAC_FORM
             InitializeComponent();
         }
 
-    
 
-        private void button5_Click(object sender, EventArgs e) ////////////////////////////////// Delete Everything
-        {       
-            Class_Add_item addItem = new Class_Add_item();
+      
 
-            addItem.DeleteBracket("Lower_bracet_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Upper_brac_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Pin_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("M6_Skruv_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Las_skruv_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("lax_fot_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Sat_SAAB", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Gaffel_SAAB_v2", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Pipa_SAAB", GlobalVariables.bracketCounter);
-
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");         
-        }
-
-
-        private void button7_Click(object sender, EventArgs e) ///////////////////////////Insert Barrel
+        private void button4_Click(object sender, EventArgs e) /////////////////////////// NEXT
         {
             GlobalVariables.FilePath = $@"{textBox2.Text}";
             GlobalVariables.FilePathUI = GlobalVariables.FilePath.Replace("CAD", "Point_UI.dlx");
 
-            GlobalVariables.bracketCounter++;
-            Session theSession = Session.GetSession();
-            Part assemblyPart = (Part)theSession.Parts.Work;
 
-            GlobalVariables.PipeDiameter = textBox5.Text;
+            string selected = comboBox1.SelectedItem?.ToString();
 
-            string D_width = GlobalVariables.PipeDiameter;
+            if (string.IsNullOrEmpty(selected))
+            {
+                MessageBox.Show("Please select a form to open.");
+                return;
+            }
 
-            Point3d position = new Point3d(0.0, 0.0, 0.0);
+            if (selected == "Clamp")
+            {
+                Form1_CLAMP form1_CLAMP = new Form1_CLAMP();
+                form1_CLAMP.Show(); // or formA.ShowDialog();
+                this.Hide();
+            }
+            else if (selected == "Picatinny")
+            {
 
-            string partsFolderPath = GlobalVariables.FilePath;
-
-            Class_Add_item addItem = new Class_Add_item();
-
-            addItem.AddPartToAssembly("Pipa_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
-            
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
-
-            addItem.updateAll();
-            addItem.HideDatumsAndSketches();
-        }
-
-        private void button4_Click(object sender, EventArgs e) /////////////////////////// NEXT
-        {
-            Form2 form2 = new Form2(); // Create an instance of Form2
-            form2.Show(); // Show Form2
-            this.Hide();  // Hide Form1
+                Form1_PICATINNY form1_PICATTINY = new Form1_PICATINNY(); // Create an instance of Form2
+                form1_PICATTINY.Show(); // Show Form2
+                this.Hide();  // Hide Form1
+            }
         }
 
         private void button8_Click(object sender, EventArgs e) ///////////////////////////// SUPRESS
@@ -112,60 +90,5 @@ namespace BRAC_FORM
 
         }
 
-        private void button1_Click(object sender, EventArgs e) ///////////////////// INSERT RAIL
-        {
-            GlobalVariables.FilePath = $@"{textBox2.Text}";
-
-            GlobalVariables.bracketCounter++;
-            Session theSession = Session.GetSession();
-            Part assemblyPart = (Part)theSession.Parts.Work;
-
-            Point3d position = new Point3d(0.0, 0.0, 0.0);
-
-            string D_width = GlobalVariables.PipeDiameter;
-
-            string partsFolderPath = GlobalVariables.FilePath;
-
-            Class_Add_item addItem = new Class_Add_item();
-
-            addItem.AddPartToAssembly("Picatinny_rail.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
-
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Rail Added to Assembly.");
-
-            addItem.updateAll();
-            addItem.HideDatumsAndSketches();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-            
-            Session theSession = Session.GetSession();
-            Part assemblyPart = (Part)theSession.Parts.Work;
-
-            string Width = textBox1.Text;
-
-            string Parallax = textBox3.Text;
-
-            Point3d position = new Point3d(0.0, 0.0, 0.0);
-
-            string D_width = GlobalVariables.PipeDiameter;
-
-            string partsFolderPath = GlobalVariables.FilePath;
-
-            Class_Add_item addItem = new Class_Add_item();
-
-            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Picatinny_SAT.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
-
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
-
-            addItem.updateAll();
-            addItem.HideDatumsAndSketches();
-
-        }
     }
 }
