@@ -48,11 +48,13 @@ namespace BRAC_FORM
 
                 theSession.DeleteUndoMark(markId1, null);
 
-                string partsFolderPath = GlobalVariables.FilePath;
+                string partsFolderPath = GlobalVariables.FilePath + "\\CAD";
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
                 File.Delete(newPartPath);
+
+                UI.GetUI().NXMessageBox.Show("Debug", NXOpen.NXMessageBox.DialogType.Information, $"Path: {newPartPath}");
             }
 
             catch (Exception ex)
