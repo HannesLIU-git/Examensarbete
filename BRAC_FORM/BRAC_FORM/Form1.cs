@@ -272,5 +272,40 @@ namespace BRAC_FORM
             form2.Show(); // Show Form2
             this.Hide();  // Hide Form1
         }
+
+        private void button8_Click(object sender, EventArgs e) ///////////////////////////// SUPRESS
+        {
+
+            NXOpen.Session theSession = NXOpen.Session.GetSession(); //////////////// SELECT PART IN TREE
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject("COMPONENT FORKTEST 1"));
+            NXOpen.PartLoadStatus partLoadStatus1;
+            theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
+
+            workPart = theSession.Parts.Work; // FORKTEST
+            partLoadStatus1.Dispose();
+            theSession.SetUndoMarkName(markId1, "Make Work Part");
+
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Suppress Feature"); /////////////////// SUPRESS FEATURE
+
+            NXOpen.Features.Feature[] features1 = new NXOpen.Features.Feature[1];
+            NXOpen.Features.Extrude extrude1 = ((NXOpen.Features.Extrude)workPart.Features.FindObject("EXTRUDE(3)"));
+            features1[0] = extrude1;
+            workPart.Features.SuppressFeatures(features1);
+
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part"); /////////////////// SELECT TOP ASSEMBLY
+
+            NXOpen.Assemblies.Component nullNXOpen_Assemblies_Component = null;
+            NXOpen.PartLoadStatus partLoadStatus2;
+            theSession.Parts.SetWorkComponent(nullNXOpen_Assemblies_Component, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus2);
+
+            workPart = theSession.Parts.Work; // assembly1
+            partLoadStatus2.Dispose();
+            theSession.SetUndoMarkName(markId1, "Make Work Part");
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e) //////////////////////////////// CREATE REFERENCE POINT
         {
 
-            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Session theSession = NXOpen.Session.GetSession(); /////// SELECT BARREL IN TREE
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
             NXOpen.Session.UndoMarkId markId1;
@@ -38,7 +38,7 @@ namespace BRAC_FORM
             partLoadStatus1.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
 
-            CreatePoint1 CreatePoint1 = new CreatePoint1();
+            CreatePoint1 CreatePoint1 = new CreatePoint1(); /////// RUN CREATEPOUINT1 
 
             CreatePoint1.Show();
             var points = CreatePoint1.InitialPoints;
