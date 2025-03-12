@@ -106,5 +106,66 @@ namespace BRAC_FORM
             partLoadStatus2.Dispose();
             theSession.SetUndoMarkName(markId1, "Make Work Part");
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e) ///////////////////// INSERT RAIL
+        {
+            GlobalVariables.FilePath = $@"{textBox2.Text}";
+
+            GlobalVariables.bracketCounter++;
+            Session theSession = Session.GetSession();
+            Part assemblyPart = (Part)theSession.Parts.Work;
+
+            Point3d position = new Point3d(0.0, 0.0, 0.0);
+
+            string D_width = GlobalVariables.PipeDiameter;
+
+            string partsFolderPath = GlobalVariables.FilePath;
+
+            Class_Add_item addItem = new Class_Add_item();
+
+            addItem.AddPartToAssembly("Picatinny_rail.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Rail Added to Assembly.");
+
+            addItem.updateAll();
+            addItem.HideDatumsAndSketches();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            
+            Session theSession = Session.GetSession();
+            Part assemblyPart = (Part)theSession.Parts.Work;
+
+            string Width = textBox1.Text;
+
+            string Parallax = textBox3.Text;
+
+            Point3d position = new Point3d(0.0, 0.0, 0.0);
+
+            string D_width = GlobalVariables.PipeDiameter;
+
+            string partsFolderPath = GlobalVariables.FilePath;
+
+            Class_Add_item addItem = new Class_Add_item();
+
+            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Picatinny_SAT.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
+
+            addItem.updateAll();
+            addItem.HideDatumsAndSketches();
+
+        }
     }
 }

@@ -12,12 +12,6 @@ namespace BRAC_FORM
     public class Class_Add_item
     {
 
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
-        private TextBox textBox8;
-        private int counter;
-
         public void DeleteBracket(string partNameToDelete, int counter)
         {
             try {
@@ -123,16 +117,6 @@ namespace BRAC_FORM
             theSession.UpdateManager.DoAssemblyConstraintsUpdate(markId1);
 
         }
-
-        //public Class_Add_item(TextBox tb5, TextBox tb6, TextBox tb7, TextBox tb8, int counter)
-        //{
-        //    textBox5 = tb5;
-        //    textBox6 = tb6;
-        //    textBox7 = tb7;
-        //    textBox8 = tb8;
-        //    this.counter = counter;
-        //}
-
        
         public void AddPartToAssembly(string partName,int counter, string dimensions, Point3d position, string partsFolderPath, Part assemblyPart)
         {
@@ -207,9 +191,6 @@ namespace BRAC_FORM
 
                 // Ensure the first value is D_width and the second value is Width
                 string D_widthValue = dimensionValues[0];
-                //string WidthValue = dimensionValues.Length > 1 ? dimensionValues[1] : "1.0"; // Default to 1.0 if no second value
-                //string XPosValue = dimensionValues.Length > 2 ? dimensionValues[2] : "1.0"; // Default to 1.0 if no second value
-                //string YPosValue = dimensionValues.Length > 3 ? dimensionValues[3] : "1.0"; // Default to 1.0 if no second valu
 
                 // Update or create the "D_width" expression for the part
                 Expression D_widthExpression;
