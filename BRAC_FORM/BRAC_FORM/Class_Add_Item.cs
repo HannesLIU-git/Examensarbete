@@ -180,7 +180,7 @@ namespace BRAC_FORM
                 UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to add part: " + ex.Message);
             }
         }
-        private void UpdatePartExpression(Part part, string dimensions, Part assemblyPart)
+        public void UpdatePartExpression(Part part, string dimensions, Part assemblyPart)
         {
             try
             {
