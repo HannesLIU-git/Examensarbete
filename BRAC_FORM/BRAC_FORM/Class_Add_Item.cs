@@ -53,7 +53,7 @@ namespace BRAC_FORM
 
             catch (Exception ex)
             {
-                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to delete part: " + ex.Message);
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"Failed to delete {partNameToDelete}: " + ex.Message);
             }
 
         }

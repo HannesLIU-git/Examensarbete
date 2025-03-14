@@ -30,7 +30,7 @@ namespace BRAC_FORM
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{GlobalVariables.bracketCounter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Pipa_SAAB_{GlobalVariables.pipeCounter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 

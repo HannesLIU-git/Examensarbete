@@ -22,7 +22,7 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e) //////////////////// ADD BARREL
         {
 
-            GlobalVariables.bracketCounter++;
+            GlobalVariables.pipeCounter++;
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
@@ -36,7 +36,7 @@ namespace BRAC_FORM
 
             Class_Add_item addItem = new Class_Add_item();
 
-            addItem.AddPartToAssembly("Pipa_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Pipa_SAAB.prt", GlobalVariables.pipeCounter, D_width, position, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
 

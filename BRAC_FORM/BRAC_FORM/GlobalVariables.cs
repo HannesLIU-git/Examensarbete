@@ -14,6 +14,8 @@ namespace BRAC_FORM
 
         public static int bracketCounter { get; set; } = 0;
 
+        public static int pipeCounter { get; set; } = 0;
+
         public static double[] InitialPoint1 { get; set; } = new double[] {0,0,0 };
 
         public static double barrelEnd { get; set; } = 0;
