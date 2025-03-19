@@ -17,6 +17,7 @@ namespace BRAC_FORM
     {
         string originalTextbox6 = "";
         string originalTextbox7 = "";
+        string originalTextbox1 = "";
         public Form3()
         {
             InitializeComponent();
@@ -99,6 +100,7 @@ namespace BRAC_FORM
 
             originalTextbox6 = textBox6.Text;
             originalTextbox7 = textBox7.Text;
+            originalTextbox1 = textBox1.Text;
 
 
         }
@@ -233,7 +235,7 @@ namespace BRAC_FORM
 
         private void button7_Click(object sender, EventArgs e) /////////////////////////// UPDATE
         {
-            if (textBox6.Text != originalTextbox6 || textBox7.Text != originalTextbox7)
+            if (textBox6.Text != originalTextbox6 & textBox1.Text == originalTextbox1 || textBox7.Text != originalTextbox7 & textBox1.Text == originalTextbox1)
             {
                 //////////////// SELECT PART IN TREE
 
@@ -372,12 +374,73 @@ namespace BRAC_FORM
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Parameters were updated.");
             }
-
-            
-            else
+            if (textBox1.Text != originalTextbox1)
             {
-                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change parameters.");
+                Class_Add_item addItem = new Class_Add_item();
+
+                addItem.DeleteBracket("Lower_bracet_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Upper_brac_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Pin_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("M6_Skruv_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Las_skruv_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("lax_fot_SAAB", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Sat_SAAB", GlobalVariables.bracketCounter);
+
+                Session theSession = Session.GetSession();
+                Part assemblyPart = (Part)theSession.Parts.Work;
+
+                GlobalVariables.bracketCounter++;
+
+                string D_width = GlobalVariables.PipeDiameter;
+                GlobalVariables.Width = textBox6.Text;
+                string Width = GlobalVariables.Width;
+                string XPos = textBox7.Text;
+                string YPos = "10";
+
+                int IntPoint = (int)GlobalVariables.barrelEnd;
+
+                GlobalVariables.BracketPos = textBox1.Text;
+                int bracketPos = int.Parse(GlobalVariables.BracketPos);
+
+                double Pos = IntPoint + bracketPos;
+
+                int Forkint = (int)GlobalVariables.forkdistance + 1;
+                string Gaffel_W = Forkint.ToString();
+
+                int bracketWidth = int.Parse(Width);
+
+                int Frontint = (int)GlobalVariables.forkpoint1[1]; // FrontPos
+                int FrontDif = Math.Abs(IntPoint - Frontint);
+                int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
+
+
+                string Gaffel_L = FrontPOS.ToString();
+
+
+                Point3d position = new Point3d(0.0, Pos, 0.0);
+                string partsFolderPath = GlobalVariables.FilePath;
+                
+
+                addItem.AddPartToAssembly("Lower_bracet_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Upper_brac_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Pin_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("M6_Skruv_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Las_skruv_SAAB.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("lax_fot_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Sat_SAAB.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+
+
+                addItem.updateAll();
+                addItem.HideDatumsAndSketches();
+
+                originalTextbox6 = textBox6.Text;
+                originalTextbox7 = textBox7.Text;
+                originalTextbox1 = textBox1.Text;
+
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Parameters were updated.");
             }
+            
         }
     }
 }
