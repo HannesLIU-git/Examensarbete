@@ -15,6 +15,8 @@ namespace BRAC_FORM
 {
     public partial class Form3: Form
     {
+        string originalTextbox6 = "";
+        string originalTextbox7 = "";
         public Form3()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace BRAC_FORM
             button1.Visible = false;
             button5.Visible = false;
             button5.Enabled = false;
-
+            button7.Enabled = false;
         }
 
         private void button2_Click(object sender, EventArgs e) ///////////////////////////////// PREVIOUS
@@ -92,12 +94,18 @@ namespace BRAC_FORM
 
             button6.Enabled = true;
             button5.Enabled = true;
+            button7.Enabled = true;
+            button3.Enabled = false;
+
+            originalTextbox6 = textBox6.Text;
+            originalTextbox7 = textBox7.Text;
 
 
         }
 
         private void button1_Click(object sender, EventArgs e) ////////////////////////// CREATE FORKPOINTS
         {
+            
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
@@ -190,7 +198,7 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId1, "Make Work Part");
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) ////////////////////// DELETE
         {
             Class_Add_item addItem = new Class_Add_item();
 
@@ -206,6 +214,7 @@ namespace BRAC_FORM
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
 
             button6.Enabled = false;
+            button3.Enabled = true;
         }
 
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
@@ -219,6 +228,155 @@ namespace BRAC_FORM
             {
                 button1.Visible = false; // Hide the button again (optional)
                 button5.Visible = false; // Hide the button again (optional)
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e) /////////////////////////// UPDATE
+        {
+            if (textBox6.Text != originalTextbox6 || textBox7.Text != originalTextbox7)
+            {
+                //////////////// SELECT PART IN TREE
+
+                Session theSession = Session.GetSession();
+                Part assemblyPart = (Part)theSession.Parts.Work;
+
+                NXOpen.Part workPart = theSession.Parts.Work;
+                NXOpen.Part displayPart = theSession.Parts.Display;
+                NXOpen.Session.UndoMarkId markId1;
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Lower_bracet_SAAB_{GlobalVariables.bracketCounter} 1"));
+                NXOpen.PartLoadStatus partLoadStatus1;
+                theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatus1.Dispose();
+                theSession.SetUndoMarkName(markId1, "Make Work Part");
+
+                /////////////////// UPDATE EXPRESSION
+
+                NXOpen.Session.UndoMarkId markId2;
+                markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Expression");
+
+                NXOpen.Expression expression1 = ((NXOpen.Expression)workPart.Expressions.FindObject("Width"));
+                NXOpen.Unit unit1 = ((NXOpen.Unit)workPart.UnitCollection.FindObject("MilliMeter"));
+                workPart.Expressions.EditWithUnits(expression1, unit1, textBox6.Text);
+
+                int nErrs1;
+                nErrs1 = theSession.UpdateManager.DoUpdate(markId2);
+
+                /////////////////// SELECT TOP ASSEMBLY
+
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component nullNXOpen_Assemblies_Component1 = null;
+                NXOpen.PartLoadStatus partLoadStatusx;
+                theSession.Parts.SetWorkComponent(nullNXOpen_Assemblies_Component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatusx);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatusx.Dispose();
+                theSession.SetUndoMarkName(markId1, "Make Work Part");
+
+            
+
+                //////////////// SELECT PART IN TREE
+
+                NXOpen.Session.UndoMarkId markId3;
+                markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component component2 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT lax_fot_SAAB_{GlobalVariables.bracketCounter} 1"));
+                NXOpen.PartLoadStatus partLoadStatus2;
+                theSession.Parts.SetWorkComponent(component2, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus2);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatus2.Dispose();
+                theSession.SetUndoMarkName(markId3, "Make Work Part");
+
+                /////////////////// UPDATE EXPRESSION
+
+                NXOpen.Session.UndoMarkId markId4;
+                markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Expression");
+
+                NXOpen.Expression expression2 = ((NXOpen.Expression)workPart.Expressions.FindObject("X_pos"));
+                NXOpen.Unit unit2 = ((NXOpen.Unit)workPart.UnitCollection.FindObject("MilliMeter"));
+                workPart.Expressions.EditWithUnits(expression2, unit2, textBox7.Text);
+
+                int nErrs2;
+                nErrs2 = theSession.UpdateManager.DoUpdate(markId4);
+
+                /////////////////// UPDATE EXPRESSION
+
+                NXOpen.Session.UndoMarkId markId5;
+                markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Expression");
+
+                NXOpen.Expression expression3 = ((NXOpen.Expression)workPart.Expressions.FindObject("Width"));
+                NXOpen.Unit unit3 = ((NXOpen.Unit)workPart.UnitCollection.FindObject("MilliMeter"));
+                workPart.Expressions.EditWithUnits(expression3, unit3, textBox6.Text);
+
+                int nErrs3;
+                nErrs3 = theSession.UpdateManager.DoUpdate(markId5);
+
+                /////////////////// SELECT TOP ASSEMBLY
+
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component nullNXOpen_Assemblies_Component = null;
+                NXOpen.PartLoadStatus partLoadStatus;
+                theSession.Parts.SetWorkComponent(nullNXOpen_Assemblies_Component, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatus.Dispose();
+                theSession.SetUndoMarkName(markId1, "Make Work Part");
+
+                //////////////// SELECT PART IN TREE
+                NXOpen.Session.UndoMarkId markId6;
+                markId6 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component component3 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT Sat_SAAB_{GlobalVariables.bracketCounter} 1"));
+                NXOpen.PartLoadStatus partLoadStatus3;
+                theSession.Parts.SetWorkComponent(component3, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus3);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatus3.Dispose();
+                theSession.SetUndoMarkName(markId6, "Make Work Part");
+
+                /////////////////// UPDATE EXPRESSION
+
+                NXOpen.Session.UndoMarkId markId7;
+                markId7 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Edit Expression");
+
+                NXOpen.Expression expression4 = ((NXOpen.Expression)workPart.Expressions.FindObject("X_pos"));
+                NXOpen.Unit unit4 = ((NXOpen.Unit)workPart.UnitCollection.FindObject("MilliMeter"));
+                workPart.Expressions.EditWithUnits(expression4, unit4, textBox7.Text);
+
+                int nErrs4;
+                nErrs4 = theSession.UpdateManager.DoUpdate(markId7);
+
+                /////////////////// SELECT TOP ASSEMBLY
+
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
+
+                NXOpen.Assemblies.Component nullNXOpen_Assemblies_Component2 = null;
+                NXOpen.PartLoadStatus partLoadStatus8;
+                theSession.Parts.SetWorkComponent(nullNXOpen_Assemblies_Component2, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus8);
+
+                workPart = theSession.Parts.Work;
+                partLoadStatus8.Dispose();
+                theSession.SetUndoMarkName(markId1, "Make Work Part");
+
+                originalTextbox6 = textBox6.Text;
+
+                originalTextbox7 = textBox7.Text;
+
+
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Parameters were updated.");
+            }
+
+            
+            else
+            {
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change parameters.");
             }
         }
     }
