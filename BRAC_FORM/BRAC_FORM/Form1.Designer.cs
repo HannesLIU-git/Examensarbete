@@ -75,6 +75,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBox1.BackColor = System.Drawing.SystemColors.Window;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {

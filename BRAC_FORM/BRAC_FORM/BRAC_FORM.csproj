@@ -60,64 +60,82 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Add_Item.cs" />
-    <Compile Include="CreatePoint1.cs" />
+    <Compile Include="AR15\Form1_AR15.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AR15\Form1_AR15.Designer.cs">
+      <DependentUpon>Form1_AR15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2_AR15.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2_AR15.Designer.cs">
+      <DependentUpon>Form2_AR15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PointCreators\CreatePoint1.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1_CLAMP.cs">
+    <Compile Include="General Clamp\Form1_CLAMP.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_CLAMP.Designer.cs">
+    <Compile Include="General Clamp\Form1_CLAMP.Designer.cs">
       <DependentUpon>Form1_CLAMP.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1_PICATINNY.cs">
+    <Compile Include="Picatinny\Form1_PICATINNY.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1_PICATINNY.Designer.cs">
+    <Compile Include="Picatinny\Form1_PICATINNY.Designer.cs">
       <DependentUpon>Form1_PICATINNY.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="General Clamp\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
+    <Compile Include="General Clamp\Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2_PICATINNY.cs">
+    <Compile Include="Picatinny\Form2_PICATINNY.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2_PICATINNY.Designer.cs">
+    <Compile Include="Picatinny\Form2_PICATINNY.Designer.cs">
       <DependentUpon>Form2_PICATINNY.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form3.cs">
+    <Compile Include="General Clamp\Form3.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form3.Designer.cs">
+    <Compile Include="General Clamp\Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="Hannes.cs" />
-    <Compile Include="Point_UI.cs" />
+    <Compile Include="PointCreators\Point_UI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1_CLAMP.resx">
+    <EmbeddedResource Include="AR15\Form1_AR15.resx">
+      <DependentUpon>Form1_AR15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2_AR15.resx">
+      <DependentUpon>Form2_AR15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General Clamp\Form1_CLAMP.resx">
       <DependentUpon>Form1_CLAMP.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1_PICATINNY.resx">
+    <EmbeddedResource Include="Picatinny\Form1_PICATINNY.resx">
       <DependentUpon>Form1_PICATINNY.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
+    <EmbeddedResource Include="General Clamp\Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2_PICATINNY.resx">
+    <EmbeddedResource Include="Picatinny\Form2_PICATINNY.resx">
       <DependentUpon>Form2_PICATINNY.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form3.resx">
+    <EmbeddedResource Include="General Clamp\Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -142,5 +160,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
