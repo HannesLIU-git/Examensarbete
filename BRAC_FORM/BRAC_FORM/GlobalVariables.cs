@@ -16,6 +16,10 @@ namespace BRAC_FORM
 
         public static int pipeCounter { get; set; } = 0;
 
+        public static int M4A1Counter { get; set; } = 0;
+
+        public static int AR15Counter { get; set; } = 0;
+
         public static double[] InitialPoint1 { get; set; } = new double[] {0,0,0 };
 
         public static double barrelEnd { get; set; } = 0;

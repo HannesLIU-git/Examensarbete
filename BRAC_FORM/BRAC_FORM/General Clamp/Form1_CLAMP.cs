@@ -18,12 +18,13 @@ namespace BRAC_FORM
         {
             InitializeComponent();
             button2.Enabled = false;
+            
         }
 
         private void button1_Click(object sender, EventArgs e) //////////////////// ADD BARREL
         {
 
-            GlobalVariables.pipeCounter++;
+            
 
 
             Session theSession = Session.GetSession();
@@ -46,6 +47,9 @@ namespace BRAC_FORM
 
             if (selected == "General")
             {
+
+                GlobalVariables.pipeCounter++;
+
                 string partsFolderPath = GlobalVariables.FilePath;
 
                 Class_Add_item addItem = new Class_Add_item();
@@ -60,22 +64,48 @@ namespace BRAC_FORM
             }
             else if (selected == "AR15")
             {
+                GlobalVariables.AR15Counter++;
+
                 GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
 
                 string partsFolderPath = GlobalVariables.FilePath;
 
                 Class_Add_item addItem = new Class_Add_item();
 
-                addItem.AddPartToAssembly("BARREL_m16.prt", GlobalVariables.pipeCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("BARREL_m16.prt", GlobalVariables.AR15Counter, D_width, position, partsFolderPath, assemblyPart);
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
 
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();
 
+                GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
+
+                button2.Enabled = true;
+                button4.Enabled = true;
+            }
+            else if (selected == "M4A1")
+            {
+                GlobalVariables.M4A1Counter++;
+
+                GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
+
+                string partsFolderPath = GlobalVariables.FilePath;
+
+                Class_Add_item addItem = new Class_Add_item();
+
+                addItem.AddPartToAssembly("M4A1_barrel.prt", GlobalVariables.M4A1Counter, D_width, position, partsFolderPath, assemblyPart);
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
+
+                GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
+
+                addItem.updateAll();
+                addItem.HideDatumsAndSketches();
+
                 button2.Enabled = true;
             }
-
+            
 
         }
 
@@ -110,6 +140,45 @@ namespace BRAC_FORM
                 form1_AR15.Show(); // Show Form2
                 this.Hide();  // Hide Form1
             }
+            else if (selected == "M4A1")
+            {
+
+                Form1_M4A1 form1_M4A1 = new Form1_M4A1(); // Create an instance of Form2
+                form1_M4A1.Show(); // Show Form2
+                this.Hide();  // Hide Form1
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) //////////////////// DELETE
+        {
+            Class_Add_item addItem = new Class_Add_item();
+
+            
+
+            string selected = comboBox1.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selected))
+            {
+                MessageBox.Show("Please select a Barrel to delete.");
+                return;
+            }
+
+            if (selected == "General")
+            {
+                addItem.DeleteBracket("Pipa_SAAB", GlobalVariables.pipeCounter);
+            }
+            else if (selected == "AR15")
+            {
+                addItem.DeleteBracket("BARREL_m16", GlobalVariables.AR15Counter); 
+            }
+            else if (selected == "M4A1")
+            {
+                addItem.DeleteBracket("M4A1_barrel", GlobalVariables.M4A1Counter);
+
+            }
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel deleted.");
+
+            
         }
     }
 }

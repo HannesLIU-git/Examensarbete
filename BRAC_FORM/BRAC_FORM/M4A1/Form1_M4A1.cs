@@ -1,5 +1,4 @@
-﻿using NXOpen;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,24 +10,23 @@ using System.Windows.Forms;
 
 namespace BRAC_FORM
 {
-    public partial class Form1_AR15: Form
+    public partial class Form1_M4A1: Form
     {
-        public Form1_AR15()
+        public Form1_M4A1()
         {
             InitializeComponent();
             button3.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e) //////////////////// CREATE POINT
+        private void button1_Click(object sender, EventArgs e) /////////////////////// CREATE POINT
         {
-
             NXOpen.Session theSession = NXOpen.Session.GetSession(); /////// SELECT BARREL IN TREE
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Make Work Part");
 
-            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT BARREL_m16_{GlobalVariables.AR15Counter} 1"));
+            NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"M4A1_barrel_{GlobalVariables.M4A1Counter} 1"));
             NXOpen.PartLoadStatus partLoadStatus1;
             theSession.Parts.SetWorkComponent(component1, NXOpen.PartCollection.RefsetOption.Entire, NXOpen.PartCollection.WorkComponentOption.Visible, out partLoadStatus1);
 
@@ -67,17 +65,17 @@ namespace BRAC_FORM
             button3.Enabled = true;
         }
 
-        private void button2_Click(object sender, EventArgs e) ///////////////////// PREVIOUS
+        private void button3_Click(object sender, EventArgs e) /////////////////////// NEXT
         {
-            Form1 form1 = new Form1(); // Create an instance of Form1
-            form1.Show(); // Show Form1
+            Form2_M4A1 form2_M4A1 = new Form2_M4A1(); // Create an instance of Form1
+            form2_M4A1.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
 
-        private void button3_Click(object sender, EventArgs e) ///////////////////// NEXT
+        private void button2_Click(object sender, EventArgs e) ////////////////////// PREVIOUS
         {
-            Form2_AR15 form2_AR15 = new Form2_AR15(); // Create an instance of Form1
-            form2_AR15.Show(); // Show Form1
+            Form1 form1 = new Form1(); // Create an instance of Form1
+            form1.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
     }
