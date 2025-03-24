@@ -26,7 +26,7 @@ namespace BRAC_FORM
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
             // ----------------------------------------------
-            //   Menu: Edit->Delete...
+            //   Menu: Edit->Delete...ss
             // ----------------------------------------------
             for (int i = 1; i < numberOfParts + 1; i++)
             {
