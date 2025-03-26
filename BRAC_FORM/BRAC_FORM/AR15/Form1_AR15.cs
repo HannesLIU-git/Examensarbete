@@ -16,7 +16,7 @@ namespace BRAC_FORM
         public Form1_AR15()
         {
             InitializeComponent();
-            button3.Enabled = false;
+            button3.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e) //////////////////// CREATE POINT

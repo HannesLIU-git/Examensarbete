@@ -17,7 +17,7 @@ namespace BRAC_FORM
         public Form1_CLAMP()
         {
             InitializeComponent();
-            button2.Enabled = false;
+            button2.Enabled = true;
             
         }
 

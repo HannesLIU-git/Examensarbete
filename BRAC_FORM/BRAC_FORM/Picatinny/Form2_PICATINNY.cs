@@ -87,7 +87,7 @@ namespace BRAC_FORM
             fileNew1.UsesMasterModel = "Yes";
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
-            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\sss\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
+            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REPPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
             fileNew1.MakeDisplayedPart = true;
             fileNew1.DisplayPartOption = DisplayPartOption.AllowAdditional;
@@ -127,33 +127,45 @@ namespace BRAC_FORM
             plistBuilder.Commit();
             plistBuilder.Destroy();
 
-            // Spara originalpart (assembly) för att kunna växla tillbaka mellan ritningar
-            Part originalPart = theSession.Parts.Work;
-
-            CreateDetailDrawing("Lower_brac_Picatinny_1");
-            theSession.Parts.SetWork(originalPart);
-           // theSession.Parts.SetDisplay(originalPart);
-            CreateDetailDrawing("Upper_brac_Picatinny_1");
+            // === Skapa separata detaljritningar i nya NX-fönster ===
+            CreateSeparateDetailDrawing("Lower_brac_Picatinny_1");
+            CreateSeparateDetailDrawing("Upper_brac_Picatinny_1");
 
             MessageBox.Show("Alla ritningar skapade!");
+            
+            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
+
+     
         }
 
-        private void CreateDetailDrawing(string partName)
+        private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            string baseDir = @"C:\\Users\\u107284\\Desktop\\sss\\BRAC_FORM\\CAD\\";
+            string baseDir = @"C:\Users\u107284\Desktop\REPPOE\BRAC_FORM\CAD\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";
 
-            // Öppna part
-            PartLoadStatus status;
-            Part detailPart = (Part)theSession.Parts.OpenBaseDisplay(partPath, out status);
-            status.Dispose();
+            Part detailPart = null;
 
-            if (!detailPart.IsFullyLoaded)
-                theSession.Parts.SetWork(detailPart);
+            // 🔍 Kontrollera om parten redan är öppen
+            foreach (Part p in theSession.Parts.ToArray())
+            {
+                if (p.FullPath.ToLower() == partPath.ToLower())
+                {
+                    detailPart = p;
+                    break;
+                }
+            }
 
-            // Skapa ritningsfil
+            // 📂 Om inte öppen, öppna i nytt fönster
+            if (detailPart == null)
+            {
+                PartLoadStatus loadStatus;
+                detailPart = theSession.Parts.OpenDisplay(partPath, out loadStatus);
+                loadStatus.Dispose();
+            }
+
+            //Skapa ritningsfil för detaljen
             FileNew fileNew = theSession.Parts.FileNew();
             fileNew.TemplateFileName = "sts-A3.prt";
             fileNew.TemplatePresentationName = "STS - A3";
@@ -165,33 +177,43 @@ namespace BRAC_FORM
             fileNew.UseBlankTemplate = false;
             fileNew.MakeDisplayedPart = true;
             fileNew.DisplayPartOption = DisplayPartOption.AllowAdditional;
-            NXObject newDrawing = fileNew.Commit();
+            fileNew.Commit();
             fileNew.Destroy();
 
             Part drawingPart = theSession.Parts.Work;
             drawingPart.Drafting.EnterDraftingApplication();
             drawingPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === FRONT ===
+            // === Vyer ===ssssssssssssss
+            ModelingView front = drawingPart.ModelingViews.FindObject("Front") as ModelingView;
+            ModelingView right = drawingPart.ModelingViews.FindObject("Right") as ModelingView;
+            ModelingView iso = drawingPart.ModelingViews.FindObject("Isometric") as ModelingView;
+
             BaseViewBuilder frontBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            frontBuilder.SelectModelView.SelectedView = drawingPart.ModelingViews.FindObject("Front") as ModelingView;
+            frontBuilder.SelectModelView.SelectedView = front;
             frontBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(100, 100, 0));
             BaseView frontView = (BaseView)frontBuilder.Commit();
             frontBuilder.Destroy();
 
-            // === RIGHT ===
             BaseViewBuilder rightBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            rightBuilder.SelectModelView.SelectedView = drawingPart.ModelingViews.FindObject("Right") as ModelingView;
+            rightBuilder.SelectModelView.SelectedView = right;
             rightBuilder.Placement.Placement.SetValue(frontView, drawingPart.Views.WorkView, new Point3d(220, 100, 0));
             BaseView rightView = (BaseView)rightBuilder.Commit();
             rightBuilder.Destroy();
 
-            // === ISOMETRIC ===
             BaseViewBuilder isoBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            isoBuilder.SelectModelView.SelectedView = drawingPart.ModelingViews.FindObject("Isometric") as ModelingView;
+            isoBuilder.SelectModelView.SelectedView = iso;
             isoBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(250, 210, 0));
             BaseView isoView = (BaseView)isoBuilder.Commit();
             isoBuilder.Destroy();
+            
+        }
+
+
+
+
+        private void Form2_PICATINNY_Load(object sender, EventArgs e)
+        {
         }
     }
 }
