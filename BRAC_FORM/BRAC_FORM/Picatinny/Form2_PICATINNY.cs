@@ -265,7 +265,7 @@ namespace BRAC_FORM
             DraftingCurve curve1 = body.DraftingCurves.ToArray()[curveIndex1 - 1];
             DraftingCurve curve2 = body.DraftingCurves.ToArray()[curveIndex2 - 1];
 
-            // Dummy positions (krävs men används inte eftersom vi ställer in riktig origin)
+            // Dummy positions (krävs men används inte eftersom vi ställer in riktig origin)ss
             Point3d dummy = new Point3d(0, 0, 0);
 
             // Plats där dimensionen ska hamna
