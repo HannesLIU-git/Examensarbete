@@ -39,11 +39,11 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(16, 70);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(475, 22);
             this.textBox2.TabIndex = 26;
-            this.textBox2.Text = "C:\\Users\\u107284\\Desktop\\REPPOE\\BRAC_FORM\\CAD";
+            this.textBox2.Text = "C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD";
             // 
             // label2
             // 
@@ -58,7 +58,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(392, 363);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 28);
             this.button4.TabIndex = 28;
@@ -69,7 +69,7 @@
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(16, 363);
-            this.button8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(100, 28);
             this.button8.TabIndex = 29;
@@ -86,7 +86,7 @@
             "Clamp",
             "Picatinny"});
             this.comboBox1.Location = new System.Drawing.Point(177, 235);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
             this.comboBox1.TabIndex = 30;
@@ -114,7 +114,7 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox2);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);

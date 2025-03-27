@@ -90,9 +90,10 @@ namespace BRAC_FORM
             fileNew1.UsesMasterModel = "Yes";
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
-            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REPPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
+            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
-            
+   
+
             fileNew1.MakeDisplayedPart = true;
             fileNew1.DisplayPartOption = DisplayPartOption.AllowAdditional;
             fileNew1.Commit();
@@ -136,7 +137,7 @@ namespace BRAC_FORM
             CreateSeparateDetailDrawing("Lower_brac_Picatinny_1");
            
             CreateSeparateDetailDrawing("Upper_brac_Picatinny_1");
-
+            //ListDraftingCurves(frontView);
             MessageBox.Show("Alla ritningar skapade!");
             
             //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
@@ -147,13 +148,12 @@ namespace BRAC_FORM
         private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            string baseDir = @"C:\Users\u107284\Desktop\REPPOE\BRAC_FORM\CAD\";
+            string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";
 
             Part detailPart = null;
 
-            // 🔍 Kontrollera om parten redan är öppen
             foreach (Part p in theSession.Parts.ToArray())
             {
                 if (p.FullPath.ToLower() == partPath.ToLower())
@@ -163,7 +163,6 @@ namespace BRAC_FORM
                 }
             }
 
-            // 📂 Om inte öppen, öppna i nytt fönster
             if (detailPart == null)
             {
                 PartLoadStatus loadStatus;
@@ -171,7 +170,6 @@ namespace BRAC_FORM
                 loadStatus.Dispose();
             }
 
-            //Skapa ritningsfil för detaljen
             FileNew fileNew = theSession.Parts.FileNew();
             fileNew.TemplateFileName = "sts-A3.prt";
             fileNew.TemplatePresentationName = "STS - A3";
@@ -190,7 +188,6 @@ namespace BRAC_FORM
             drawingPart.Drafting.EnterDraftingApplication();
             drawingPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === Vyer ===ssssssssssssss
             ModelingView front = drawingPart.ModelingViews.FindObject("Front") as ModelingView;
             ModelingView right = drawingPart.ModelingViews.FindObject("Right") as ModelingView;
             ModelingView iso = drawingPart.ModelingViews.FindObject("Isometric") as ModelingView;
@@ -200,9 +197,6 @@ namespace BRAC_FORM
             frontBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(100, 100, 0));
             BaseView frontView = (BaseView)frontBuilder.Commit();
             frontBuilder.Destroy();
-            AddDimensionBetweenCurves(108, 83.902500000000117, drawingPart, 1, 2, frontView);
-            AddDimensionBetweenCurves(108, 50, drawingPart, 2, 3, frontView);
-
 
             BaseViewBuilder rightBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
             rightBuilder.SelectModelView.SelectedView = right;
@@ -210,43 +204,25 @@ namespace BRAC_FORM
             BaseView rightView = (BaseView)rightBuilder.Commit();
             rightBuilder.Destroy();
 
-       
-
             BaseViewBuilder isoBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
             isoBuilder.SelectModelView.SelectedView = iso;
             isoBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(250, 210, 0));
             BaseView isoView = (BaseView)isoBuilder.Commit();
             isoBuilder.Destroy();
-            ///testa att sätta in dimensioner==============================================================================================
-            ///
-            //DraftingDrawingSheet sheet = drawingPart.DraftingDrawingSheets.ToArray()[0];
-            //BaseView firstView = (BaseView)drawingPart.DraftingViews.ToArray()[0];
-            //DraftingBody body = firstView.DraftingBodies.ToArray()[0];
-            //DraftingCurve[] curves = body.DraftingCurves.ToArray();
 
-            //// Hämta två kurvor att måttsätta mellan
-            //DraftingCurve curve1 = curves[0];
-            //DraftingCurve curve2 = curves[1];
+            // === Måttsättning för Lower_brac_Picatinny_1 ===
+            // Mått 1: Höjd (t.ex. 31.8 mm)
+            AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
 
-            //// Skapa Rapid Dimension Builder
-            //RapidDimensionBuilder dimBuilder = drawingPart.Dimensions.CreateRapidDimensionBuilder(null);
-            //dimBuilder.Driving.DrivingMethod = DrivingValueBuilder.DrivingValueMethod.Reference;
+            // Mått 2: Total höjd (t.ex. 37.2 mm)
+            AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
 
-            //// Lägg till kurvorna som måttsättningsobjekt
-            //Point3d dummy = new Point3d(0, 0, 0);
-            //dimBuilder.FirstAssociativity.SetValue(InferSnapType.SnapType.End, curve1, firstView, dummy, null, null, dummy);
-            //dimBuilder.SecondAssociativity.SetValue(InferSnapType.SnapType.End, curve2, firstView, dummy, null, null, dummy);
+            // === Måttsättning för Upper_brac_Picatinny_1 ===
+            // Mått 1: Spårhöjd (t.ex. 0.51 mm)
+            AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
 
-            //// Placering av dimensionen
-            //Point3d dimLocation = new Point3d(150, 150, 0);
-            //dimBuilder.Origin.Origin.SetValue(null, null, dimLocation);
-
-            //// Skapa måttet
-            //dimBuilder.Commit();
-            //dimBuilder.Destroy();
-
-
-
+            // Mått 2: Totalhöjd (t.ex. 5.33 mm)
+            AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
 
         }
         private void AddDimensionBetweenCurves(
@@ -283,7 +259,7 @@ namespace BRAC_FORM
             dimBuilder.Destroy();
         }
 
-        
+
 
 
 
@@ -292,6 +268,15 @@ namespace BRAC_FORM
 
         private void Form2_PICATINNY_Load(object sender, EventArgs e)
         {
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+           
+        
+            this.Close(); // stänger formuläret
+            Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
+           
         }
     }
 }
