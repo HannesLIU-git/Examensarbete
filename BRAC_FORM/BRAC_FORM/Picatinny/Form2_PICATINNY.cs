@@ -104,10 +104,11 @@ namespace BRAC_FORM
             workPart.Drafting.EnterDraftingApplication();
             workPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === FRONT ===
+            // === FRONT ===+++
             BaseViewBuilder frontBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             frontBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Front") as ModelingView;
             frontBuilder.Placement.Placement.SetValue(null, workPart.Views.WorkView, new Point3d(100, 100, 0));
+            frontBuilder.Scale.Denominator = 2.0; ///skalan!
             BaseView frontView = (BaseView)frontBuilder.Commit();
             frontBuilder.Destroy();
 
@@ -115,6 +116,7 @@ namespace BRAC_FORM
             BaseViewBuilder rightBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             rightBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Right") as ModelingView;
             rightBuilder.Placement.Placement.SetValue(frontView, workPart.Views.WorkView, new Point3d(220, 100, 0));
+            rightBuilder.Scale.Denominator = 2.0;//skalan!
             BaseView rightView = (BaseView)rightBuilder.Commit();
             rightBuilder.Destroy();
 
@@ -122,6 +124,7 @@ namespace BRAC_FORM
             BaseViewBuilder isoBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             isoBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Isometric") as ModelingView;
             isoBuilder.Placement.Placement.SetValue(null, workPart.Views.WorkView, new Point3d(210, 200, 0));
+            isoBuilder.Scale.Denominator = 2.0;//skalan!
             BaseView isoView = (BaseView)isoBuilder.Commit();
             isoBuilder.Destroy();
 
@@ -276,7 +279,8 @@ namespace BRAC_FORM
         
             this.Close(); // stänger formuläret
             Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
-           
+            Environment.Exit(0);
+
         }
     }
 }

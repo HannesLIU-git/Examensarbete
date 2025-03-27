@@ -126,21 +126,25 @@ namespace BRAC_FORM
             fileNew1.UsesMasterModel = "Yes";
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
-            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REPPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
+            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
+
+
             fileNew1.MakeDisplayedPart = true;
             fileNew1.DisplayPartOption = DisplayPartOption.AllowAdditional;
             fileNew1.Commit();
             fileNew1.Destroy();
 
+
             workPart = theSession.Parts.Work;
             workPart.Drafting.EnterDraftingApplication();
             workPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === FRONT ===
+            // === FRONT ===+++
             BaseViewBuilder frontBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             frontBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Front") as ModelingView;
             frontBuilder.Placement.Placement.SetValue(null, workPart.Views.WorkView, new Point3d(100, 100, 0));
+            frontBuilder.Scale.Denominator = 3.0; ///skalan!
             BaseView frontView = (BaseView)frontBuilder.Commit();
             frontBuilder.Destroy();
 
@@ -148,6 +152,7 @@ namespace BRAC_FORM
             BaseViewBuilder rightBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             rightBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Right") as ModelingView;
             rightBuilder.Placement.Placement.SetValue(frontView, workPart.Views.WorkView, new Point3d(220, 100, 0));
+            rightBuilder.Scale.Denominator = 3.0;//skalan!
             BaseView rightView = (BaseView)rightBuilder.Commit();
             rightBuilder.Destroy();
 
@@ -155,6 +160,7 @@ namespace BRAC_FORM
             BaseViewBuilder isoBuilder = workPart.DraftingViews.CreateBaseViewBuilder(null);
             isoBuilder.SelectModelView.SelectedView = workPart.ModelingViews.FindObject("Isometric") as ModelingView;
             isoBuilder.Placement.Placement.SetValue(null, workPart.Views.WorkView, new Point3d(210, 200, 0));
+            isoBuilder.Scale.Denominator = 3.0;//skalan!
             BaseView isoView = (BaseView)isoBuilder.Commit();
             isoBuilder.Destroy();
 
@@ -167,25 +173,27 @@ namespace BRAC_FORM
             plistBuilder.Destroy();
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
+            CreateSeparateDetailDrawing("Locking_brack_1");
             CreateSeparateDetailDrawing("Upper_NEW_clamp_1");
             CreateSeparateDetailDrawing("Lower_brac_new_m16_1");
-
+            CreateSeparateDetailDrawing("Locking_brack_1");
+            CreateSeparateDetailDrawing("RPD_PIN_1");
             MessageBox.Show("Alla ritningar skapade!");
 
-            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING");
+            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
+
 
         }
 
         private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            string baseDir = @"C:\Users\u107284\Desktop\REPPOE\BRAC_FORM\CAD\";
+            string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";
 
             Part detailPart = null;
 
-            // 🔍 Kontrollera om parten redan är öppen
             foreach (Part p in theSession.Parts.ToArray())
             {
                 if (p.FullPath.ToLower() == partPath.ToLower())
@@ -195,7 +203,6 @@ namespace BRAC_FORM
                 }
             }
 
-            // 📂 Om inte öppen, öppna i nytt fönster
             if (detailPart == null)
             {
                 PartLoadStatus loadStatus;
@@ -203,7 +210,6 @@ namespace BRAC_FORM
                 loadStatus.Dispose();
             }
 
-            //Skapa ritningsfil för detaljen
             FileNew fileNew = theSession.Parts.FileNew();
             fileNew.TemplateFileName = "sts-A3.prt";
             fileNew.TemplatePresentationName = "STS - A3";
@@ -222,7 +228,6 @@ namespace BRAC_FORM
             drawingPart.Drafting.EnterDraftingApplication();
             drawingPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === Vyer ===ssssssssssssss
             ModelingView front = drawingPart.ModelingViews.FindObject("Front") as ModelingView;
             ModelingView right = drawingPart.ModelingViews.FindObject("Right") as ModelingView;
             ModelingView iso = drawingPart.ModelingViews.FindObject("Isometric") as ModelingView;
@@ -245,6 +250,53 @@ namespace BRAC_FORM
             BaseView isoView = (BaseView)isoBuilder.Commit();
             isoBuilder.Destroy();
 
+            // === Måttsättning för Lower_brac_Picatinny_1 ===
+            // Mått 1: Höjd (t.ex. 31.8 mm)
+            AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
+
+            // Mått 2: Total höjd (t.ex. 37.2 mm)
+            AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
+
+            // === Måttsättning för Upper_brac_Picatinny_1 ===
+            // Mått 1: Spårhöjd (t.ex. 0.51 mm)
+            AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
+
+            // Mått 2: Totalhöjd (t.ex. 5.33 mm)
+            AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
+
+        }
+        private void AddDimensionBetweenCurves(
+    double posX,
+    double posY,
+    Part part,
+    int curveIndex1,
+    int curveIndex2,
+    BaseView view)
+        {
+            RapidDimensionBuilder dimBuilder = part.Dimensions.CreateRapidDimensionBuilder(null);
+            dimBuilder.Driving.DrivingMethod = DrivingValueBuilder.DrivingValueMethod.Reference;
+
+            // Hämta kurvorna i den valda vyn
+            DraftingBody body = view.DraftingBodies.ToArray()[0];
+            DraftingCurve curve1 = body.DraftingCurves.ToArray()[curveIndex1 - 1];
+            DraftingCurve curve2 = body.DraftingCurves.ToArray()[curveIndex2 - 1];
+
+            // Dummy positions (krävs men används inte eftersom vi ställer in riktig origin)ss
+            Point3d dummy = new Point3d(0, 0, 0);
+
+            // Plats där dimensionen ska hamna
+            Point3d dimensionLocation = new Point3d(posX, posY, 0);
+
+            // Sätt associeringar
+            dimBuilder.FirstAssociativity.SetValue(InferSnapType.SnapType.End, curve1, view, dummy, null, null, dummy);
+            dimBuilder.SecondAssociativity.SetValue(InferSnapType.SnapType.End, curve2, view, dummy, null, null, dummy);
+
+            // 🔧 Manuell position
+            dimBuilder.Origin.SetInferRelativeToGeometry(false);
+            dimBuilder.Origin.Origin.SetValue(null, null, dimensionLocation);
+
+            dimBuilder.Commit();
+            dimBuilder.Destroy();
         }
     }
 }
