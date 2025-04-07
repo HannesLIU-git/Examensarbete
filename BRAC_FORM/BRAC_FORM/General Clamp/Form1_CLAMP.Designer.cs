@@ -39,9 +39,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(179, 143);
+            this.button1.Location = new System.Drawing.Point(239, 176);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 0;
             this.button1.Text = "Add Barrel";
             this.button1.UseVisualStyleBackColor = true;
@@ -49,26 +50,29 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(169, 93);
+            this.textBox1.Location = new System.Drawing.Point(225, 114);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "25";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 96);
+            this.label1.Location = new System.Drawing.Point(85, 118);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.Size = new System.Drawing.Size(101, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "Barrel Diameter";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(332, 211);
+            this.button2.Location = new System.Drawing.Point(443, 260);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 3;
             this.button2.Text = "Next...";
             this.button2.UseVisualStyleBackColor = true;
@@ -76,9 +80,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(26, 211);
+            this.button3.Location = new System.Drawing.Point(35, 260);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 4;
             this.button3.Text = "Previous";
             this.button3.UseVisualStyleBackColor = true;
@@ -91,17 +96,20 @@
             "General",
             "AR15",
             "M4A1"});
-            this.comboBox1.Location = new System.Drawing.Point(160, 41);
+            this.comboBox1.Location = new System.Drawing.Point(213, 50);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(160, 24);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "Type of Barrel";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(169, 211);
+            this.button4.Location = new System.Drawing.Point(225, 260);
+            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 23);
+            this.button4.Size = new System.Drawing.Size(120, 28);
             this.button4.TabIndex = 6;
             this.button4.Text = "Delete Barrel";
             this.button4.UseVisualStyleBackColor = true;
@@ -109,9 +117,9 @@
             // 
             // Form1_CLAMP
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 294);
+            this.ClientSize = new System.Drawing.Size(575, 362);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button3);
@@ -119,6 +127,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1_CLAMP";
             this.Text = "Form1_CLAMP";
             this.ResumeLayout(false);

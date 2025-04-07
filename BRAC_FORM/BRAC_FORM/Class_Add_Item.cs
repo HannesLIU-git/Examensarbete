@@ -42,7 +42,7 @@ namespace BRAC_FORM
 
                 theSession.DeleteUndoMark(markId1, null);
 
-                string partsFolderPath = GlobalVariables.FilePath + "\\CAD";
+                string partsFolderPath = GlobalVariables.FilePath;
 
                 string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
 
