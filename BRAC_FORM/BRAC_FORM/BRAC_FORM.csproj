@@ -72,12 +72,6 @@
     <Compile Include="M4A1\Form2_M4A1.Designer.cs">
       <DependentUpon>Form2_M4A1.cs</DependentUpon>
     </Compile>
-    <Compile Include="M4A1\Form1_M4A1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="M4A1\Form1_M4A1.Designer.cs">
-      <DependentUpon>Form1_M4A1.cs</DependentUpon>
-    </Compile>
     <Compile Include="AR15\Form2_AR15.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,9 +128,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="M4A1\Form2_M4A1.resx">
       <DependentUpon>Form2_M4A1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="M4A1\Form1_M4A1.resx">
-      <DependentUpon>Form1_M4A1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AR15\Form2_AR15.resx">
       <DependentUpon>Form2_AR15.cs</DependentUpon>

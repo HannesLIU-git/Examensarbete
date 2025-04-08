@@ -44,7 +44,14 @@ namespace BRAC_FORM
 
                 string partsFolderPath = GlobalVariables.FilePath;
 
-                string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"{partsFolderPath}");
+
+                //string newPartPath = Path.Combine(Path.GetDirectoryName(partsFolderPath), $"{partNameToDelete}_{counter}.prt");
+
+
+                string newPartPath = Path.Combine(partsFolderPath, $"{partNameToDelete}_{counter}.prt");
+
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"{newPartPath}");
 
                 File.Delete(newPartPath);
 

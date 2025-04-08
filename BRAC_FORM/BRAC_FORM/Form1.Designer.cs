@@ -43,7 +43,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(475, 22);
             this.textBox2.TabIndex = 26;
-            this.textBox2.Text = "C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD";
+            this.textBox2.Text = "C:\\Users\\u107054\\Desktop\\Gitlab\\2025-04-08\\BRAC_FORM\\CAD";
             // 
             // label2
             // 

@@ -66,7 +66,7 @@ namespace BRAC_FORM
             {
                 GlobalVariables.AR15Counter++;
 
-                GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
+                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
 
                 string partsFolderPath = GlobalVariables.FilePath;
 
@@ -79,7 +79,7 @@ namespace BRAC_FORM
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();
 
-                GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
+                //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
                 button2.Enabled = true;
                 button4.Enabled = true;
@@ -88,7 +88,7 @@ namespace BRAC_FORM
             {
                 GlobalVariables.M4A1Counter++;
 
-                GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
+                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
 
                 string partsFolderPath = GlobalVariables.FilePath;
 
@@ -98,7 +98,7 @@ namespace BRAC_FORM
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
 
-                GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
+                //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();
@@ -143,7 +143,7 @@ namespace BRAC_FORM
             else if (selected == "M4A1")
             {
 
-                Form1_M4A1 form1_M4A1 = new Form1_M4A1(); // Create an instance of Form2
+                Form2_M4A1 form1_M4A1 = new Form2_M4A1(); // Create an instance of Form2
                 form1_M4A1.Show(); // Show Form2
                 this.Hide();  // Hide Form1
             }
