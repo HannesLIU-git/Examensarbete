@@ -42,6 +42,8 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button4
@@ -128,11 +130,11 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(508, 443);
+            this.button5.Location = new System.Drawing.Point(243, 550);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 26);
+            this.button5.Size = new System.Drawing.Size(150, 37);
             this.button5.TabIndex = 19;
-            this.button5.Text = "Drawings";
+            this.button5.Text = "Create Drawings";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -185,11 +187,32 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Fork Width";
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(243, 504);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(181, 22);
+            this.textBox5.TabIndex = 25;
+            this.textBox5.Text = "AssemblyDrawing";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(31, 510);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 16);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Assembly Drawing Name";
+            // 
             // Form2_M4A1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 496);
+            this.ClientSize = new System.Drawing.Size(635, 608);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox4);
@@ -228,5 +251,7 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label5;
     }
 }

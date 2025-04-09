@@ -144,8 +144,9 @@ namespace BRAC_FORM
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
 
-            string filename = GlobalVariables.FilePath + "\\assembly1_dwg1.prt";
+            string filename = GlobalVariables.FilePath + "\\" + textBox5.Text + ".prt";
             fileNew1.NewFileName =filename;
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{filename}");
 
             //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
@@ -210,7 +211,8 @@ namespace BRAC_FORM
         private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
+            //string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
+            string baseDir = GlobalVariables.FilePath + "\\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";
 
@@ -274,26 +276,26 @@ namespace BRAC_FORM
 
             // === Måttsättning för Lower_brac_Picatinny_1 ===
             // Mått 1: Höjd (t.ex. 31.8 mm)
-            AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
+            //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
 
-            // Mått 2: Total höjd (t.ex. 37.2 mm)
-            AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
+            //// Mått 2: Total höjd (t.ex. 37.2 mm)
+            //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
 
-            // === Måttsättning för Upper_brac_Picatinny_1 ===
-            // Mått 1: Spårhöjd (t.ex. 0.51 mm)
-            AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
+            //// === Måttsättning för Upper_brac_Picatinny_1 ===
+            //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
+            //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
 
-            // Mått 2: Totalhöjd (t.ex. 5.33 mm)
-            AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
+            //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
+            //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
 
         }
         private void AddDimensionBetweenCurves(
-    double posX,
-    double posY,
-    Part part,
-    int curveIndex1,
-    int curveIndex2,
-    BaseView view)
+            double posX,
+            double posY,
+            Part part,
+            int curveIndex1,
+            int curveIndex2,
+            BaseView view)
         {
             RapidDimensionBuilder dimBuilder = part.Dimensions.CreateRapidDimensionBuilder(null);
             dimBuilder.Driving.DrivingMethod = DrivingValueBuilder.DrivingValueMethod.Reference;
