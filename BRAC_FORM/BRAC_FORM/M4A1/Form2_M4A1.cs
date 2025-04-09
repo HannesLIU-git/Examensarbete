@@ -143,7 +143,11 @@ namespace BRAC_FORM
             fileNew1.UsesMasterModel = "Yes";
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
-            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
+
+            string filename = GlobalVariables.FilePath + "\\assembly1_dwg1.prt";
+            fileNew1.NewFileName =filename;
+
+            //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
 
 
