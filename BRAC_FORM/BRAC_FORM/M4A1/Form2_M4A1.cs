@@ -25,6 +25,7 @@ namespace BRAC_FORM
             InitializeComponent();
             button4.Enabled = false;
             button6.Enabled = false;
+            button5.Enabled = false;
         }
 
         private void button3_Click(object sender, EventArgs e) ////////////////// ADD BRACKET
@@ -85,19 +86,18 @@ namespace BRAC_FORM
 
             originalTextbox1 = textBox1.Text;
             originalTextbox2 = textBox2.Text;
+            originalTextbox3 = textBox3.Text;
+            originalTextbox4 = textBox4.Text;
 
             button4.Enabled = true;
             button3.Enabled = false;
             button6.Enabled = true;
+            button5.Enabled = true;
         }
 
         private void button4_Click(object sender, EventArgs e) ///////////////////////// DELETE
         {
-            Class_Add_item addItem = new Class_Add_item();
-            
-            //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
-
-            //UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"{GlobalVariables.FilePath}");
+            Class_Add_item addItem = new Class_Add_item();   
 
             addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
@@ -108,8 +108,6 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
-           
-            //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
             button4.Enabled = false;
             button3.Enabled = true;
@@ -128,7 +126,7 @@ namespace BRAC_FORM
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) ////////////////////// DRAWING
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
@@ -195,23 +193,22 @@ namespace BRAC_FORM
             plistBuilder.Destroy();
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
-            CreateSeparateDetailDrawing("M6_35_NEW_BRAC_1");
-            CreateSeparateDetailDrawing("Upper_NEW_clamp_1");
-            CreateSeparateDetailDrawing("Lower_brac_new_m16_1");
-            CreateSeparateDetailDrawing("Locking_brack_1");
-            CreateSeparateDetailDrawing("RPD_PIN_1");
+            CreateSeparateDetailDrawing($"M6_35_NEW_BRAC_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}");
 
-            MessageBox.Show("Alla ritningar skapade!");
+            MessageBox.Show("All drawings created.");
 
             //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
 
-
+            button5.Enabled = false;
         }
 
         private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            //string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
             string baseDir = GlobalVariables.FilePath + "\\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";

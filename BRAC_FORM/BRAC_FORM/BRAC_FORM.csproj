@@ -60,12 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Add_Item.cs" />
-    <Compile Include="AR15\Form1_AR15.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AR15\Form1_AR15.Designer.cs">
-      <DependentUpon>Form1_AR15.cs</DependentUpon>
-    </Compile>
     <Compile Include="M4A1\Form2_M4A1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,9 +116,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AR15\Form1_AR15.resx">
-      <DependentUpon>Form1_AR15.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="M4A1\Form2_M4A1.resx">
       <DependentUpon>Form2_M4A1.cs</DependentUpon>

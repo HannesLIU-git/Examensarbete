@@ -13,6 +13,7 @@ namespace BRAC_FORM
 {
     public partial class Form1: Form
     {
+        bool browser_pressed = false;
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +24,10 @@ namespace BRAC_FORM
 
         private void button4_Click(object sender, EventArgs e) /////////////////////////// NEXT
         {
-            GlobalVariables.FilePath = $@"{textBox2.Text}";
+            if (browser_pressed == false)
+            {
+                GlobalVariables.FilePath = $@"{textBox2.Text}";
+            }
             GlobalVariables.FilePathUI = GlobalVariables.FilePath.Replace("CAD", "Point_UI.dlx");
 
 
@@ -90,5 +94,25 @@ namespace BRAC_FORM
 
         }
 
+        public static int GetUnloadOption(string dummy) 
+        { return (int)NXOpen.Session.LibraryUnloadOption.Immediately; }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "Välj en mapp";
+                folderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
+                folderDialog.ShowNewFolderButton = true;
+
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedPath = folderDialog.SelectedPath;
+                    GlobalVariables.FilePath = selectedPath;
+                    MessageBox.Show("Vald mapp: " + selectedPath);
+                }
+            }
+            browser_pressed = true;
+        }
     }
 }

@@ -16,16 +16,22 @@ namespace BRAC_FORM
 {
     public partial class Form2_AR15: Form
     {
+        string originalTextbox1 = "";
+        string originalTextbox2 = "";
+        string originalTextbox3 = "";
+        string originalTextbox4 = "";
         public Form2_AR15()
         {
             InitializeComponent();
             button4.Enabled = false;
+            button6.Enabled = false;
+            button5.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e) /////////////////// PREVIOUS
         {
-            Form1_AR15 form1_AR15 = new Form1_AR15(); // Create an instance of Form1
-            form1_AR15.Show(); // Show Form1
+            Form1_CLAMP form1_CLAMP = new Form1_CLAMP(); // Create an instance of Form1
+            form1_CLAMP.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
 
@@ -65,8 +71,8 @@ namespace BRAC_FORM
 
 
             //string Gaffel_L = FrontPOS.ToString();
-            string Gaffel_L = "10";
-            string Gaffel_W = "10";
+            string Gaffel_L = textBox3.Text;
+            string Gaffel_W = textBox4.Text;
 
 
             Point3d position = new Point3d(0.0, Pos, 0.0);
@@ -91,6 +97,8 @@ namespace BRAC_FORM
 
             button4.Enabled = true;
             button3.Enabled = false;
+            button6.Enabled = true;
+            button5.Enabled = true;
         }
 
         private void button4_Click(object sender, EventArgs e) ////////////////////// DELETE
@@ -111,7 +119,7 @@ namespace BRAC_FORM
             button3.Enabled = true;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) ////////////////////////// DRAWING
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
@@ -126,7 +134,9 @@ namespace BRAC_FORM
             fileNew1.UsesMasterModel = "Yes";
             fileNew1.TemplateType = FileNewTemplateType.Item;
             fileNew1.TemplatePresentationName = "STS - A3";
-            fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
+
+            string filename = GlobalVariables.FilePath + "\\" + textBox5.Text + ".prt";
+            fileNew1.NewFileName = filename;
             fileNew1.MasterFileName = "assembly1";
 
 
@@ -173,24 +183,26 @@ namespace BRAC_FORM
             plistBuilder.Destroy();
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
-            CreateSeparateDetailDrawing("Locking_brack_1");
-            CreateSeparateDetailDrawing("Upper_NEW_clamp_1");
-            CreateSeparateDetailDrawing("Lower_brac_new_m16_1");
-            CreateSeparateDetailDrawing("Locking_brack_1");
-            CreateSeparateDetailDrawing("RPD_PIN_1");
-            MessageBox.Show("Alla ritningar skapade!");
+            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}");
+            MessageBox.Show("All drawings created.");
 
             //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
 
-
+            button5.Enabled = false;
         }
 
         private void CreateSeparateDetailDrawing(string partName)
         {
             Session theSession = Session.GetSession();
-            string baseDir = @"C:\Users\u107284\Desktop\REEPOE\BRAC_FORM\CAD\";
+            string baseDir = GlobalVariables.FilePath + "\\";
             string partPath = baseDir + partName + ".prt";
             string drawingPath = baseDir + partName + "_dwg1.prt";
+
+            MessageBox.Show($"{drawingPath}");
 
             Part detailPart = null;
 
@@ -252,17 +264,17 @@ namespace BRAC_FORM
 
             // === Måttsättning för Lower_brac_Picatinny_1 ===
             // Mått 1: Höjd (t.ex. 31.8 mm)
-            AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
+            //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
 
-            // Mått 2: Total höjd (t.ex. 37.2 mm)
-            AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
+            //// Mått 2: Total höjd (t.ex. 37.2 mm)
+            //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
 
-            // === Måttsättning för Upper_brac_Picatinny_1 ===
-            // Mått 1: Spårhöjd (t.ex. 0.51 mm)
-            AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
+            //// === Måttsättning för Upper_brac_Picatinny_1 ===
+            //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
+            //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
 
-            // Mått 2: Totalhöjd (t.ex. 5.33 mm)
-            AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
+            //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
+            //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
 
         }
         private void AddDimensionBetweenCurves(
@@ -298,5 +310,77 @@ namespace BRAC_FORM
             dimBuilder.Commit();
             dimBuilder.Destroy();
         }
+
+        private void button6_Click(object sender, EventArgs e) ///////////////////////// UPDATE
+        {
+            if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox3.Text != originalTextbox3)
+            {
+                Class_Add_item addItem = new Class_Add_item();
+
+                addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Lower_brac_new_m16", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("M6_35_NEW_BRAC", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("RPD_PIN", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("SAT_FUNK", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
+
+                Session theSession = Session.GetSession();
+                Part assemblyPart = (Part)theSession.Parts.Work;
+
+                GlobalVariables.bracketCounter++;
+
+                string D_width = GlobalVariables.PipeDiameter;
+                GlobalVariables.Width = textBox1.Text;
+                string Width = GlobalVariables.Width;
+                string XPos = "10";
+                string YPos = "10";
+
+                int IntPoint = (int)GlobalVariables.barrelEnd;
+
+                GlobalVariables.BracketPos = textBox2.Text;
+                int bracketPos = int.Parse(GlobalVariables.BracketPos);
+
+                double Pos = IntPoint + bracketPos;
+
+                int Forkint = (int)GlobalVariables.forkdistance + 1;
+                //string Gaffel_W = Forkint.ToString();
+
+                int bracketWidth = int.Parse(Width);
+
+                int Frontint = (int)GlobalVariables.forkpoint1[1]; // FrontPos
+                int FrontDif = Math.Abs(IntPoint - Frontint);
+                int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
+
+
+                //string Gaffel_L = FrontPOS.ToString();
+                string Gaffel_L = textBox3.Text;
+                string Gaffel_W = textBox4.Text;
+
+
+                Point3d position = new Point3d(0.0, Pos, 0.0);
+                string partsFolderPath = GlobalVariables.FilePath;
+
+
+                addItem.AddPartToAssembly("Locking_brack.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Locking_Pin.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("SAT_FUNK.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
+
+
+                addItem.updateAll();
+                addItem.HideDatumsAndSketches();
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket updated");
+
+                button6.Enabled = true;
+            }
+
+        }
+
+
     }
 }

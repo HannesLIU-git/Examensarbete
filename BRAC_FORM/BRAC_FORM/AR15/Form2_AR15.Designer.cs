@@ -37,6 +37,13 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -90,7 +97,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(499, 391);
+            this.button2.Location = new System.Drawing.Point(500, 407);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
@@ -123,19 +130,94 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(499, 439);
+            this.button5.Location = new System.Drawing.Point(252, 520);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 23);
+            this.button5.Size = new System.Drawing.Size(132, 41);
             this.button5.TabIndex = 11;
             this.button5.Text = "Drawing";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(156, 391);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(135, 44);
+            this.button6.TabIndex = 12;
+            this.button6.Text = "Update";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(251, 169);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(132, 22);
+            this.textBox3.TabIndex = 13;
+            this.textBox3.Text = "40";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(251, 217);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(132, 22);
+            this.textBox4.TabIndex = 14;
+            this.textBox4.Text = "10";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(132, 171);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 16);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Fork Length";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(140, 220);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 16);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Fork Width";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(251, 481);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(132, 22);
+            this.textBox5.TabIndex = 17;
+            this.textBox5.Text = "AssemblyDrawing";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(52, 481);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 16);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Assembly Drawing Name";
+            // 
             // Form2_AR15
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 474);
+            this.ClientSize = new System.Drawing.Size(660, 573);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -164,5 +246,12 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label5;
     }
 }

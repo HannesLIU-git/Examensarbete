@@ -136,7 +136,7 @@ namespace BRAC_FORM
             else if (selected == "AR15")
             {
 
-                Form1_AR15 form1_AR15 = new Form1_AR15(); // Create an instance of Form2
+                Form2_AR15 form1_AR15 = new Form2_AR15(); // Create an instance of Form2
                 form1_AR15.Show(); // Show Form2
                 this.Hide();  // Hide Form1
             }
