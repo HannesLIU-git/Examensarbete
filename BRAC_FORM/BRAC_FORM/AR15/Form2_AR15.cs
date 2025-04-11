@@ -89,7 +89,7 @@ namespace BRAC_FORM
 
             
             addItem.updateAll();
-            //addItem.HideDatumsAndSketches();
+            addItem.HideDatumsAndSketches();
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
@@ -186,7 +186,7 @@ namespace BRAC_FORM
             CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
             CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
             CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
-            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Locking_Pin_{GlobalVariables.bracketCounter}");
             CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}");
             MessageBox.Show("All drawings created.");
 
