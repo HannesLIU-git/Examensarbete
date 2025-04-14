@@ -33,9 +33,34 @@ namespace BRAC_FORM
             string D_width = GlobalVariables.PipeDiameter;
             string partsFolderPath = GlobalVariables.FilePath;
 
+            string selected = comboBox1.SelectedItem?.ToString();
+            string Gaffel_W = "";
+
+            if (string.IsNullOrEmpty(selected))
+            {
+                MessageBox.Show("Please select a SAT position");
+                return;
+            }
+
+            if (selected == "Equal")
+            {
+                Gaffel_W = "0";
+            }
+            else if (selected == "Over")
+            {
+                Gaffel_W = "1";
+            }
+            else if (selected == "Under")
+            {  
+                Gaffel_W = "2";
+            }
+            string X_pos = textBox3.Text;
+            string Y_pos = textBox4.Text;
+
+
             Class_Add_item addItem = new Class_Add_item();
 
-            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + X_pos + "," + Y_pos + "," + Gaffel_W, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
@@ -75,7 +100,7 @@ namespace BRAC_FORM
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) ////////////////////////////// DRAWING
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
