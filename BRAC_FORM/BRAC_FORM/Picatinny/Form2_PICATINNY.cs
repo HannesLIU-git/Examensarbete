@@ -32,9 +32,14 @@ namespace BRAC_FORM
             Point3d position = new Point3d(0.0, 0.0, 0.0);
             string D_width = GlobalVariables.PipeDiameter;
             string partsFolderPath = GlobalVariables.FilePath;
+            string XPos = textBox3.Text;
+            string YPos = textBox4.Text;
+            string ParaWidth = textBox1.Text;
 
             string selected = comboBox1.SelectedItem?.ToString();
-            string Gaffel_W = "";
+            Point3d SATpos = new Point3d(0.0, 0.0, 0.0);
+
+            Class_Add_item addItem = new Class_Add_item();
 
             if (string.IsNullOrEmpty(selected))
             {
@@ -44,27 +49,46 @@ namespace BRAC_FORM
 
             if (selected == "Equal")
             {
-                Gaffel_W = "0";
+                D_width = "0";
+                SATpos = new Point3d(0.0, 0.0, 0.0);
+
+                
+
+
             }
             else if (selected == "Over")
             {
-                Gaffel_W = "1";
+                D_width = "1";
+                double X_Double = double.Parse(XPos);
+                double W_Double = double.Parse(Width);
+                double Y_Double = double.Parse(YPos);
+
+                SATpos = new Point3d(-X_Double - 11.8713, (-W_Double / 2) - Y_Double, 1.6);
+
+                ParaWidth = "20";
+
             }
             else if (selected == "Under")
-            {  
-                Gaffel_W = "2";
+            {
+                D_width = "2";
+                double X_Double = double.Parse(XPos);
+                double W_Double = double.Parse(Width);
+                double Y_Double = double.Parse(YPos);
+
+                SATpos = new Point3d(X_Double + 7.2950, (-W_Double / 2) - Y_Double, 1.6);
+
+                ParaWidth = "20";
             }
-            string X_pos = textBox3.Text;
-            string Y_pos = textBox4.Text;
+          
 
 
-            Class_Add_item addItem = new Class_Add_item();
+            
 
-            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + X_pos + "," + Y_pos + "," + Gaffel_W, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Picatinny_SAT.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + ParaWidth + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Picatinny_SAT.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
 
