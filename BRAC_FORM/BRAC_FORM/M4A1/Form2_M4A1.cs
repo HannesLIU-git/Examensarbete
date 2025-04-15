@@ -194,15 +194,15 @@ namespace BRAC_FORM
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
             HideDatumsAndSketches1();
-            CreateSeparateDetailDrawing($"M6_35_NEW_BRAC_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"M6_35_NEW_BRAC_{GlobalVariables.bracketCounter}",2);
            
-            CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}",1);
             
-            CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}",2);
             
-            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}",2);
             
-            CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}");
+            CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}",3);
 
             MessageBox.Show("All drawings created.");
 
@@ -211,7 +211,7 @@ namespace BRAC_FORM
             button5.Enabled = false;
         }
 
-        private void CreateSeparateDetailDrawing(string partName)
+        private void CreateSeparateDetailDrawing(string partName, double scale)
         {
             Session theSession = Session.GetSession();
             string baseDir = GlobalVariables.FilePath + "\\";
@@ -236,7 +236,6 @@ namespace BRAC_FORM
                 loadStatus.Dispose();
             }
 
-            // === Skapa ritning från template ===
             FileNew fileNew = theSession.Parts.FileNew();
             fileNew.TemplateFileName = "sts-A3.prt";
             fileNew.TemplatePresentationName = "STS - A3";
@@ -246,7 +245,7 @@ namespace BRAC_FORM
             fileNew.NewFileName = drawingPath;
             fileNew.MasterFileName = partPath;
             fileNew.UseBlankTemplate = false;
-            fileNew.UsesMasterModel = "Yes";
+            fileNew.UsesMasterModel = "yes";
             fileNew.MakeDisplayedPart = true;
             fileNew.DisplayPartOption = DisplayPartOption.AllowAdditional;
             fileNew.Commit();
@@ -256,45 +255,71 @@ namespace BRAC_FORM
             drawingPart.Drafting.EnterDraftingApplication();
             drawingPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            // === Lägg in ritvy via View Creation Wizard med PMI ===
-            NXOpen.Drawings.ViewCreationWizardBuilder wizard = drawingPart.DraftingViews.CreateViewCreationWizardBuilder();
+            // === Skapa vyer via wizard ===
+            var wizard = drawingPart.DraftingViews.CreateViewCreationWizardBuilder();
             wizard.Part = detailPart;
-            wizard.BaseView = "FRONT"; // Standardvy
-            wizard.InheritPMI = 3; // Visa PMI
+            wizard.BaseView = "FRONT";
+
+            // ➕ Lägg till flera vyer
+            wizard.RightView = true;
+            wizard.TopView = true;
+            wizard.IsometricView = true;
+
+            // ➕ PMI och skalning
+            wizard.InheritPMI = 3;
             wizard.InheritPmiOntoDrawing = true;
             wizard.PmiDimensionFromRevolved = true;
-            wizard.ViewRepresentation = NXOpen.Drawings.ViewCreationWizardBuilder.ViewRepresentations.SmartLightweight;
-            wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Automatic;
+            wizard.ViewScale.Numerator = scale;
+
+            // ➕ Automatisk grupplacering runt en mittpunkt
+            wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Manual;
             wizard.MultipleViewPlacement.OptionType = NXOpen.Drawings.MultipleViewPlacementBuilder.Option.Center;
-            wizard.ViewScale.Numerator = 2.0;
+
+            // Sätt placeringen mitt på ritningen (justera gärna!)
+            Point3d centerPoint = new Point3d(200, 190, 0);
+            wizard.MultipleViewPlacement.ViewPlacementCenter.Placement.SetValue(null, drawingPart.Views.WorkView, centerPoint);
 
             wizard.Commit();
             wizard.Destroy();
 
-            MessageBox.Show($"Detaljritning med PMI skapad från template för: {partName}");
+            // === Lägg till not om skala ===
+            NXOpen.Annotations.DraftingNoteBuilder noteBuilder = drawingPart.Annotations.CreateDraftingNoteBuilder(null);
+            noteBuilder.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
+            noteBuilder.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
+            noteBuilder.Origin.Origin.SetValue(null, null, new Point3d(85, 90, 0));
+            string[] noteText = new string[1];
+            noteText[0] = $"SCALE 1:{scale}";
+            noteBuilder.Text.TextBlock.SetText(noteText);
+            noteBuilder.Commit();
+            noteBuilder.Destroy();
+
+           
         }
+
+
+
 
 
         // Anropa separat för varje vy
         //SetPMIForView(drawingPart, frontView);
-         //   SetPMIForView(drawingPart, rightView);
-         //   SetPMIForView(drawingPart, isoView);
-            
-            // === Måttsättning för Lower_brac_Picatinny_1 ===
-            // Mått 1: Höjd (t.ex. 31.8 mm)
-            //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
+        //   SetPMIForView(drawingPart, rightView);
+        //   SetPMIForView(drawingPart, isoView);
 
-            //// Mått 2: Total höjd (t.ex. 37.2 mm)
-            //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
+        // === Måttsättning för Lower_brac_Picatinny_1 ===
+        // Mått 1: Höjd (t.ex. 31.8 mm)
+        //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
 
-            //// === Måttsättning för Upper_brac_Picatinny_1 ===
-            //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
-            //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
+        //// Mått 2: Total höjd (t.ex. 37.2 mm)
+        //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
 
-            //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
-            //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
+        //// === Måttsättning för Upper_brac_Picatinny_1 ===
+        //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
+        //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
 
-        
+        //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
+        //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
+
+
         private void AddDimensionBetweenCurves(
             double posX,
             double posY,
