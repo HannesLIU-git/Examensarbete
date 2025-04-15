@@ -79,21 +79,36 @@ namespace BRAC_FORM
             string partsFolderPath = GlobalVariables.FilePath;
             Class_Add_item addItem = new Class_Add_item();
 
+            string selected = comboBox1.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selected))
+            {
+                MessageBox.Show("Please select bracket direction");
+                return;
+            }
+
+            if (selected == "Top")
+            {
+      
+
+            }
+            else if (selected == "Right")
+            {
+               
+            }
             addItem.AddPartToAssembly("Locking_brack.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Locking_Pin.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);   
+            addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("SAT_FUNK.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
 
-            
+
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
-
-
 
             button4.Enabled = true;
             button3.Enabled = false;

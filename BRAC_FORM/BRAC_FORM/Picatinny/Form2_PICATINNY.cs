@@ -36,11 +36,12 @@ namespace BRAC_FORM
             string YPos = textBox4.Text;
             string ParaWidth = textBox1.Text;
 
-            string selected = comboBox1.SelectedItem?.ToString();
+            
             Point3d SATpos = new Point3d(0.0, 0.0, 0.0);
 
             Class_Add_item addItem = new Class_Add_item();
-
+            string selected = comboBox1.SelectedItem?.ToString();
+           
             if (string.IsNullOrEmpty(selected))
             {
                 MessageBox.Show("Please select a SAT position");
