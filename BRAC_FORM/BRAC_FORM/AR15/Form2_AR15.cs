@@ -183,7 +183,9 @@ namespace BRAC_FORM
             plistBuilder.Destroy();
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
+            HideDatumsAndSketches1();
             CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            HideDatumsAndSketches1();
             CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
             CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
             CreateSeparateDetailDrawing($"Locking_Pin_{GlobalVariables.bracketCounter}");
@@ -379,6 +381,96 @@ namespace BRAC_FORM
                 button6.Enabled = true;
             }
 
+        }
+        public void HideDatumsAndSketches1()
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Edit->Show and Hide->Show and Hide...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide Dialog");
+
+            NXOpen.Session.UndoMarkId markId2;
+            markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Sketches");
+
+            int numberHidden1;
+            numberHidden1 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_SKETCHES", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs1;
+            nErrs1 = theSession.UpdateManager.DoUpdate(markId2);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            NXOpen.Session.UndoMarkId markId3;
+            markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Datums");
+
+            int numberHidden2;
+            numberHidden2 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_DATUMS", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs2;
+            nErrs2 = theSession.UpdateManager.DoUpdate(markId3);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            NXOpen.Session.UndoMarkId markId4;
+            markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Points");
+
+            int numberHidden3;
+            numberHidden3 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_POINTS", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs3;
+            nErrs3 = theSession.UpdateManager.DoUpdate(markId4);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide");
+
+            theSession.DeleteUndoMark(markId1, null);
+
+            // ----------------------------------------------
+            //   Menu: Edit->View->Update...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId5;
+            markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            NXOpen.Drawings.UpdateViewsBuilder updateViewsBuilder1;
+            updateViewsBuilder1 = workPart.DraftingViews.CreateUpdateViewsBuilder();
+
+            theSession.SetUndoMarkName(markId5, "Update Views Dialog");
+
+            NXOpen.Drawings.BaseView baseView1 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Front@1"));
+            bool added1;
+            added1 = updateViewsBuilder1.Views.Add(baseView1);
+
+            NXOpen.Drawings.BaseView baseView2 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Right@2"));
+            bool added2;
+            added2 = updateViewsBuilder1.Views.Add(baseView2);
+
+            NXOpen.Drawings.BaseView baseView3 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Isometric@3"));
+            bool added3;
+            added3 = updateViewsBuilder1.Views.Add(baseView3);
+
+            NXOpen.Session.UndoMarkId markId6;
+            markId6 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Views");
+
+            theSession.DeleteUndoMark(markId6, null);
+
+            NXOpen.Session.UndoMarkId markId7;
+            markId7 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Views");
+
+            NXOpen.NXObject nXObject1;
+            nXObject1 = updateViewsBuilder1.Commit();
+
+            theSession.DeleteUndoMark(markId7, null);
+
+            theSession.SetUndoMarkName(markId5, "Update Views");
+
+            updateViewsBuilder1.Destroy();
         }
 
 

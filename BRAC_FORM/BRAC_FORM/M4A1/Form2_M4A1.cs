@@ -126,7 +126,7 @@ namespace BRAC_FORM
 
         }
 
-        private void button5_Click(object sender, EventArgs e) ////////////////////// DRAWING
+       private void button5_Click(object sender, EventArgs e) ////////////////////// DRAWING
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
@@ -143,7 +143,7 @@ namespace BRAC_FORM
             fileNew1.TemplatePresentationName = "STS - A3";
 
             string filename = GlobalVariables.FilePath + "\\" + textBox5.Text + ".prt";
-            fileNew1.NewFileName =filename;
+            fileNew1.NewFileName = filename;
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{filename}");
 
             //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
@@ -193,10 +193,15 @@ namespace BRAC_FORM
             plistBuilder.Destroy();
 
             // === Skapa separata detaljritningar i nya NX-fönster ===
+            HideDatumsAndSketches1();
             CreateSeparateDetailDrawing($"M6_35_NEW_BRAC_{GlobalVariables.bracketCounter}");
+           
             CreateSeparateDetailDrawing($"Upper_NEW_clamp_{GlobalVariables.bracketCounter}");
+            
             CreateSeparateDetailDrawing($"Lower_brac_new_m16_{GlobalVariables.bracketCounter}");
+            
             CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}");
+            
             CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}");
 
             MessageBox.Show("All drawings created.");
@@ -231,6 +236,7 @@ namespace BRAC_FORM
                 loadStatus.Dispose();
             }
 
+            // === Skapa ritning från template ===
             FileNew fileNew = theSession.Parts.FileNew();
             fileNew.TemplateFileName = "sts-A3.prt";
             fileNew.TemplatePresentationName = "STS - A3";
@@ -240,6 +246,7 @@ namespace BRAC_FORM
             fileNew.NewFileName = drawingPath;
             fileNew.MasterFileName = partPath;
             fileNew.UseBlankTemplate = false;
+            fileNew.UsesMasterModel = "Yes";
             fileNew.MakeDisplayedPart = true;
             fileNew.DisplayPartOption = DisplayPartOption.AllowAdditional;
             fileNew.Commit();
@@ -249,28 +256,30 @@ namespace BRAC_FORM
             drawingPart.Drafting.EnterDraftingApplication();
             drawingPart.Drafting.SetTemplateInstantiationIsComplete(true);
 
-            ModelingView front = drawingPart.ModelingViews.FindObject("Front") as ModelingView;
-            ModelingView right = drawingPart.ModelingViews.FindObject("Right") as ModelingView;
-            ModelingView iso = drawingPart.ModelingViews.FindObject("Isometric") as ModelingView;
+            // === Lägg in ritvy via View Creation Wizard med PMI ===
+            NXOpen.Drawings.ViewCreationWizardBuilder wizard = drawingPart.DraftingViews.CreateViewCreationWizardBuilder();
+            wizard.Part = detailPart;
+            wizard.BaseView = "FRONT"; // Standardvy
+            wizard.InheritPMI = 3; // Visa PMI
+            wizard.InheritPmiOntoDrawing = true;
+            wizard.PmiDimensionFromRevolved = true;
+            wizard.ViewRepresentation = NXOpen.Drawings.ViewCreationWizardBuilder.ViewRepresentations.SmartLightweight;
+            wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Automatic;
+            wizard.MultipleViewPlacement.OptionType = NXOpen.Drawings.MultipleViewPlacementBuilder.Option.Center;
+            wizard.ViewScale.Numerator = 2.0;
 
-            BaseViewBuilder frontBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            frontBuilder.SelectModelView.SelectedView = front;
-            frontBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(100, 100, 0));
-            BaseView frontView = (BaseView)frontBuilder.Commit();
-            frontBuilder.Destroy();
+            wizard.Commit();
+            wizard.Destroy();
 
-            BaseViewBuilder rightBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            rightBuilder.SelectModelView.SelectedView = right;
-            rightBuilder.Placement.Placement.SetValue(frontView, drawingPart.Views.WorkView, new Point3d(220, 100, 0));
-            BaseView rightView = (BaseView)rightBuilder.Commit();
-            rightBuilder.Destroy();
+            MessageBox.Show($"Detaljritning med PMI skapad från template för: {partName}");
+        }
 
-            BaseViewBuilder isoBuilder = drawingPart.DraftingViews.CreateBaseViewBuilder(null);
-            isoBuilder.SelectModelView.SelectedView = iso;
-            isoBuilder.Placement.Placement.SetValue(null, drawingPart.Views.WorkView, new Point3d(250, 210, 0));
-            BaseView isoView = (BaseView)isoBuilder.Commit();
-            isoBuilder.Destroy();
 
+        // Anropa separat för varje vy
+        //SetPMIForView(drawingPart, frontView);
+         //   SetPMIForView(drawingPart, rightView);
+         //   SetPMIForView(drawingPart, isoView);
+            
             // === Måttsättning för Lower_brac_Picatinny_1 ===
             // Mått 1: Höjd (t.ex. 31.8 mm)
             //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
@@ -285,7 +294,7 @@ namespace BRAC_FORM
             //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
             //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
 
-        }
+        
         private void AddDimensionBetweenCurves(
             double posX,
             double posY,
@@ -384,13 +393,105 @@ namespace BRAC_FORM
                 addItem.HideDatumsAndSketches();
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket updated");
-                
+
                 button6.Enabled = true;
             }
-            else 
+            else
             {
                 UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change any parameter.");
             }
+
+        }
+        public void HideDatumsAndSketches1()
+        {
+            NXOpen.Session theSession = NXOpen.Session.GetSession();
+            NXOpen.Part workPart = theSession.Parts.Work;
+            NXOpen.Part displayPart = theSession.Parts.Display;
+            // ----------------------------------------------
+            //   Menu: Edit->Show and Hide->Show and Hide...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId1;
+            markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide Dialog");
+
+            NXOpen.Session.UndoMarkId markId2;
+            markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Sketches");
+
+            int numberHidden1;
+            numberHidden1 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_SKETCHES", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs1;
+            nErrs1 = theSession.UpdateManager.DoUpdate(markId2);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            NXOpen.Session.UndoMarkId markId3;
+            markId3 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Datums");
+
+            int numberHidden2;
+            numberHidden2 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_DATUMS", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs2;
+            nErrs2 = theSession.UpdateManager.DoUpdate(markId3);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            NXOpen.Session.UndoMarkId markId4;
+            markId4 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Hide Points");
+
+            int numberHidden3;
+            numberHidden3 = theSession.DisplayManager.HideByType("SHOW_HIDE_TYPE_POINTS", NXOpen.DisplayManager.ShowHideScope.AnyInAssembly);
+
+            int nErrs3;
+            nErrs3 = theSession.UpdateManager.DoUpdate(markId4);
+
+            workPart.Views.WorkView.FitAfterShowOrHide(NXOpen.View.ShowOrHideType.HideOnly);
+
+            theSession.SetUndoMarkName(markId1, "Show and Hide");
+
+            theSession.DeleteUndoMark(markId1, null);
+
+            // ----------------------------------------------
+            //   Menu: Edit->View->Update...
+            // ----------------------------------------------
+            NXOpen.Session.UndoMarkId markId5;
+            markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
+
+            NXOpen.Drawings.UpdateViewsBuilder updateViewsBuilder1;
+            updateViewsBuilder1 = workPart.DraftingViews.CreateUpdateViewsBuilder();
+
+            theSession.SetUndoMarkName(markId5, "Update Views Dialog");
+
+            NXOpen.Drawings.BaseView baseView1 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Front@1"));
+            bool added1;
+            added1 = updateViewsBuilder1.Views.Add(baseView1);
+
+            NXOpen.Drawings.BaseView baseView2 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Right@2"));
+            bool added2;
+            added2 = updateViewsBuilder1.Views.Add(baseView2);
+
+            NXOpen.Drawings.BaseView baseView3 = ((NXOpen.Drawings.BaseView)workPart.DraftingViews.FindObject("Isometric@3"));
+            bool added3;
+            added3 = updateViewsBuilder1.Views.Add(baseView3);
+
+            NXOpen.Session.UndoMarkId markId6;
+            markId6 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Views");
+
+            theSession.DeleteUndoMark(markId6, null);
+
+            NXOpen.Session.UndoMarkId markId7;
+            markId7 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Update Views");
+
+            NXOpen.NXObject nXObject1;
+            nXObject1 = updateViewsBuilder1.Commit();
+
+            theSession.DeleteUndoMark(markId7, null);
+
+            theSession.SetUndoMarkName(markId5, "Update Views");
+
+            updateViewsBuilder1.Destroy();
         }
     }
 }
+        
