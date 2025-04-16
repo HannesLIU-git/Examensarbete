@@ -221,3 +221,24 @@ C:\Users\u107054\Desktop\Gitlab\M4 TEST RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\B
 C:\Users\u107054\Desktop\Gitlab\M4 TEST RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe
 C:\Users\u107054\Desktop\Gitlab\M4 TEST RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.pdb
 C:\Users\u107054\Desktop\Gitlab\M4 TEST RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.Up2Date
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe.config
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.exe
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\bin\Debug\BRAC_FORM.pdb
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.AssemblyReference.cache
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form3_AR15.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form1.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form2_M4A1.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form2_AR15.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form1_CLAMP.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form3_M4A1.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form1_PICATINNY.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form2.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form2_PICATINNY.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form3.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Form3_PICATINNY.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.Properties.Resources.resources
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.GenerateResource.cache
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.CoreCompileInputs.cache
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.csproj.Up2Date
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.exe
+C:\Users\u107054\Desktop\Gitlab\AR15 RADDNING\BRAC_FORM\BRAC_FORM\obj\Debug\BRAC_FORM.pdb

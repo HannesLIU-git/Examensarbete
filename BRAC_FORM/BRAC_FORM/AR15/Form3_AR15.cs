@@ -14,21 +14,21 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BRAC_FORM
 {
-    public partial class Form3_M4A1 : Form
+    public partial class Form3_AR15 : Form
     {
-        public Form3_M4A1()
+        public Form3_AR15()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e) ////////////// PREVIOUS
+        private void button2_Click(object sender, EventArgs e) /////////////// Previous
         {
-            Form2_M4A1 Form2_M4A1 = new Form2_M4A1(); // Create an instance of Form1
-            Form2_M4A1.Show(); // Show Form1
+            Form2_AR15 Form2_AR15 = new Form2_AR15(); // Create an instance of Form1
+            Form2_AR15.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
 
-        private void button1_Click(object sender, EventArgs e) /////////////////// DRAWINGS
+        private void button1_Click(object sender, EventArgs e) //////////////// GENERATE DRAWINGS
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
@@ -110,6 +110,11 @@ namespace BRAC_FORM
 
             //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="partName"></param>
+        /// <param name="scale"></param>
         private void CreateSeparateDetailDrawing(string partName, double scale)
         {
             Session theSession = Session.GetSession();
@@ -199,6 +204,8 @@ namespace BRAC_FORM
 
 
 
+
+
         // Anropa separat för varje vy
         //SetPMIForView(drawingPart, frontView);
         //   SetPMIForView(drawingPart, rightView);
@@ -252,6 +259,8 @@ namespace BRAC_FORM
             dimBuilder.Commit();
             dimBuilder.Destroy();
         }
+
+
         public void HideDatumsAndSketches1()
         {
             NXOpen.Session theSession = NXOpen.Session.GetSession();
@@ -341,16 +350,6 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId5, "Update Views");
 
             updateViewsBuilder1.Destroy();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

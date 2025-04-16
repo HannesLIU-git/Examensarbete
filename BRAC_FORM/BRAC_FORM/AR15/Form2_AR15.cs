@@ -37,9 +37,9 @@ namespace BRAC_FORM
 
         private void button2_Click(object sender, EventArgs e) /////////////////// NEXT
         {
-            //Form3_AR15 Form3_AR15 = new Form3_AR15(); // Create an instance of Form1
-            //Form3_AR15.Show(); // Show Form1
-            //this.Hide();  // Hide Form2
+            Form3_AR15 Form3_AR15 = new Form3_AR15(); // Create an instance of Form1
+            Form3_AR15.Show(); // Show Form1
+            this.Hide();  // Hide Form2
         }
 
         private void button3_Click(object sender, EventArgs e) /////////////////// ADD BRACKET

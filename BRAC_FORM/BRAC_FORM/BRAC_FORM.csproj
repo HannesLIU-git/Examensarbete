@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Add_Item.cs" />
+    <Compile Include="AR15\Form3_AR15.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AR15\Form3_AR15.Designer.cs">
+      <DependentUpon>Form3_AR15.cs</DependentUpon>
+    </Compile>
     <Compile Include="M4A1\Form3_M4A1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="PointCreators\Point_UI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AR15\Form3_AR15.resx">
+      <DependentUpon>Form3_AR15.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

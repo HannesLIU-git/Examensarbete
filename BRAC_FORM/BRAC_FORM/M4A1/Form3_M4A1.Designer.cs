@@ -61,6 +61,7 @@
             this.textBox1.Size = new System.Drawing.Size(161, 22);
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = "AssemblyDRW";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -70,6 +71,7 @@
             this.label1.Size = new System.Drawing.Size(159, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Assembly Drawing Name";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form3_M4A1
             // 

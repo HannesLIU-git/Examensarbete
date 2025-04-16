@@ -35,5 +35,8 @@ namespace BRAC_FORM
         public static string BracketPos { get; set; } = string.Empty;
 
         public static string PipeDiameter { get; set; } = string.Empty;
+
+      
     }
+
 }
