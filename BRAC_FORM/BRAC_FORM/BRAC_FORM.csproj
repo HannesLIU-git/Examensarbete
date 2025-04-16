@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Add_Item.cs" />
+    <Compile Include="M4A1\Form3_M4A1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="M4A1\Form3_M4A1.Designer.cs">
+      <DependentUpon>Form3_M4A1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Picatinny\Form3_PICATINNY.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="General Clamp\Form1_CLAMP.resx">
       <DependentUpon>Form1_CLAMP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="M4A1\Form3_M4A1.resx">
+      <DependentUpon>Form3_M4A1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Picatinny\Form1_PICATINNY.resx">
       <DependentUpon>Form1_PICATINNY.cs</DependentUpon>
