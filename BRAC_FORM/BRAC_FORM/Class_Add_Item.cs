@@ -1,6 +1,7 @@
 ﻿using NXOpen;
 using NXOpen.Assemblies;
 using NXOpen.CAE;
+using NXOpen.Validate;
 using System;
 using System.Drawing.Text;
 using System.IO;
@@ -297,7 +298,96 @@ namespace BRAC_FORM
 
         }
 
+        public void AddScannedPartToAssembly(string partName, string partFolderPath, Point3d position,  Part assemblyPart)
+        {
+            try
+            {
+                // Get the current session
+                Session theSession = Session.GetSession();
 
+                // Open the part to be added
+                PartLoadStatus loadStatus;
+                Part part = (Part)theSession.Parts.OpenBase(partFolderPath, out loadStatus); // Open part
+                loadStatus.Dispose(); // Dispose loadStatus once it's used
+
+                // Create the add component builder
+                AddComponentBuilder addComponentBuilder = assemblyPart.AssemblyManager.CreateAddComponentBuilder();
+                addComponentBuilder.SetPartsToAdd(new BasePart[] { part });
+                addComponentBuilder.ComponentName = partName;
+                addComponentBuilder.ReferenceSet = "Entire Part";
+
+                // Define the orientation matrix (ensure it's aligned)
+                Matrix3x3 orientation = new Matrix3x3
+                {
+
+
+                    Xx = 1.0,
+                    Xy = 0.0,
+                    Xz = 0.0,
+                    Yx = 0.0,
+                    Yy = 1.0,
+                    Yz = 0.0,
+                    Zx = 0.0,
+                    Zy = 0.0,
+                    Zz = 1.0
+                };
+
+                // Set all components to be placed at the origin (0, 0, 0)
+                addComponentBuilder.SetInitialLocationAndOrientation(position, orientation);
+
+                // Commit the part to the assembly
+                Component newComponent = addComponentBuilder.Commit() as Component;
+                addComponentBuilder.Destroy();
+
+                theSession.Parts.Display.Views.Refresh();
+
+                // UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Part added at origin.");
+            }
+            catch (Exception ex)
+            {
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, "Failed to add part: " + ex.Message);
+            }
+        }
+        public void DeleteScannedBracket(string partNameToDelete)
+        {
+            partNameToDelete = partNameToDelete.Substring(0, partNameToDelete.Length - 4);
+            try
+            {
+                NXOpen.Session theSession = NXOpen.Session.GetSession();
+                NXOpen.Part workPart = theSession.Parts.Work;
+                NXOpen.Part displayPart = theSession.Parts.Display;
+
+                NXOpen.Session.UndoMarkId markId1;
+
+                markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Invisible, "Delete");
+
+                theSession.UpdateManager.ClearErrorList();
+
+                NXOpen.Session.UndoMarkId markId2;
+                markId2 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Delete");
+
+                NXOpen.TaggedObject[] objects1 = new NXOpen.TaggedObject[1];
+                NXOpen.Assemblies.Component component1 = ((NXOpen.Assemblies.Component)workPart.ComponentAssembly.RootComponent.FindObject($"COMPONENT {partNameToDelete} 1"));
+                objects1[0] = component1;
+                int nErrs1;
+                nErrs1 = theSession.UpdateManager.AddObjectsToDeleteList(objects1);
+
+                NXOpen.Session.UndoMarkId id1;
+                id1 = theSession.NewestVisibleUndoMark;
+
+                int nErrs2;
+                nErrs2 = theSession.UpdateManager.DoUpdate(id1);
+
+                theSession.DeleteUndoMark(markId1, null);
+
+            }
+
+            catch (Exception ex)
+            {
+                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Error, $"Failed to delete {partNameToDelete}: " + ex.Message);
+            }
+
+        }
 
     }
 

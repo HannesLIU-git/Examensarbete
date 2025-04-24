@@ -98,6 +98,7 @@
             this.label1.Size = new System.Drawing.Size(41, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "Width";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -108,6 +109,7 @@
             this.label2.Size = new System.Drawing.Size(128, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Position from muzzle";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox2
             // 
@@ -117,6 +119,7 @@
             this.textBox2.Size = new System.Drawing.Size(132, 22);
             this.textBox2.TabIndex = 12;
             this.textBox2.Text = "100";
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox1
             // 
@@ -126,6 +129,7 @@
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = "40";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // button6
             // 
@@ -146,6 +150,7 @@
             this.textBox3.Size = new System.Drawing.Size(132, 22);
             this.textBox3.TabIndex = 21;
             this.textBox3.Text = "40";
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // textBox4
             // 
@@ -155,6 +160,7 @@
             this.textBox4.Size = new System.Drawing.Size(132, 22);
             this.textBox4.TabIndex = 22;
             this.textBox4.Text = "10";
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label3
             // 
@@ -165,6 +171,7 @@
             this.label3.Size = new System.Drawing.Size(77, 16);
             this.label3.TabIndex = 23;
             this.label3.Text = "Fork Length";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -175,6 +182,7 @@
             this.label4.Size = new System.Drawing.Size(71, 16);
             this.label4.TabIndex = 24;
             this.label4.Text = "Fork Width";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // comboBox1
             // 
@@ -188,6 +196,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(134, 24);
             this.comboBox1.TabIndex = 27;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -198,6 +207,7 @@
             this.label6.Size = new System.Drawing.Size(82, 16);
             this.label6.TabIndex = 28;
             this.label6.Text = "Bracket side";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // Form2_M4A1
             // 

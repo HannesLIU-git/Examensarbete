@@ -20,6 +20,8 @@ namespace BRAC_FORM
         string originalTextbox2 = "";
         string originalTextbox3 = "";
         string originalTextbox4 = "";
+        string originalSelected = "";
+        string selected = string.Empty;
         public Form2_M4A1()
         {
             InitializeComponent();
@@ -67,7 +69,7 @@ namespace BRAC_FORM
             Point3d position = new Point3d(0.0, Pos, 0.0);
             string partsFolderPath = GlobalVariables.FilePath;
 
-            string selected = comboBox1.SelectedItem?.ToString();
+            selected = comboBox1.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(selected))
             {
@@ -115,6 +117,7 @@ namespace BRAC_FORM
             originalTextbox2 = textBox2.Text;
             originalTextbox3 = textBox3.Text;
             originalTextbox4 = textBox4.Text;
+            originalSelected = selected;
 
             button4.Enabled = true;
             button3.Enabled = false;
@@ -158,7 +161,7 @@ namespace BRAC_FORM
 
         private void button6_Click(object sender, EventArgs e) ////////////////////////// UPDATE
         {
-            if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox3.Text != originalTextbox3)
+            if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox4.Text != originalTextbox4 || selected != originalTextbox4)
             {
                 Class_Add_item addItem = new Class_Add_item();
                 addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
@@ -207,7 +210,7 @@ namespace BRAC_FORM
                 Point3d position = new Point3d(0.0, Pos, 0.0);
                 string partsFolderPath = GlobalVariables.FilePath;
 
-                string selected = comboBox1.SelectedItem?.ToString();
+                selected = comboBox1.SelectedItem?.ToString();
 
                 if (string.IsNullOrEmpty(selected))
                 {
@@ -254,7 +257,56 @@ namespace BRAC_FORM
             }
 
         }
-       
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
         

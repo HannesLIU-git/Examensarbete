@@ -14,11 +14,52 @@ namespace BRAC_FORM
 {
     public partial class Form1_CLAMP: Form
     {
+        string ScannedFilePath = string.Empty;
+        string ScannedFileName = string.Empty;
         public Form1_CLAMP()
         {
             InitializeComponent();
             button2.Enabled = true;
+            label1.Visible = false;
+            textBox1.Visible = false;
+            button5.Visible = false;
+            textBox2.Visible = false;
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Hide all buttons first
+          
             
+            // Show the button corresponding to the selected option
+            switch (comboBox1.SelectedItem.ToString())
+            {
+                case "General":
+                    label1.Visible = true;
+                    textBox1.Visible = true;
+                    button5.Visible = false;
+                    textBox2.Visible = false;
+                    break;
+                case "M4A1":
+                    label1.Visible = true;
+                    textBox1.Visible = true;
+                    button5.Visible = false;
+                    textBox2.Visible = false;
+                    break;
+                case "AR15":
+                    label1.Visible = true;
+                    textBox1.Visible = true;
+                    button5.Visible = false;
+                    textBox2.Visible = false;
+                    break;
+                case "From File Browser":
+                    button5.Visible = true;
+                    textBox2.Visible = true;
+                    label1.Visible = false;
+                    textBox1.Visible = false;
+                    break;
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e) //////////////////// ADD BARREL
@@ -105,6 +146,16 @@ namespace BRAC_FORM
 
                 button2.Enabled = true;
             }
+            else if (selected == "From File Browser")
+            {
+                string partsFolderPath = ScannedFilePath;
+
+                Class_Add_item addItem = new Class_Add_item();
+
+                addItem.AddScannedPartToAssembly(ScannedFileName,ScannedFilePath,position, assemblyPart);
+
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
+            }
             
 
         }
@@ -147,6 +198,14 @@ namespace BRAC_FORM
                 form1_M4A1.Show(); // Show Form2
                 this.Hide();  // Hide Form1
             }
+            else if (selected == "From File Browser")
+            {
+
+                _3DSCAN1 _3DSCAN1 = new _3DSCAN1(); // Create an instance of Form2
+                _3DSCAN1.Show(); // Show Form2
+                this.Hide();  // Hide Form1
+            }
+
         }
 
         private void button4_Click(object sender, EventArgs e) //////////////////// DELETE
@@ -174,14 +233,38 @@ namespace BRAC_FORM
             else if (selected == "M4A1")
             {
                 addItem.DeleteBracket("M4A1_barrel", GlobalVariables.M4A1Counter);
-
+            }
+            else if (selected == "From File Browser")
+            {
+                addItem.DeleteScannedBracket(ScannedFileName);
             }
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel deleted.");
 
             
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e) ////////////////////////// FILE BROWSER
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                     ScannedFilePath = openFileDialog.FileName;
+                     ScannedFileName = openFileDialog.SafeFileName;
+
+                    // Do something with the file path, like show it in a textbox
+                    textBox2.Text = ScannedFilePath;
+                }
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
