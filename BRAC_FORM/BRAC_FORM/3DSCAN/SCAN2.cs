@@ -10,25 +10,17 @@ using System.Windows.Forms;
 using NXOpen.Annotations;
 using NXOpen.Drawings;
 using NXOpen;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BRAC_FORM
 {
-    public partial class Form3_AR15 : Form
+    public partial class SCAN2 : Form
     {
-        public Form3_AR15()
+        public SCAN2()
         {
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e) /////////////// Previous
-        {
-            Form2_AR15 Form2_AR15 = new Form2_AR15(); // Create an instance of Form1
-            Form2_AR15.Show(); // Show Form1
-            this.Hide();  // Hide Form2
-        }
-
-        private void button1_Click(object sender, EventArgs e) //////////////// GENERATE DRAWINGS
+        private void button1_Click_1(object sender, EventArgs e) //////////////////////// ADD DRAWING
         {
             Session theSession = Session.GetSession();
             Part workPart = theSession.Parts.Work;
@@ -200,67 +192,14 @@ namespace BRAC_FORM
 
         }
 
+        
 
-
-
-
-
-
-        // Anropa separat för varje vy
-        //SetPMIForView(drawingPart, frontView);
-        //   SetPMIForView(drawingPart, rightView);
-        //   SetPMIForView(drawingPart, isoView);
-
-        // === Måttsättning för Lower_brac_Picatinny_1 ===
-        // Mått 1: Höjd (t.ex. 31.8 mm)
-        //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
-
-        //// Mått 2: Total höjd (t.ex. 37.2 mm)
-        //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
-
-        //// === Måttsättning för Upper_brac_Picatinny_1 ===
-        //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
-        //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
-
-        //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
-        //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
-
-
-        private void AddDimensionBetweenCurves(
-            double posX,
-            double posY,
-            Part part,
-            int curveIndex1,
-            int curveIndex2,
-            BaseView view)
+        private void button2_Click(object sender, EventArgs e) /////////////////////////// PREVIOUS
         {
-            RapidDimensionBuilder dimBuilder = part.Dimensions.CreateRapidDimensionBuilder(null);
-            dimBuilder.Driving.DrivingMethod = DrivingValueBuilder.DrivingValueMethod.Reference;
-
-            // Hämta kurvorna i den valda vyn
-            DraftingBody body = view.DraftingBodies.ToArray()[0];
-            DraftingCurve curve1 = body.DraftingCurves.ToArray()[curveIndex1 - 1];
-            DraftingCurve curve2 = body.DraftingCurves.ToArray()[curveIndex2 - 1];
-
-            // Dummy positions (krävs men används inte eftersom vi ställer in riktig origin)ss
-            Point3d dummy = new Point3d(0, 0, 0);
-
-            // Plats där dimensionen ska hamna
-            Point3d dimensionLocation = new Point3d(posX, posY, 0);
-
-            // Sätt associeringar
-            dimBuilder.FirstAssociativity.SetValue(InferSnapType.SnapType.End, curve1, view, dummy, null, null, dummy);
-            dimBuilder.SecondAssociativity.SetValue(InferSnapType.SnapType.End, curve2, view, dummy, null, null, dummy);
-
-            // 🔧 Manuell position
-            dimBuilder.Origin.SetInferRelativeToGeometry(false);
-            dimBuilder.Origin.Origin.SetValue(null, null, dimensionLocation);
-
-            dimBuilder.Commit();
-            dimBuilder.Destroy();
+            _3DSCAN1 _3DSCAN1 = new _3DSCAN1(); // Create an instance of Form1
+            _3DSCAN1.Show(); // Show Form1
+            this.Hide();  // Hide Form2
         }
-
-
         public void HideDatumsAndSketches1()
         {
             NXOpen.Session theSession = NXOpen.Session.GetSession();
@@ -350,16 +289,6 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId5, "Update Views");
 
             updateViewsBuilder1.Destroy();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

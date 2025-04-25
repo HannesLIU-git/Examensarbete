@@ -138,6 +138,12 @@
     <Compile Include="PointCreators\Point_UI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="3DSCAN\SCAN2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3DSCAN\SCAN2.Designer.cs">
+      <DependentUpon>SCAN2.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="3DSCAN\SCAN1.resx">
       <DependentUpon>SCAN1.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +189,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="3DSCAN\SCAN2.resx">
+      <DependentUpon>SCAN2.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

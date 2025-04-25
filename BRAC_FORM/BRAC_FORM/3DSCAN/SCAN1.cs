@@ -151,7 +151,9 @@ namespace BRAC_FORM
 
         private void button2_Click(object sender, EventArgs e) ////////////////////// NEXT
         {
-
+            SCAN2 SCAN2 = new SCAN2(); // Create an instance of Form1
+            SCAN2.Show(); // Show Form1
+            this.Hide();  // Hide Form2
         }
 
         private void button6_Click(object sender, EventArgs e) /////////////////////// UPDATE
