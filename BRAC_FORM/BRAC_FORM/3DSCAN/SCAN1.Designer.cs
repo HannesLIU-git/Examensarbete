@@ -200,6 +200,7 @@
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 29;
             this.textBox1.Text = "40";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label5
             // 
@@ -218,7 +219,8 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(132, 22);
             this.textBox5.TabIndex = 44;
-            this.textBox5.Text = "40";
+            this.textBox5.Text = "20";
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // _3DSCAN1
             // 

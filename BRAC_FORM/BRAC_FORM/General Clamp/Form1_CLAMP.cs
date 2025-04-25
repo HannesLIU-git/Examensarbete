@@ -61,6 +61,7 @@ namespace BRAC_FORM
                     textBox2.Visible = true;
                     label1.Visible = false;
                     textBox1.Visible = false;
+                    label3.Visible = false;
                     break;
 
             }
