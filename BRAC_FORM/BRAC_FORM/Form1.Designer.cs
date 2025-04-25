@@ -38,7 +38,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(16, 70);
+            this.textBox2.Location = new System.Drawing.Point(35, 90);
             this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(475, 22);
@@ -48,12 +48,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(207, 33);
+            this.label2.Location = new System.Drawing.Point(84, 49);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 16);
+            this.label2.Size = new System.Drawing.Size(328, 16);
             this.label2.TabIndex = 27;
-            this.label2.Text = "File Pathway";
+            this.label2.Text = "Choose a CAD folder manually or via the map browser";
             // 
             // button4
             // 
@@ -62,7 +62,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(100, 28);
             this.button4.TabIndex = 28;
-            this.button4.Text = "Next...";
+            this.button4.Text = "Continue";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -74,7 +74,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Clamp",
             "Picatinny"});
-            this.comboBox1.Location = new System.Drawing.Point(177, 235);
+            this.comboBox1.Location = new System.Drawing.Point(177, 256);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
@@ -85,21 +85,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(176, 197);
+            this.label1.Location = new System.Drawing.Point(176, 218);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 16);
+            this.label1.Size = new System.Drawing.Size(132, 16);
             this.label1.TabIndex = 31;
-            this.label1.Text = "Choose Type of Bracket";
+            this.label1.Text = "Select Bracket Type:";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(190, 100);
+            this.button1.Location = new System.Drawing.Point(190, 135);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 36);
             this.button1.TabIndex = 32;
-            this.button1.Text = "File Browser";
+            this.button1.Text = "Browse...";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

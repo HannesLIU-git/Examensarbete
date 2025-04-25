@@ -21,6 +21,7 @@ namespace BRAC_FORM
             InitializeComponent();
             button2.Enabled = true;
             label1.Visible = false;
+            label3.Visible = false;
             textBox1.Visible = false;
             button5.Visible = false;
             textBox2.Visible = false;
@@ -36,18 +37,21 @@ namespace BRAC_FORM
             {
                 case "General":
                     label1.Visible = true;
+                    label3.Visible = true;
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
                     break;
                 case "M4A1":
                     label1.Visible = true;
+                    label3.Visible = true;
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
                     break;
                 case "AR15":
                     label1.Visible = true;
+                    label3.Visible = true;
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
@@ -267,6 +271,35 @@ namespace BRAC_FORM
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(textBox1.Text, out double value))
+            {
+                double min = 16.0;
+                double max = 40.0;
+
+                if (value >= min && value <= max)
+                {
+                    textBox1.BackColor = Color.White; // valid input
+                }
+                else
+                {
+                    textBox1.BackColor = Color.LightCoral; // number out of range
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(textBox1.Text))
+                {
+                    textBox1.BackColor = Color.White; // neutral when empty
+                }
+                else
+                {
+                    textBox1.BackColor = Color.LightCoral; // not a number
+                }
+            }
         }
     }
 }

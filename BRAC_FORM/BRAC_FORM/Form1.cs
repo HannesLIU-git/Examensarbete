@@ -66,7 +66,7 @@ namespace BRAC_FORM
         {
             using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
             {
-                folderDialog.Description = "Välj en mapp";
+                folderDialog.Description = "Choose the map with the CAD parts.";
                 folderDialog.RootFolder = Environment.SpecialFolder.MyComputer;
                 folderDialog.ShowNewFolderButton = true;
 
@@ -74,7 +74,7 @@ namespace BRAC_FORM
                 {
                     string selectedPath = folderDialog.SelectedPath;
                     GlobalVariables.FilePath = selectedPath;
-                    MessageBox.Show("Vald mapp: " + selectedPath);
+                    MessageBox.Show("Map Chosen: " + selectedPath);
                     textBox2.Text = selectedPath;
                 }
             }
