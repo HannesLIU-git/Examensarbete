@@ -102,7 +102,7 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("SAT_FUNK.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
 
 
@@ -134,7 +134,7 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Lower_brac_new_m16", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("M6_35_NEW_BRAC", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("RPD_PIN", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("SAT_FUNK", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("SAT_II", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
@@ -169,7 +169,7 @@ namespace BRAC_FORM
                 addItem.DeleteBracket("Lower_brac_new_m16", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("M6_35_NEW_BRAC", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("RPD_PIN", GlobalVariables.bracketCounter);
-                addItem.DeleteBracket("SAT_FUNK", GlobalVariables.bracketCounter);
+                addItem.DeleteBracket("SAT_II", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
 
                 Session theSession = Session.GetSession();
@@ -241,7 +241,7 @@ namespace BRAC_FORM
                 addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                addItem.AddPartToAssembly("SAT_FUNK.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
 
                 addItem.updateAll();
