@@ -126,7 +126,7 @@ namespace BRAC_FORM
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
         }
 
-        private void button5_Click(object sender, EventArgs e) ////////////////////// DRAWING
+        private void button5_Click(object sender, EventArgs e) /////////////////////// DRAWING
         {
 
         }

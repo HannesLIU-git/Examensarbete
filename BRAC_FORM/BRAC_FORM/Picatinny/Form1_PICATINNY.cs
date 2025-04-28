@@ -48,7 +48,7 @@ namespace BRAC_FORM
             this.Hide();  // Hide Form2
         }
 
-        private void button3_Click(object sender, EventArgs e) ///////////// NEXT
+        private void button3_Click(object sender, EventArgs e) ////////////// NEXT
         {
             Form2_PICATINNY form1 = new Form2_PICATINNY();
             form1.Show(); // Show Form1
