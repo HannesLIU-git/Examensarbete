@@ -81,9 +81,9 @@ namespace BRAC_FORM
 
                 ParaWidth = "20";
             }
-          
 
 
+            GlobalVariables.bracketCounter++;
             
 
             addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);

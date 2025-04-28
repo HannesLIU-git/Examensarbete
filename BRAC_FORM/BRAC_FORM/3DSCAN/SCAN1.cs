@@ -260,22 +260,22 @@ namespace BRAC_FORM
             if (double.TryParse(textBox5.Text, out double value))
             {
                 double min = 16.0;
-                double max = 40.0;
+                double max = 35.0;
 
                 if (value >= min && value <= max)
                 {
                     textBox5.BackColor = Color.White; // valid input
-                    button3.Enabled = true;
+                  
                 }
                 else
                 {
                     textBox5.BackColor = Color.LightCoral; // number out of range
-                    button3.Enabled = false;
+                  
                 }
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(textBox1.Text))
+                if (string.IsNullOrWhiteSpace(textBox5.Text))
                 {
                     textBox5.BackColor = Color.White; // neutral when empty
                 }
@@ -291,17 +291,17 @@ namespace BRAC_FORM
             if (double.TryParse(textBox1.Text, out double value))
             {
                 double min = 25.0;
-                double max = 50.0;
+                double max = 60.0;
 
                 if (value >= min && value <= max)
                 {
                     textBox1.BackColor = Color.White; // valid input
-                    button3.Enabled = true;
+                 
                 }
                 else
                 {
                     textBox1.BackColor = Color.LightCoral; // number out of range
-                    button3.Enabled = false;
+                    
                 }
             }
             else
@@ -315,6 +315,42 @@ namespace BRAC_FORM
                     textBox1.BackColor = Color.LightCoral; // not a number
                 }
             }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(textBox4.Text, out double value))
+            {
+                double min = 7.0;
+                double max = 100.0;
+
+                if (value >= min && value <= max)
+                {
+                    textBox4.BackColor = Color.White; // valid input
+
+                }
+                else
+                {
+                    textBox4.BackColor = Color.LightCoral; // number out of range
+
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(textBox4.Text))
+                {
+                    textBox4.BackColor = Color.White; // neutral when empty
+                }
+                else
+                {
+                    textBox4.BackColor = Color.LightCoral; // not a number
+                }
+            }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -252,7 +252,7 @@ namespace BRAC_FORM
             if (double.TryParse(textBox1.Text, out double value))
             {
                 double min = 25.0;
-                double max = 50.0;
+                double max = 60.0;
 
                 if (value >= min && value <= max)
                 {
@@ -274,6 +274,37 @@ namespace BRAC_FORM
                 else
                 {
                     textBox1.BackColor = Color.LightCoral; // not a number
+                }
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(textBox4.Text, out double value))
+            {
+                double min = 7.0;
+                double max = 100.0;
+
+                if (value >= min && value <= max)
+                {
+                    textBox4.BackColor = Color.White; // valid input
+                    button3.Enabled = true;
+                }
+                else
+                {
+                    textBox4.BackColor = Color.LightCoral; // number out of range
+                    button3.Enabled = false;
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(textBox4.Text))
+                {
+                    textBox4.BackColor = Color.White; // neutral when empty
+                }
+                else
+                {
+                    textBox4.BackColor = Color.LightCoral; // not a number
                 }
             }
         }
