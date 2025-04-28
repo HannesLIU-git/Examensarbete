@@ -15,7 +15,7 @@ namespace BRAC_FORM
     public partial class Form1_CLAMP: Form
     {
         string ScannedFilePath = string.Empty;
-        string ScannedFileName = string.Empty;
+        
         public Form1_CLAMP()
         {
             InitializeComponent();
@@ -157,7 +157,7 @@ namespace BRAC_FORM
 
                 Class_Add_item addItem = new Class_Add_item();
 
-                addItem.AddScannedPartToAssembly(ScannedFileName,ScannedFilePath,position, assemblyPart);
+                addItem.AddScannedPartToAssembly(GlobalVariables.ScannedFileName,ScannedFilePath,position, assemblyPart);
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
             }
@@ -241,7 +241,7 @@ namespace BRAC_FORM
             }
             else if (selected == "From File Browser")
             {
-                addItem.DeleteScannedBracket(ScannedFileName);
+                addItem.DeleteScannedBracket(GlobalVariables.ScannedFileName);
             }
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel deleted.");
 
@@ -261,7 +261,7 @@ namespace BRAC_FORM
                 {
                     // Get the path of specified file
                      ScannedFilePath = openFileDialog.FileName;
-                     ScannedFileName = openFileDialog.SafeFileName;
+                     GlobalVariables.ScannedFileName = openFileDialog.SafeFileName;
 
                     // Do something with the file path, like show it in a textbox
                     textBox2.Text = ScannedFilePath;

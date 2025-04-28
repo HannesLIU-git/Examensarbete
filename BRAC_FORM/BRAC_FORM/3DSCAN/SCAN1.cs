@@ -264,12 +264,12 @@ namespace BRAC_FORM
 
                 if (value >= min && value <= max)
                 {
-                    textBox1.BackColor = Color.White; // valid input
+                    textBox5.BackColor = Color.White; // valid input
                     button3.Enabled = true;
                 }
                 else
                 {
-                    textBox1.BackColor = Color.LightCoral; // number out of range
+                    textBox5.BackColor = Color.LightCoral; // number out of range
                     button3.Enabled = false;
                 }
             }
@@ -277,11 +277,11 @@ namespace BRAC_FORM
             {
                 if (string.IsNullOrWhiteSpace(textBox1.Text))
                 {
-                    textBox1.BackColor = Color.White; // neutral when empty
+                    textBox5.BackColor = Color.White; // neutral when empty
                 }
                 else
                 {
-                    textBox1.BackColor = Color.LightCoral; // not a number
+                    textBox5.BackColor = Color.LightCoral; // not a number
                 }
             }
         }

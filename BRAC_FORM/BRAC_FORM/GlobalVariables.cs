@@ -36,7 +36,9 @@ namespace BRAC_FORM
 
         public static string PipeDiameter { get; set; } = string.Empty;
 
-      
+        public static string ScannedFileName { get; set; } = string.Empty;
+
+
     }
 
 }

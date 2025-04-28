@@ -26,6 +26,10 @@ namespace BRAC_FORM
             Part workPart = theSession.Parts.Work;
             Part displayPart = theSession.Parts.Display;
 
+            Class_Add_item addItem = new Class_Add_item();
+            addItem.DeleteScannedBracket(GlobalVariables.ScannedFileName);
+
+
             // Skapa assemblyritning
             FileNew fileNew1 = theSession.Parts.FileNew();
             fileNew1.TemplateFileName = "sts-A3.prt";
