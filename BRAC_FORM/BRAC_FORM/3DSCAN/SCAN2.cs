@@ -294,5 +294,11 @@ namespace BRAC_FORM
 
             updateViewsBuilder1.Destroy();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close(); // stänger formuläret
+            Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
+        }
     }
 }

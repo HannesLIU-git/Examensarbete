@@ -142,7 +142,7 @@ namespace BRAC_FORM
         
             this.Close(); // stänger formuläret
             Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
-            Environment.Exit(0);
+            //Environment.Exit(0);
 
         }
     }
