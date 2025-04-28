@@ -90,7 +90,7 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + ParaWidth + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Picatinny_SAT.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("SAT_II_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
 
@@ -120,8 +120,8 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Upper_brac_Picatinny", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Skruvar_picatinny", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Parralax_distans", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Picatinny_SAT", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("Picatinny_rail", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("SAT_II_Picatinny", GlobalVariables.bracketCounter);
+            //addItem.DeleteBracket("Picatinny_rail", GlobalVariables.bracketCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
         }

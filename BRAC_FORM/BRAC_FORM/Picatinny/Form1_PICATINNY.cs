@@ -54,5 +54,14 @@ namespace BRAC_FORM
             form1.Show(); // Show Form1
             this.Hide();  // Hide Form2
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            Class_Add_item addItem = new Class_Add_item();
+            addItem.DeleteBracket("Picatinny_rail", GlobalVariables.bracketCounter);
+
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Rail Deleted");
+        }
     }
 }
