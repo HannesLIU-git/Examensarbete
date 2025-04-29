@@ -18,9 +18,14 @@ namespace BRAC_FORM
 {
     public partial class Form2_PICATINNY : Form
     {
+
         public Form2_PICATINNY()
         {
             InitializeComponent();
+            label5.Visible = false;
+            textBox4.Visible = false;
+            label4.Visible = false;
+            textBox3.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -143,6 +148,36 @@ namespace BRAC_FORM
             this.Close(); // stänger formuläret
             Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
             //Environment.Exit(0);
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = comboBox1.SelectedItem?.ToString();
+            if (selected == "Equal")
+            {
+                label5.Visible = false;
+                textBox4.Visible = false;
+                label4.Visible = false;
+                textBox3.Visible = false;
+
+
+            }
+            else if (selected == "Over")
+            {
+                label5.Visible = true;
+                textBox4.Visible = true;
+                label4.Visible = true;
+                textBox3.Visible = true;
+
+            }
+            else if (selected == "Under")
+            {
+                label5.Visible = true;
+                textBox4.Visible = true;
+                label4.Visible = true;
+                textBox3.Visible = true;
+            }
 
         }
     }

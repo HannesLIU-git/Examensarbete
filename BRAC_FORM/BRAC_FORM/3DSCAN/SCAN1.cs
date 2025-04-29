@@ -352,5 +352,12 @@ namespace BRAC_FORM
         {
 
         }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            selected = comboBox1.SelectedItem?.ToString();
+            //originalselected = selected;
+           
+        }
     }
 }
