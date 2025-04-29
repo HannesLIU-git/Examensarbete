@@ -38,6 +38,8 @@ namespace BRAC_FORM
 
         public static string ScannedFileName { get; set; } = string.Empty;
 
+        public static int PicaCounter { get; set; } = 0;
+
 
     }
 

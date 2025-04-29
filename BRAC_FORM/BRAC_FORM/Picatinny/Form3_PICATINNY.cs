@@ -27,6 +27,9 @@ namespace BRAC_FORM
             Part workPart = theSession.Parts.Work;
             Part displayPart = theSession.Parts.Display;
 
+            Class_Add_item addItem = new Class_Add_item();
+            addItem.DeleteBracket("Picatinny_rail", GlobalVariables.PicaCounter);
+
             // Skapa assemblyritning
             FileNew fileNew1 = theSession.Parts.FileNew();
             fileNew1.TemplateFileName = "sts-A3.prt";
@@ -39,7 +42,7 @@ namespace BRAC_FORM
 
             string filename = GlobalVariables.FilePath + "\\" + textBox1.Text + ".prt";
             fileNew1.NewFileName = filename;
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{filename}");
+           
 
             //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
@@ -277,6 +280,20 @@ namespace BRAC_FORM
             theSession.SetUndoMarkName(markId5, "Update Views");
 
             updateViewsBuilder1.Destroy();
+        }
+
+        private void button2_Click(object sender, EventArgs e) /////////////////// Previous
+        {
+            Form2_PICATINNY form1 = new Form2_PICATINNY();
+            form1.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close(); // stänger formuläret
+            Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
+            //Environment.Exit(0);
         }
     }
     

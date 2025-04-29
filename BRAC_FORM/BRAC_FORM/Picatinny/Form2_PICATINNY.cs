@@ -97,10 +97,11 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + ParaWidth + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("SAT_II_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
 
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
+            
 
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Picatinny Bracket added.");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -141,15 +142,7 @@ namespace BRAC_FORM
         {
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-           
-        
-            this.Close(); // stänger formuläret
-            Session.GetSession().ApplicationSwitchImmediate("UG_APP_MODELING"); // Ger tillbaka kontrollen
-            //Environment.Exit(0);
-
-        }
+      
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -21,7 +21,7 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e) ////////////// INSERT RAIL
         {
 
-            GlobalVariables.bracketCounter++;
+            GlobalVariables.PicaCounter++;
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
@@ -33,7 +33,7 @@ namespace BRAC_FORM
 
             Class_Add_item addItem = new Class_Add_item();
 
-            addItem.AddPartToAssembly("Picatinny_rail.prt", GlobalVariables.bracketCounter, D_width, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Picatinny_rail.prt", GlobalVariables.PicaCounter, D_width, position, partsFolderPath, assemblyPart);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Rail Added to Assembly.");
 
@@ -59,7 +59,7 @@ namespace BRAC_FORM
         {
 
             Class_Add_item addItem = new Class_Add_item();
-            addItem.DeleteBracket("Picatinny_rail", GlobalVariables.bracketCounter);
+            addItem.DeleteBracket("Picatinny_rail", GlobalVariables.PicaCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Rail Deleted");
         }
