@@ -287,6 +287,21 @@ namespace BRAC_FORM
                     }
                     Gaffel_LExpression.RightHandSide = Gaffel_LValue; // Directly use the string value
                 }
+                if (dimensionValues.Length > 6)
+                {
+                    string ThermalValue = dimensionValues[6];
+                    Expression ThermalExpression;
+                    try
+                    {
+                        ThermalExpression = part.Expressions.FindObject("Thermal");
+                    }
+                    catch
+                    {
+                        // Create the expression if it doesn't exist
+                        ThermalExpression = part.Expressions.CreateExpression("Thermal", ThermalValue); // Directly use the string value
+                    }
+                    ThermalExpression.RightHandSide = ThermalValue; // Directly use the string value
+                }
                 // Refresh the part to reflect changes
                 theSession.Parts.Display.Views.Refresh();
             }

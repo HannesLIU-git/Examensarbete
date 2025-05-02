@@ -35,7 +35,15 @@ namespace BRAC_FORM
             Part assemblyPart = (Part)theSession.Parts.Work;
 
             GlobalVariables.bracketCounter++;
-
+            string Thermal = string.Empty;
+            if (checkBox1.Checked)
+            {
+                Thermal = "1";
+            }
+            else 
+            {
+                Thermal = "0";
+            }
             string D_width = textBox5.Text;
             GlobalVariables.Width = textBox1.Text;
             string Width = GlobalVariables.Width;
@@ -103,7 +111,7 @@ namespace BRAC_FORM
 
             selectedcomponent = comboBox2.SelectedItem?.ToString();
             double diameter = Convert.ToDouble(D_width);
-            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{selectedcomponent}");
+          
 
             if (selectedcomponent == "M6x20" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 20))
             {
@@ -130,7 +138,7 @@ namespace BRAC_FORM
 
             addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
+            addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L + "," + Thermal, position, partsFolderPath, assemblyPart);
 
 
             addItem.updateAll();
@@ -236,6 +244,16 @@ namespace BRAC_FORM
 
                 GlobalVariables.bracketCounter++;
 
+                string Thermal = string.Empty;
+                if (checkBox1.Checked)
+                {
+                    Thermal = "1";
+                }
+                else
+                {
+                    Thermal = "0";
+                }
+
                 string D_width = textBox5.Text;
                 GlobalVariables.Width = textBox1.Text;
                 string Width = GlobalVariables.Width;
@@ -301,7 +319,7 @@ namespace BRAC_FORM
 
                 selectedcomponent = comboBox2.SelectedItem?.ToString();
                 double diameter = Convert.ToDouble(D_width);
-                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{selectedcomponent}");
+  
 
                 if (selectedcomponent == "M6x20" || selectedcomponent == "-" && diameter <= 20 )
                 {
@@ -327,7 +345,7 @@ namespace BRAC_FORM
 
                 addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
+                addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L + "," + Thermal, position, partsFolderPath, assemblyPart);
 
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();
