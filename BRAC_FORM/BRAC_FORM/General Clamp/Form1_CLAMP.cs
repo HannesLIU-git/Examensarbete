@@ -264,7 +264,7 @@ namespace BRAC_FORM
                      GlobalVariables.ScannedFileName = openFileDialog.SafeFileName;
 
                     // Do something with the file path, like show it in a textbox
-                    textBox2.Text = ScannedFilePath;
+                    textBox2.Text = GlobalVariables.ScannedFileName;
                 }
             }
         }

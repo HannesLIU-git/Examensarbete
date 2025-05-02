@@ -20,6 +20,8 @@ namespace BRAC_FORM
         string originalTextbox5 = "";
         string originalselected = string.Empty;
         string selected = string.Empty;
+        string selectedcomponent = string.Empty;
+        int M6_length = 0;
         public _3DSCAN1()
         {
             InitializeComponent();
@@ -97,7 +99,35 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Locking_brack.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Locking_Pin.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-            addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+
+
+            selectedcomponent = comboBox2.SelectedItem?.ToString();
+            double diameter = Convert.ToDouble(D_width);
+            UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{selectedcomponent}");
+
+            if (selectedcomponent == "M6x20" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 20))
+            {
+                M6_length = 20;
+                addItem.AddPartToAssembly("M6_20.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (selectedcomponent == "M6x25" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 25 && diameter > 20))
+            {
+                M6_length = 25;
+                addItem.AddPartToAssembly("M6_25.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (selectedcomponent == "M6x30" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 30 && diameter > 25))
+            {
+                M6_length = 30;
+                addItem.AddPartToAssembly("M6_30.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (selectedcomponent == "M6x35" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 35 && diameter > 30))
+            {
+                M6_length = 35;
+                addItem.AddPartToAssembly("M6_35.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+
+
+
             addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
@@ -130,7 +160,24 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Lower_brac_new_m16", GlobalVariables.bracketCounter);
-            addItem.DeleteBracket("M6_35_NEW_BRAC", GlobalVariables.bracketCounter);
+
+            if (M6_length == 20)
+            {
+                addItem.DeleteBracket("M6_20", GlobalVariables.bracketCounter);
+            }
+            else if (M6_length == 25)
+            {
+                addItem.DeleteBracket("M6_25", GlobalVariables.bracketCounter);
+            }
+            else if (M6_length == 30)
+            {
+                addItem.DeleteBracket("M6_30", GlobalVariables.bracketCounter);
+            }
+            else if (M6_length == 35)
+            {
+                addItem.DeleteBracket("M6_35", GlobalVariables.bracketCounter);
+            }
+
             addItem.DeleteBracket("RPD_PIN", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("SAT_II", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
@@ -164,7 +211,22 @@ namespace BRAC_FORM
                 addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Lower_brac_new_m16", GlobalVariables.bracketCounter);
-                addItem.DeleteBracket("M6_35_NEW_BRAC", GlobalVariables.bracketCounter);
+                if (M6_length == 20)
+                {
+                    addItem.DeleteBracket("M6_20", GlobalVariables.bracketCounter);
+                }
+                else if (M6_length == 25)
+                {
+                    addItem.DeleteBracket("M6_25", GlobalVariables.bracketCounter);
+                }
+                else if (M6_length == 30)
+                {
+                    addItem.DeleteBracket("M6_30", GlobalVariables.bracketCounter);
+                }
+                else if (M6_length == 35)
+                {
+                    addItem.DeleteBracket("M6_35", GlobalVariables.bracketCounter);
+                }
                 addItem.DeleteBracket("RPD_PIN", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("SAT_II", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Upper_NEW_clamp", GlobalVariables.bracketCounter);
@@ -236,7 +298,33 @@ namespace BRAC_FORM
                 addItem.AddPartToAssembly("Locking_brack.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Locking_Pin.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                addItem.AddPartToAssembly("M6_35_NEW_BRAC.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+
+                selectedcomponent = comboBox2.SelectedItem?.ToString();
+                double diameter = Convert.ToDouble(D_width);
+                UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"{selectedcomponent}");
+
+                if (selectedcomponent == "M6x20" || selectedcomponent == "-" && diameter <= 20 )
+                {
+                    M6_length = 20;
+                    addItem.AddPartToAssembly("M6_20.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                }
+                else if (selectedcomponent == "M6x25" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 25 && diameter > 20))
+                {
+                    M6_length = 25;
+                    addItem.AddPartToAssembly("M6_25.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                }
+                else if (selectedcomponent == "M6x30" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 30 && diameter > 25))
+                {
+                    M6_length = 30;
+                    addItem.AddPartToAssembly("M6_30.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                }
+                else if (selectedcomponent == "M6x35" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 35 && diameter > 30))
+                {
+                    M6_length = 35;
+                    addItem.AddPartToAssembly("M6_35.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+                }
+
+
                 addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L, position, partsFolderPath, assemblyPart);
