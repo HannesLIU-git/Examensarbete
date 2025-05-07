@@ -26,6 +26,11 @@ namespace BRAC_FORM
             button5.Visible = false;
             textBox2.Visible = false;
 
+            textBox1.Text =  GlobalVariables.PipeDiameter;
+            comboBox1.SelectedItem = GlobalVariables.BarrelType;
+            textBox2.Text = GlobalVariables.ScannedFileName;
+
+
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -41,6 +46,7 @@ namespace BRAC_FORM
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
+                    GlobalVariables.BarrelType = comboBox1.SelectedItem.ToString();
                     break;
                 case "M4A1":
                     label1.Visible = true;
@@ -48,6 +54,7 @@ namespace BRAC_FORM
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
+                    GlobalVariables.BarrelType = comboBox1.SelectedItem.ToString();
                     break;
                 case "AR15":
                     label1.Visible = true;
@@ -55,6 +62,7 @@ namespace BRAC_FORM
                     textBox1.Visible = true;
                     button5.Visible = false;
                     textBox2.Visible = false;
+                    GlobalVariables.BarrelType = comboBox1.SelectedItem.ToString();
                     break;
                 case "From File Browser":
                     button5.Visible = true;
@@ -62,6 +70,7 @@ namespace BRAC_FORM
                     label1.Visible = false;
                     textBox1.Visible = false;
                     label3.Visible = false;
+                    GlobalVariables.BarrelType = comboBox1.SelectedItem.ToString();
                     break;
 
             }
@@ -157,7 +166,7 @@ namespace BRAC_FORM
 
                 Class_Add_item addItem = new Class_Add_item();
 
-                addItem.AddScannedPartToAssembly(GlobalVariables.ScannedFileName,ScannedFilePath,position, assemblyPart);
+                addItem.AddScannedPartToAssembly(GlobalVariables.ScannedFileName,GlobalVariables.ScannedFilePath,position, assemblyPart);
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
             }
@@ -260,7 +269,7 @@ namespace BRAC_FORM
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     // Get the path of specified file
-                     ScannedFilePath = openFileDialog.FileName;
+                     GlobalVariables.ScannedFilePath = openFileDialog.FileName;
                      GlobalVariables.ScannedFileName = openFileDialog.SafeFileName;
 
                     // Do something with the file path, like show it in a textbox

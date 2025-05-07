@@ -22,11 +22,28 @@ namespace BRAC_FORM
         string selected = string.Empty;
         string selectedcomponent = string.Empty;
         int M6_length = 0;
+
+        
         public _3DSCAN1()
         {
             InitializeComponent();
-            button4.Enabled = false;
-            button6.Enabled = false;
+            if (GlobalVariables.BracketAdded == false)
+            {
+                button4.Enabled = false;
+                button6.Enabled = false;
+            }
+
+            textBox5.Text = GlobalVariables.Diameter;
+            textBox1.Text = GlobalVariables.Width;
+            textBox3.Text = GlobalVariables.ForkLength;
+            textBox4.Text = GlobalVariables.ForkWidth;
+            textBox2.Text = GlobalVariables.BracketPos;
+
+            comboBox1.SelectedItem = GlobalVariables.BracketSide;
+            comboBox2.SelectedItem = GlobalVariables.SelectedComponent;
+
+            checkBox1.Checked = GlobalVariables.Thermal;
+
         }
 
         private void button3_Click(object sender, EventArgs e) /////////////////////// ADD BRACKET
@@ -39,11 +56,15 @@ namespace BRAC_FORM
             if (checkBox1.Checked)
             {
                 Thermal = "1";
+                GlobalVariables.Thermal = true;
             }
             else 
             {
                 Thermal = "0";
+                GlobalVariables.Thermal = false;
             }
+
+            GlobalVariables.Diameter = textBox5.Text;
             string D_width = textBox5.Text;
             GlobalVariables.Width = textBox1.Text;
             string Width = GlobalVariables.Width;
@@ -67,8 +88,10 @@ namespace BRAC_FORM
             int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-
+            GlobalVariables.ForkLength = textBox3.Text;
             string Gaffel_L = textBox3.Text;
+
+            GlobalVariables.ForkWidth = textBox4.Text;
             string Gaffel_W = textBox4.Text;
 
 
@@ -76,28 +99,28 @@ namespace BRAC_FORM
             Point3d position = new Point3d(0.0, Pos, 0.0);
             string partsFolderPath = GlobalVariables.FilePath;
 
-            selected = comboBox1.SelectedItem?.ToString();
+            GlobalVariables.BracketSide = comboBox1.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(selected))
+            if (GlobalVariables.BracketSide == "--Select Side--")
             {
                 MessageBox.Show("Please select bracket direction");
                 return;
             }
 
-            if (selected == "Over")
+            if (GlobalVariables.BracketSide == "Over")
             {
                 XPos = "0.01";
 
             }
-            else if (selected == "Right")
+            else if (GlobalVariables.BracketSide == "Right")
             {
                 XPos = "270";
             }
-            else if (selected == "Under")
+            else if (GlobalVariables.BracketSide == "Under")
             {
                 XPos = "180";
             }
-            else if (selected == "Left")
+            else if (GlobalVariables.BracketSide == "Left")
             {
                 XPos = "90";
             }
@@ -109,26 +132,26 @@ namespace BRAC_FORM
             addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
 
 
-            selectedcomponent = comboBox2.SelectedItem?.ToString();
+            GlobalVariables.SelectedComponent = comboBox2.SelectedItem?.ToString();
             double diameter = Convert.ToDouble(D_width);
           
 
-            if (selectedcomponent == "M6x20" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 20))
+            if (GlobalVariables.SelectedComponent == "M6x20" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 20))
             {
                 M6_length = 20;
                 addItem.AddPartToAssembly("M6_20.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             }
-            else if (selectedcomponent == "M6x25" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 25 && diameter > 20))
+            else if (GlobalVariables.SelectedComponent == "M6x25" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 25 && diameter > 20))
             {
                 M6_length = 25;
                 addItem.AddPartToAssembly("M6_25.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             }
-            else if (selectedcomponent == "M6x30" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 30 && diameter > 25))
+            else if (GlobalVariables.SelectedComponent == "M6x30" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 30 && diameter > 25))
             {
                 M6_length = 30;
                 addItem.AddPartToAssembly("M6_30.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
             }
-            else if (selectedcomponent == "M6x35" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 35 && diameter > 30))
+            else if (GlobalVariables.SelectedComponent == "M6x35" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 35 && diameter > 30))
             {
                 M6_length = 35;
                 addItem.AddPartToAssembly("M6_35.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
@@ -154,6 +177,8 @@ namespace BRAC_FORM
             originalTextbox4 = textBox4.Text;
             originalTextbox5 = textBox5.Text;
             originalselected = selected;
+
+            GlobalVariables.BracketAdded = true;
 
             button4.Enabled = true;
             button3.Enabled = false;
@@ -195,6 +220,7 @@ namespace BRAC_FORM
             button4.Enabled = false;
             button3.Enabled = true;
             button6.Enabled = false;
+            GlobalVariables.BracketAdded = false;
         }
 
         private void button1_Click(object sender, EventArgs e) ///////////////////// PREVIOUS
@@ -213,8 +239,8 @@ namespace BRAC_FORM
 
         private void button6_Click(object sender, EventArgs e) /////////////////////// UPDATE
         {
-            if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox4.Text != originalTextbox4 || textBox5.Text != originalTextbox5 || selected != originalselected)
-            {
+           // if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox4.Text != originalTextbox4 || textBox5.Text != originalTextbox5 || selected != originalselected)
+            
                 Class_Add_item addItem = new Class_Add_item();
                 addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
@@ -248,12 +274,14 @@ namespace BRAC_FORM
                 if (checkBox1.Checked)
                 {
                     Thermal = "1";
+                    GlobalVariables.Thermal = true;
                 }
                 else
                 {
                     Thermal = "0";
+                    GlobalVariables.Thermal = false;
                 }
-
+                GlobalVariables.Diameter = textBox5.Text;
                 string D_width = textBox5.Text;
                 GlobalVariables.Width = textBox1.Text;
                 string Width = GlobalVariables.Width;
@@ -278,8 +306,11 @@ namespace BRAC_FORM
                 int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-                //string Gaffel_L = FrontPOS.ToString();
+            //string Gaffel_L = FrontPOS.ToString();
+            GlobalVariables.ForkLength = textBox3.Text;
                 string Gaffel_L = textBox3.Text;
+
+            GlobalVariables.ForkWidth = textBox4.Text;
                 string Gaffel_W = textBox4.Text;
 
 
@@ -287,28 +318,28 @@ namespace BRAC_FORM
                 Point3d position = new Point3d(0.0, Pos, 0.0);
                 string partsFolderPath = GlobalVariables.FilePath;
 
-                selected = comboBox1.SelectedItem?.ToString();
+                GlobalVariables.BracketSide = comboBox1.SelectedItem?.ToString();
 
-                if (string.IsNullOrEmpty(selected))
+                if (GlobalVariables.BracketSide == "--Optional--")
                 {
                     MessageBox.Show("Please select bracket direction");
                     return;
                 }
 
-                if (selected == "Over")
+                if (GlobalVariables.BracketSide == "Over")
                 {
                     XPos = "0.01";
 
                 }
-                else if (selected == "Right")
+                else if (GlobalVariables.BracketSide == "Right")
                 {
                     XPos = "270";
                 }
-                else if (selected == "Under")
+                else if (GlobalVariables.BracketSide == "Under")
                 {
                     XPos = "180";
                 }
-                else if (selected == "Left")
+                else if (GlobalVariables.BracketSide == "Left")
                 {
                     XPos = "90";
                 }
@@ -317,33 +348,34 @@ namespace BRAC_FORM
                 addItem.AddPartToAssembly("Locking_Pin.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Lower_brac_new_m16.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
 
-                selectedcomponent = comboBox2.SelectedItem?.ToString();
+                GlobalVariables.SelectedComponent = comboBox2.SelectedItem?.ToString();
                 double diameter = Convert.ToDouble(D_width);
-  
-
-                if (selectedcomponent == "M6x20" || selectedcomponent == "-" && diameter <= 20 )
-                {
-                    M6_length = 20;
-                    addItem.AddPartToAssembly("M6_20.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                }
-                else if (selectedcomponent == "M6x25" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 25 && diameter > 20))
-                {
-                    M6_length = 25;
-                    addItem.AddPartToAssembly("M6_25.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                }
-                else if (selectedcomponent == "M6x30" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 30 && diameter > 25))
-                {
-                    M6_length = 30;
-                    addItem.AddPartToAssembly("M6_30.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                }
-                else if (selectedcomponent == "M6x35" || (string.IsNullOrEmpty(selectedcomponent) && diameter <= 35 && diameter > 30))
-                {
-                    M6_length = 35;
-                    addItem.AddPartToAssembly("M6_35.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
-                }
 
 
-                addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            if (GlobalVariables.SelectedComponent == "M6x20" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 20))
+            {
+                M6_length = 20;
+                addItem.AddPartToAssembly("M6_20.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (GlobalVariables.SelectedComponent == "M6x25" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 25 && diameter > 20))
+            {
+                M6_length = 25;
+                addItem.AddPartToAssembly("M6_25.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (GlobalVariables.SelectedComponent == "M6x30" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 30 && diameter > 25))
+            {
+                M6_length = 30;
+                addItem.AddPartToAssembly("M6_30.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+            else if (GlobalVariables.SelectedComponent == "M6x35" || (GlobalVariables.SelectedComponent == "--Optional--" && diameter <= 35 && diameter > 30))
+            {
+                M6_length = 35;
+                addItem.AddPartToAssembly("M6_35.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
+            }
+
+
+
+            addItem.AddPartToAssembly("RPD_PIN.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("SAT_II.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos, position, partsFolderPath, assemblyPart);
                 addItem.AddPartToAssembly("Upper_NEW_clamp.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos + "," + Gaffel_W + "," + Gaffel_L + "," + Thermal, position, partsFolderPath, assemblyPart);
 
@@ -353,11 +385,12 @@ namespace BRAC_FORM
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket updated");
 
                 button6.Enabled = true;
-            }
-            else
-            {
-                UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change any parameter.");
-            }
+            GlobalVariables.BracketAdded = true;
+            
+           // else
+            //{
+              //  UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change any parameter.");
+            //}
 
         }
 

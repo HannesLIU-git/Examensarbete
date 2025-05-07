@@ -17,6 +17,9 @@ namespace BRAC_FORM
         public Form1()
         {
             InitializeComponent();
+            textBox2.Text = GlobalVariables.FilePath;
+            comboBox1.SelectedItem = GlobalVariables.BracketType;
+
         }
 
 
@@ -31,21 +34,21 @@ namespace BRAC_FORM
             GlobalVariables.FilePathUI = GlobalVariables.FilePath.Replace("CAD", "Point_UI.dlx");
 
 
-            string selected = comboBox1.SelectedItem?.ToString();
+            GlobalVariables.BracketType = comboBox1.SelectedItem?.ToString();
 
-            if (string.IsNullOrEmpty(selected))
+            if (string.IsNullOrEmpty(GlobalVariables.BracketType))
             {
                 MessageBox.Show("Please select a form to open.");
                 return;
             }
 
-            if (selected == "Clamp")
+            if (GlobalVariables.BracketType == "Clamp")
             {
                 Form1_CLAMP form1_CLAMP = new Form1_CLAMP();
                 form1_CLAMP.Show(); // or formA.ShowDialog();
                 this.Hide();
             }
-            else if (selected == "Picatinny")
+            else if (GlobalVariables.BracketType == "Picatinny")
             {
 
                 Form1_PICATINNY form1_PICATTINY = new Form1_PICATINNY(); // Create an instance of Form2
