@@ -66,9 +66,7 @@ namespace BRAC_FORM
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Edit->Show and Hide->Show and Hide...
-            // ----------------------------------------------
+       
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 
@@ -107,9 +105,7 @@ namespace BRAC_FORM
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Tools->Update->Interpart Update->Update All
-            // ----------------------------------------------
+   
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Update Session");
 
@@ -356,7 +352,6 @@ namespace BRAC_FORM
 
                 theSession.Parts.Display.Views.Refresh();
 
-                // UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Part added at origin.");
             }
             catch (Exception ex)
             {

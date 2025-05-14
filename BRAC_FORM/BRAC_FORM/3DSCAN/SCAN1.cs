@@ -78,8 +78,7 @@ namespace BRAC_FORM
 
             double Pos = IntPoint + bracketPos;
 
-            int Forkint = (int)GlobalVariables.forkdistance + 1;
-            //string Gaffel_W = Forkint.ToString();
+            int Forkint = (int)GlobalVariables.forkdistance + 1;            
 
             int bracketWidth = int.Parse(Width);
 
@@ -94,8 +93,6 @@ namespace BRAC_FORM
             GlobalVariables.ForkWidth = textBox4.Text;
             string Gaffel_W = textBox4.Text;
 
-
-            //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
             Point3d position = new Point3d(0.0, Pos, 0.0);
             string partsFolderPath = GlobalVariables.FilePath;
 
@@ -169,7 +166,6 @@ namespace BRAC_FORM
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
-            //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
             originalTextbox1 = textBox1.Text;
             originalTextbox2 = textBox2.Text;
@@ -239,8 +235,7 @@ namespace BRAC_FORM
 
         private void button6_Click(object sender, EventArgs e) /////////////////////// UPDATE
         {
-           // if (textBox1.Text != originalTextbox1 || textBox2.Text != originalTextbox2 || textBox3.Text != originalTextbox3 || textBox4.Text != originalTextbox4 || textBox5.Text != originalTextbox5 || selected != originalselected)
-            
+          
                 Class_Add_item addItem = new Class_Add_item();
                 addItem.DeleteBracket("Locking_brack", GlobalVariables.bracketCounter);
                 addItem.DeleteBracket("Locking_Pin", GlobalVariables.bracketCounter);
@@ -297,8 +292,7 @@ namespace BRAC_FORM
                 double Pos = IntPoint + bracketPos;
 
                 int Forkint = (int)GlobalVariables.forkdistance + 1;
-                //string Gaffel_W = Forkint.ToString();
-
+           
                 int bracketWidth = int.Parse(Width);
 
                 int Frontint = (int)GlobalVariables.forkpoint1[1]; // FrontPos
@@ -306,15 +300,14 @@ namespace BRAC_FORM
                 int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-            //string Gaffel_L = FrontPOS.ToString();
+          
             GlobalVariables.ForkLength = textBox3.Text;
                 string Gaffel_L = textBox3.Text;
 
             GlobalVariables.ForkWidth = textBox4.Text;
                 string Gaffel_W = textBox4.Text;
 
-
-                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
+              
                 Point3d position = new Point3d(0.0, Pos, 0.0);
                 string partsFolderPath = GlobalVariables.FilePath;
 
@@ -387,10 +380,6 @@ namespace BRAC_FORM
                 button6.Enabled = true;
             GlobalVariables.BracketAdded = true;
             
-           // else
-            //{
-              //  UI.GetUI().NXMessageBox.Show("Error", NXMessageBox.DialogType.Information, $"Please change any parameter.");
-            //}
 
         }
 
@@ -495,7 +484,6 @@ namespace BRAC_FORM
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             selected = comboBox1.SelectedItem?.ToString();
-            //originalselected = selected;
            
         }
     }

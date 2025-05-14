@@ -42,17 +42,13 @@ namespace BRAC_FORM
 
             string filename = GlobalVariables.FilePath + "\\" + textBox1.Text + ".prt";
             fileNew1.NewFileName = filename;
-           
 
-            //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
-
 
             fileNew1.MakeDisplayedPart = true;
             fileNew1.DisplayPartOption = DisplayPartOption.AllowAdditional;
             fileNew1.Commit();
             fileNew1.Destroy();
-
 
             workPart = theSession.Parts.Work;
             workPart.Drafting.EnterDraftingApplication();
@@ -98,14 +94,7 @@ namespace BRAC_FORM
 
             CreateSeparateDetailDrawing($"Skruvar_picatinny_{GlobalVariables.bracketCounter}", 2);
 
-          // CreateSeparateDetailDrawing($"Locking_brack_{GlobalVariables.bracketCounter}", 2);
-
-           // CreateSeparateDetailDrawing($"RPD_PIN_{GlobalVariables.bracketCounter}", 3);
-
             MessageBox.Show("All drawings created.");
-
-            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
-
             
         }
 
@@ -158,18 +147,18 @@ namespace BRAC_FORM
             wizard.Part = detailPart;
             wizard.BaseView = "FRONT";
 
-            // ➕ Lägg till flera vyer
+            //  Lägg till flera vyer
             wizard.RightView = true;
             wizard.TopView = true;
             wizard.IsometricView = true;
 
-            // ➕ PMI och skalning
+            //  PMI och skalning
             wizard.InheritPMI = 3;
             wizard.InheritPmiOntoDrawing = true;
             wizard.PmiDimensionFromRevolved = true;
             wizard.ViewScale.Numerator = scale;
 
-            // ➕ Automatisk grupplacering runt en mittpunkt
+            //  Automatisk grupplacering runt en mittpunkt
             wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Manual;
             wizard.MultipleViewPlacement.OptionType = NXOpen.Drawings.MultipleViewPlacementBuilder.Option.Center;
 
@@ -196,9 +185,7 @@ namespace BRAC_FORM
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Edit->Show and Hide->Show and Hide...
-            // ----------------------------------------------
+    
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 
@@ -241,9 +228,6 @@ namespace BRAC_FORM
 
             theSession.DeleteUndoMark(markId1, null);
 
-            // ----------------------------------------------
-            //   Menu: Edit->View->Update...
-            // ----------------------------------------------
             NXOpen.Session.UndoMarkId markId5;
             markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 

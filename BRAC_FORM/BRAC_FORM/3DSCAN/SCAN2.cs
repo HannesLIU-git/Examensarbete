@@ -43,8 +43,6 @@ namespace BRAC_FORM
             string filename = GlobalVariables.FilePath + "\\" + textBox1.Text + ".prt";
             fileNew1.NewFileName = filename;
 
-
-            //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
 
 
@@ -104,13 +102,8 @@ namespace BRAC_FORM
 
             MessageBox.Show("All drawings created.");
 
-            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="partName"></param>
-        /// <param name="scale"></param>
+
         private void CreateSeparateDetailDrawing(string partName, double scale)
         {
             Session theSession = Session.GetSession();
@@ -160,29 +153,29 @@ namespace BRAC_FORM
             wizard.Part = detailPart;
             wizard.BaseView = "FRONT";
 
-            // ➕ Lägg till flera vyer
+            //  Lägg till flera vyer
             wizard.RightView = true;
             wizard.TopView = true;
             wizard.IsometricView = true;
 
-            // ➕ PMI och skalning
+            //  PMI och skalning
             wizard.InheritPMI = 3;
             wizard.InheritPmiOntoDrawing = true;
             wizard.PmiDimensionFromRevolved = true;
             wizard.ViewScale.Numerator = scale;
 
-            // ➕ Automatisk grupplacering runt en mittpunkt
+            //  Automatisk grupplacering runt en mittpunkt
             wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Manual;
             wizard.MultipleViewPlacement.OptionType = NXOpen.Drawings.MultipleViewPlacementBuilder.Option.Center;
 
-            // Sätt placeringen mitt på ritningen (justera gärna!)
+            // Sätt placeringen mitt på ritningen 
             Point3d centerPoint = new Point3d(200, 190, 0);
             wizard.MultipleViewPlacement.ViewPlacementCenter.Placement.SetValue(null, drawingPart.Views.WorkView, centerPoint);
 
             wizard.Commit();
             wizard.Destroy();
 
-            // === Lägg till not om skala ===
+            // === Lägg till skala ===
             NXOpen.Annotations.DraftingNoteBuilder noteBuilder = drawingPart.Annotations.CreateDraftingNoteBuilder(null);
             noteBuilder.Origin.Plane.PlaneMethod = NXOpen.Annotations.PlaneBuilder.PlaneMethodType.ModelView;
             noteBuilder.Origin.Anchor = NXOpen.Annotations.OriginBuilder.AlignmentPosition.MidCenter;
@@ -196,8 +189,6 @@ namespace BRAC_FORM
 
         }
 
-        
-
         private void button2_Click(object sender, EventArgs e) /////////////////////////// PREVIOUS
         {
             _3DSCAN1 _3DSCAN1 = new _3DSCAN1(); // Create an instance of Form1
@@ -209,9 +200,7 @@ namespace BRAC_FORM
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Edit->Show and Hide->Show and Hide...
-            // ----------------------------------------------
+
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 
@@ -254,9 +243,7 @@ namespace BRAC_FORM
 
             theSession.DeleteUndoMark(markId1, null);
 
-            // ----------------------------------------------
-            //   Menu: Edit->View->Update...
-            // ----------------------------------------------
+   
             NXOpen.Session.UndoMarkId markId5;
             markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 

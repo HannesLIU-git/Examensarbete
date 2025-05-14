@@ -58,10 +58,6 @@ namespace BRAC_FORM
             {
                 D_width = "0";
                 SATpos = new Point3d(0.0, 0.0, 0.0);
-
-                
-
-
             }
             else if (selected == "Over")
             {
@@ -89,15 +85,12 @@ namespace BRAC_FORM
 
 
             GlobalVariables.bracketCounter++;
-            
 
             addItem.AddPartToAssembly("Lower_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Upper_brac_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + XPos + "," + YPos, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Skruvar_picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width, position, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("Parralax_distans.prt", GlobalVariables.bracketCounter, D_width + "," + ParaWidth + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
             addItem.AddPartToAssembly("SAT_II_Picatinny.prt", GlobalVariables.bracketCounter, D_width + "," + Width + "," + Parallax, SATpos, partsFolderPath, assemblyPart);
-
-            
 
             addItem.updateAll();
             addItem.HideDatumsAndSketches();
@@ -127,7 +120,6 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Skruvar_picatinny", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Parralax_distans", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("SAT_II_Picatinny", GlobalVariables.bracketCounter);
-            //addItem.DeleteBracket("Picatinny_rail", GlobalVariables.bracketCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
         }

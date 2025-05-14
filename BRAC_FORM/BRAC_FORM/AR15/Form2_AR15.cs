@@ -63,7 +63,6 @@ namespace BRAC_FORM
             double Pos = IntPoint + bracketPos;
 
             int Forkint = (int)GlobalVariables.forkdistance + 1;
-            //string Gaffel_W = Forkint.ToString();
 
             int bracketWidth = int.Parse(Width);
 
@@ -72,7 +71,6 @@ namespace BRAC_FORM
             int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-            //string Gaffel_L = FrontPOS.ToString();
             string Gaffel_L = textBox3.Text;
             string Gaffel_W = textBox4.Text;
 
@@ -181,7 +179,6 @@ namespace BRAC_FORM
                 double Pos = IntPoint + bracketPos;
 
                 int Forkint = (int)GlobalVariables.forkdistance + 1;
-                //string Gaffel_W = Forkint.ToString();
 
                 int bracketWidth = int.Parse(Width);
 
@@ -190,7 +187,6 @@ namespace BRAC_FORM
                 int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-                //string Gaffel_L = FrontPOS.ToString();
                 string Gaffel_L = textBox3.Text;
                 string Gaffel_W = textBox4.Text;
 

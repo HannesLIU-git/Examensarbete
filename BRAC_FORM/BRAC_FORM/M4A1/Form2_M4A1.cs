@@ -65,7 +65,6 @@ namespace BRAC_FORM
             string Gaffel_W = textBox4.Text;
 
 
-            //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
             Point3d position = new Point3d(0.0, Pos, 0.0);
             string partsFolderPath = GlobalVariables.FilePath;
 
@@ -111,7 +110,6 @@ namespace BRAC_FORM
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket added at {position}.");
 
-            //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
             originalTextbox1 = textBox1.Text;
             originalTextbox2 = textBox2.Text;
@@ -192,7 +190,6 @@ namespace BRAC_FORM
                 double Pos = IntPoint + bracketPos;
 
                 int Forkint = (int)GlobalVariables.forkdistance + 1;
-                //string Gaffel_W = Forkint.ToString();
 
                 int bracketWidth = int.Parse(Width);
 
@@ -201,12 +198,10 @@ namespace BRAC_FORM
                 int FrontPOS = bracketPos - bracketWidth / 2 - FrontDif + 9;
 
 
-                //string Gaffel_L = FrontPOS.ToString();
                 string Gaffel_L = textBox3.Text;
                 string Gaffel_W = textBox4.Text;
 
 
-                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
                 Point3d position = new Point3d(0.0, Pos, 0.0);
                 string partsFolderPath = GlobalVariables.FilePath;
 

@@ -22,9 +22,6 @@ namespace BRAC_FORM
 
         }
 
-
-      
-
         private void button4_Click(object sender, EventArgs e) /////////////////////////// NEXT
         {
             if (browser_pressed == false)

@@ -211,7 +211,6 @@ namespace BRAC_FORM
             addItem.DeleteBracket("Las_skruv_SAAB", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("lax_fot_SAAB", GlobalVariables.bracketCounter);
             addItem.DeleteBracket("Sat_SAAB", GlobalVariables.bracketCounter);
-           // addItem.DeleteBracket("Pipa_SAAB", GlobalVariables.pipeCounter);
 
             UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, $"Bracket was removed from assembly");
 

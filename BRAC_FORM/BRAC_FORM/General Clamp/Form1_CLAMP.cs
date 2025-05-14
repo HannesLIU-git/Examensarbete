@@ -34,8 +34,6 @@ namespace BRAC_FORM
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Hide all buttons first
-          
             
             // Show the button corresponding to the selected option
             switch (comboBox1.SelectedItem.ToString())
@@ -79,9 +77,6 @@ namespace BRAC_FORM
         private void button1_Click(object sender, EventArgs e) //////////////////// ADD BARREL
         {
 
-            
-
-
             Session theSession = Session.GetSession();
             Part assemblyPart = (Part)theSession.Parts.Work;
 
@@ -121,8 +116,6 @@ namespace BRAC_FORM
             {
                 GlobalVariables.AR15Counter++;
 
-                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
-
                 string partsFolderPath = GlobalVariables.FilePath;
 
                 Class_Add_item addItem = new Class_Add_item();
@@ -134,16 +127,12 @@ namespace BRAC_FORM
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();
 
-                //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
-
                 button2.Enabled = true;
                 button4.Enabled = true;
             }
             else if (selected == "M4A1")
             {
                 GlobalVariables.M4A1Counter++;
-
-                //GlobalVariables.FilePath = GlobalVariables.FilePath + "\\Nya_CAD";
 
                 string partsFolderPath = GlobalVariables.FilePath;
 
@@ -152,8 +141,6 @@ namespace BRAC_FORM
                 addItem.AddPartToAssembly("M4A1_barrel.prt", GlobalVariables.M4A1Counter, D_width, position, partsFolderPath, assemblyPart);
 
                 UI.GetUI().NXMessageBox.Show("Success", NXMessageBox.DialogType.Information, "Barrel added at origin.");
-
-                //GlobalVariables.FilePath = GlobalVariables.FilePath.Replace("\\Nya_CAD", "");
 
                 addItem.updateAll();
                 addItem.HideDatumsAndSketches();

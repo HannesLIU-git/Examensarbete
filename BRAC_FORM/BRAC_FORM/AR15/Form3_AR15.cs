@@ -48,7 +48,6 @@ namespace BRAC_FORM
             fileNew1.NewFileName = filename;
 
 
-            //fileNew1.NewFileName = @"C:\\Users\\u107284\\Desktop\\REEPOE\\BRAC_FORM\\CAD\\assembly1_dwg1.prt";
             fileNew1.MasterFileName = "assembly1";
 
 
@@ -108,13 +107,8 @@ namespace BRAC_FORM
 
             MessageBox.Show("All drawings created.");
 
-            //theSession.ApplicationSwitchImmediate("UG_APP_MODELING"); Denna ska fixa saker men fixar inget
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="partName"></param>
-        /// <param name="scale"></param>
+        
         private void CreateSeparateDetailDrawing(string partName, double scale)
         {
             Session theSession = Session.GetSession();
@@ -164,18 +158,18 @@ namespace BRAC_FORM
             wizard.Part = detailPart;
             wizard.BaseView = "FRONT";
 
-            // ➕ Lägg till flera vyer
+            //  Lägg till flera vyer
             wizard.RightView = true;
             wizard.TopView = true;
             wizard.IsometricView = true;
 
-            // ➕ PMI och skalning
+            //  PMI och skalning
             wizard.InheritPMI = 3;
             wizard.InheritPmiOntoDrawing = true;
             wizard.PmiDimensionFromRevolved = true;
             wizard.ViewScale.Numerator = scale;
 
-            // ➕ Automatisk grupplacering runt en mittpunkt
+            //  Automatisk grupplacering runt en mittpunkt
             wizard.PlacementOption = NXOpen.Drawings.ViewCreationWizardBuilder.Option.Manual;
             wizard.MultipleViewPlacement.OptionType = NXOpen.Drawings.MultipleViewPlacementBuilder.Option.Center;
 
@@ -199,31 +193,6 @@ namespace BRAC_FORM
 
 
         }
-
-
-
-
-
-
-
-        // Anropa separat för varje vy
-        //SetPMIForView(drawingPart, frontView);
-        //   SetPMIForView(drawingPart, rightView);
-        //   SetPMIForView(drawingPart, isoView);
-
-        // === Måttsättning för Lower_brac_Picatinny_1 ===
-        // Mått 1: Höjd (t.ex. 31.8 mm)
-        //AddDimensionBetweenCurves(115, 85, drawingPart, 1, 2, frontView);
-
-        //// Mått 2: Total höjd (t.ex. 37.2 mm)
-        //AddDimensionBetweenCurves(115, 50, drawingPart, 2, 3, frontView);
-
-        //// === Måttsättning för Upper_brac_Picatinny_1 ===
-        //// Mått 1: Spårhöjd (t.ex. 0.51 mm)
-        //AddDimensionBetweenCurves(115, 55, drawingPart, 1, 2, frontView);
-
-        //// Mått 2: Totalhöjd (t.ex. 5.33 mm)
-        //AddDimensionBetweenCurves(115, 90, drawingPart, 2, 3, frontView);
 
 
         private void AddDimensionBetweenCurves(
@@ -266,9 +235,7 @@ namespace BRAC_FORM
             NXOpen.Session theSession = NXOpen.Session.GetSession();
             NXOpen.Part workPart = theSession.Parts.Work;
             NXOpen.Part displayPart = theSession.Parts.Display;
-            // ----------------------------------------------
-            //   Menu: Edit->Show and Hide->Show and Hide...
-            // ----------------------------------------------
+
             NXOpen.Session.UndoMarkId markId1;
             markId1 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 
@@ -311,9 +278,6 @@ namespace BRAC_FORM
 
             theSession.DeleteUndoMark(markId1, null);
 
-            // ----------------------------------------------
-            //   Menu: Edit->View->Update...
-            // ----------------------------------------------
             NXOpen.Session.UndoMarkId markId5;
             markId5 = theSession.SetUndoMark(NXOpen.Session.MarkVisibility.Visible, "Start");
 
